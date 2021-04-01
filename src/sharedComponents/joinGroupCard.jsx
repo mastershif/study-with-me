@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import SearchIcon from '@material-ui/icons/Search';
-import CreateIcon from "@material-ui/icons/Create";
 
 const CardContainer = styled.a`
   margin: 1rem;
