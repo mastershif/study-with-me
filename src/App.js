@@ -1,9 +1,5 @@
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
+import React from "react";
+import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 import CreateGroupCard from "./sharedComponents/createGroupCard";
 import JoinGroupCard from "./sharedComponents/joinGroupCard";
 import MainTitle from "./sharedComponents/mainTitle";
@@ -13,6 +9,15 @@ import Profile from "./pages/profile";
 import CreateGroup from "./pages/createGroup";
 import Header from "./sharedComponents/header";
 import Search from "./pages/search";
+import theme from "./styles/theme";
+import GlobalStyle from "./styles/globalStyle";
+import {ThemeProvider, StylesProvider, jssPreset } from '@material-ui/core/styles';
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+
+//In order that the material-ui components will work perfect in hebrew.
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+
 
 const PageContainer = styled.div`
   min-height: 100vh;
@@ -47,36 +52,41 @@ const CardsGrid = styled.div`
 
 function App() {
   return (
-      <Router>
-          <div>
-              <Header>
-                      <Link to="/profile">Profile</Link>
-              </Header>
-              <Switch>
-                  <Route exact path="/">
-                      <PageContainer>
-                          <MainContent>
-                              <MainTitle textLine1={'Join a study group'} textLine2={' or start a new one today'} />
-                              <Description text={'Fellow learners will make sure you study!'} />
-                              <CardsGrid>
-                                  <JoinGroupCard />
-                                  <CreateGroupCard />
-                              </CardsGrid>
-                          </MainContent>
-                      </PageContainer>
-                  </Route>
-                  <Route path="/profile">
-                      <Profile />
-                  </Route>
-                  <Route path="/createGroup">
-                      <CreateGroup />
-                  </Route>
-                  <Route path="/search">
-                      <Search />
-                  </Route>
-              </Switch>
-          </div>
-      </Router>
+      <StylesProvider jss={jss}>
+          <ThemeProvider theme={theme}>
+              <GlobalStyle />
+              <Router>
+                  <div>
+                      <Header>
+                          <Link to="/profile">Profile</Link>
+                      </Header>
+                      <Switch>
+                          <Route exact path="/">
+                              <PageContainer>
+                                  <MainContent>
+                                      <MainTitle textLine1={'Join a study group'} textLine2={' or start a new one today'} />
+                                      <Description text={'Fellow learners will make sure you study!'} />
+                                      <CardsGrid>
+                                          <JoinGroupCard />
+                                          <CreateGroupCard />
+                                      </CardsGrid>
+                                  </MainContent>
+                              </PageContainer>
+                          </Route>
+                          <Route path="/profile">
+                              <Profile />
+                          </Route>
+                          <Route path="/createGroup">
+                              <CreateGroup />
+                          </Route>
+                          <Route path="/search">
+                              <Search />
+                          </Route>
+                      </Switch>
+                  </div>
+              </Router>
+          </ThemeProvider>
+      </StylesProvider>
   );
 }
 
