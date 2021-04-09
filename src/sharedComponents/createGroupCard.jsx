@@ -46,8 +46,8 @@ const CreateGroupCard = () => {
                     <CreateIcon fontSize={'large'}/>
                 </CherryHighlight>
             </CardIcon>
-            <CardTitle>Start a study group &rarr;</CardTitle>
-            <Description><CherryHighlight>You decide when</CherryHighlight> to study and how many learners can join!</Description>
+            <CardTitle>להתחיל קבוצת לימוד &larr;</CardTitle>
+            <Description><CherryHighlight>תחליטו מתי</CherryHighlight> ללמוד ומה יהיה גודל הקבוצה!</Description>
         </CardContainer>
     )
 }
