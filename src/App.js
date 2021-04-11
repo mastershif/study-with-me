@@ -16,10 +16,8 @@ import { create } from 'jss';
 import rtl from 'jss-rtl';
 
 import SignIn from "./pages/signIn"
-import SignOut from "./pages/signOut"
-import SignInButton from "./sharedComponents/SignInButton";
-import SignOutButton from "./sharedComponents/SignOutButton";
 import SecondaryTitle from "./sharedComponents/secondaryTitle";
+import SignUp from "./pages/signUp";
 
 //In order that the material-ui components will work perfect in hebrew.
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -76,8 +74,6 @@ function App() {
                                       <CardsGrid>
                                           <JoinGroupCard />
                                           <CreateGroupCard />
-                                          <SignInButton />
-                                          <SignOutButton />
                                       </CardsGrid>
                                   </MainContent>
                               </PageContainer>
@@ -92,12 +88,12 @@ function App() {
                               <Search />
                           </Route>
 
-                        <Route exact path="/signin">
+                        <Route exact path="/signIn">
                             <SignIn />
                         </Route>
 
-                        <Route exact path="/signout">
-                            <SignOut />
+                        <Route exact path="/signUp">
+                            <SignUp />
                         </Route>
                       </Switch>
                   </div>

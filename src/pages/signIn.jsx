@@ -142,16 +142,13 @@ export default function SignIn() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="/signout" variant="body2">
+              <Link href="/signUp" variant="body2">
                 {"צור/צרי חשבון חדש"}
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
     </Container>
   );
 }

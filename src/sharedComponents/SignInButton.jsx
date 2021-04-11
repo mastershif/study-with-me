@@ -4,21 +4,19 @@ import Button from '@material-ui/core/Button';
 
 const InButton = styled(Button)({
     background: 'white',
-    position: 'absolute',
-    left: 132,
-    top: 0,
     border: '1px solid black',
     borderRadius: 3,
     color: 'black',
     height: 48,
     padding: '0 30px',
+    margin: '4px'
   });
   
 
-  export default function StyledComponents() {
+export default function SignInButton() {
     return (
         <InButton href="/signIn">
-            להתחברות
+            התחברות
         </InButton>
     )
 }
