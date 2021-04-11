@@ -46,8 +46,8 @@ const JoinGroupCard = () => {
                     <SearchIcon fontSize={'large'}/>
                 </BlueHighlight>
             </CardIcon>
-            <CardTitle>Find a study group &rarr;</CardTitle>
-            <Description>Find a study group <BlueHighlight>by day, hour</BlueHighlight> and topic!</Description>
+            <CardTitle> למצוא קבוצת לימוד &larr;</CardTitle>
+            <Description>מצאו קבוצת לימוד<BlueHighlight> לפי יום, שעה</BlueHighlight> או נושא!</Description>
         </CardContainer>
     )
 }
