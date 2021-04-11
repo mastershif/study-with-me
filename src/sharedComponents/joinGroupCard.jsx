@@ -47,7 +47,7 @@ const JoinGroupCard = () => {
                 </BlueHighlight>
             </CardIcon>
             <CardTitle> למצוא קבוצת לימוד &larr;</CardTitle>
-            <Description>למצוא קבוצת לימוד<BlueHighlight> לפי יום, שעה</BlueHighlight> או נושא!</Description>
+            <Description>מצאו קבוצת לימוד<BlueHighlight> לפי יום, שעה</BlueHighlight> או נושא!</Description>
         </CardContainer>
     )
 }

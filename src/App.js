@@ -19,6 +19,7 @@ import SignIn from "./pages/signIn"
 import SignOut from "./pages/signOut"
 import SignInButton from "./sharedComponents/SignInButton";
 import SignOutButton from "./sharedComponents/SignOutButton";
+import SecondaryTitle from "./sharedComponents/secondaryTitle";
 
 //In order that the material-ui components will work perfect in hebrew.
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -69,8 +70,9 @@ function App() {
                           <Route exact path="/">
                               <PageContainer>
                                   <MainContent>
-                                      <MainTitle textLine1={'אפשר להצטרף לקבוצת לימוד'} textLine2={' או להתחיל קבוצת לימוד חדשה עכשיו'} />
-                                      <Description text={'הקבוצה תעזור לך ללמוד!'} />
+                                      <MainTitle textLine1={'הצטרפו לקבוצת לימוד'} textLine2={' או התחילו קבוצת לימוד חדשה עכשיו'} />
+                                      <Description text={'קבוצות משותפות ללמידה למבחנים, חזרה על החומר או סתם כדי לעזור לך להתרכז'} />
+                                      <SecondaryTitle text={'הקבוצה תעזור לך ללמוד!'} />
                                       <CardsGrid>
                                           <JoinGroupCard />
                                           <CreateGroupCard />
