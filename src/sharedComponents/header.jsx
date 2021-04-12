@@ -29,6 +29,8 @@ const Logo = styled.a`
   font-weight: 500;
   font-style: italic;
   text-decoration: none;
+  font-family: 'Permanent Marker', cursive;
+  margin-right: 0.75em;
 `;
 
 const ProfileIconContainer = styled.a`
