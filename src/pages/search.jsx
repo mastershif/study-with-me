@@ -2,12 +2,36 @@ import GroupProfile from "./groupDialogComponents/groupProfile";
 import styled from "styled-components";
 import Groups from "../mockData/groupsMockData"
 import {GridList, GridListTile, isWidthUp, withWidth} from "@material-ui/core";
+import SearchForm from './searchComponents/searchForm';
+import {Paper} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
+import theme from "../styles/theme";
+import {useState} from "react";
+
+const useStyles = makeStyles(newStyle => ({
+    page: {
+        margin: newStyle.spacing(5),
+        padding: newStyle.spacing(3),
+        backgroundColor: theme.palette.background.main
+    },
+    root: {
+        '& .MuiFormControl-root': {
+            width: '90%',
+            margin: newStyle.spacing(0.5),
+        }
+    },
+}))
 
 const GroupsList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 `;
+
+const Search = () => {
+    const [showResults, setShowResults] = useState(false);
+
+    const classes = useStyles();
 
 const Search = (props) => {
 
@@ -20,8 +44,9 @@ const Search = (props) => {
     }
 
     return (
-        <>
-            <p>this is where the user can search for a group</p>
+        <Paper className={classes.page} elevation={0}>
+            <SearchForm setShowResults={setShowResults}/>
+            { showResults &&
             <GroupsList>
                 <GridList cellHeight={'auto'} spacing={0}
                           cols={Math.min(Groups.length, getColumns())}>
@@ -32,8 +57,11 @@ const Search = (props) => {
                     ))}
                 </GridList>
             </GroupsList>
-        </>
+            }
+        </Paper>
     )
 }
+
+export default Search;
 
 export default withWidth()(Search);
