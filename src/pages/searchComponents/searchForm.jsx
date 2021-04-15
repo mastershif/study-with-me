@@ -59,15 +59,14 @@ const SearchForm = ({ setShowResults }) => {
         <form onSubmit={handleSubmit}>
             <Styles.Title>חיפוש קבוצה</Styles.Title>
             <Grid container>
-                <Grid container>
-                <Grid item xs={12} sm={12}>
-                    <Styles.Label>נושא הקבוצה</Styles.Label>
-                    <TextFieldWrapper>
+                <Grid item xs={12} sm={6}>
+                    <FormGroup style={{margin: "10px 0 0 0"}}>
+                        <Styles.Label style={{margin: "0 0 8px 0"}}> נושא הקבוצה</Styles.Label>
                         <TextField required variant={"outlined"} name={"groupTitle"}
                                    value={searchParameters.groupTitle} onChange={handleChange}/>
-                    </TextFieldWrapper>
+                    </FormGroup>
                 </Grid>
-                </Grid>
+                <Grid container style={{margin: "16px 0 0 0"}}>
                 <Grid item xs={12} sm={6}>
                     <Grid container>
                         <Grid item xs={12}  sm={4}>
@@ -97,6 +96,7 @@ const SearchForm = ({ setShowResults }) => {
                         </Grid>
                     </Grid>
                 </Grid>
+                </Grid>
                 <Grid container>
                     <Grid item xs={6}>
                         <FormGroup style={{margin: "10px 0 0 0"}}>
@@ -120,7 +120,7 @@ const SearchForm = ({ setShowResults }) => {
                     </FormGroup>
                 </Grid>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} sm={6}>
                     <FormGroup style={{margin: "10px 0 0 0"}}>
                         <FormControlLabel
                             control={<Checkbox checked={searchParameters.institution}
