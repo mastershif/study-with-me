@@ -6,22 +6,27 @@ import {
     FormControlLabel,
     FormGroup,
     FormLabel,
-    Grid,
+    Grid, InputLabel, makeStyles,
     Radio,
-    RadioGroup,
+    RadioGroup, Select,
     TextField
 } from "@material-ui/core";
 import {KeyboardDatePicker, KeyboardTimePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import ClockIcon from "@material-ui/icons/AccessTime";
 import {useState} from "react";
-import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
+import {citiesNames} from "./cities";
 
-const TextFieldWrapper = styled.div`
-  width: 90%;
-  margin: 4px;
-`;
+const useStyles = makeStyles((theme) => ({
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+    },
+    selectEmpty: {
+        marginTop: theme.spacing(2),
+    },
+}));
 
 const initialSearchParameters = {
     groupTitle: '',
@@ -33,16 +38,20 @@ const initialSearchParameters = {
     place: '',
     link: '',
     institution: false,
-    calendar: false
+    calendar: false,
+    city: ''
 }
 
 const SearchForm = ({ setShowResults }) => {
     const [searchParameters, setSearchParameters] = useState(initialSearchParameters);
 
+    const classes = useStyles();
+
     const handleDateChange = (selectedDate) => {setSearchParameters({...searchParameters, date: selectedDate})}
     const handleStartHour = (selectedHour) => {setSearchParameters({...searchParameters, startHour: selectedHour})}
     const handleEndHour = (selectedHour) => {setSearchParameters({...searchParameters, endHour: selectedHour})}
     const handleCheckbox = (event) => {setSearchParameters({...searchParameters, [event.target.name]: event.target.checked})}
+    const handleCity = (event) => {setSearchParameters({...searchParameters, [event.target.name]: event.target.value})}
 
     const handleChange = event => {
         const {name, value} = event.target;
@@ -61,8 +70,8 @@ const SearchForm = ({ setShowResults }) => {
             <Grid container>
                 <Grid item xs={12} sm={6}>
                     <FormGroup style={{margin: "10px 0 0 0"}}>
-                        <Styles.Label style={{margin: "0 0 8px 0"}}> נושא הקבוצה</Styles.Label>
-                        <TextField required variant={"outlined"} name={"groupTitle"}
+                        <Styles.Label style={{margin: "0 0 8px 0"}}>מילות חיפוש</Styles.Label>
+                        <TextField required={false} variant={"outlined"} name={"groupTitle"}
                                    value={searchParameters.groupTitle} onChange={handleChange}/>
                     </FormGroup>
                 </Grid>
@@ -72,7 +81,7 @@ const SearchForm = ({ setShowResults }) => {
                         <Grid item xs={12}  sm={4}>
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                 <KeyboardDatePicker
-                                    required autoOk disablePast disableToolbar
+                                    required={false} autoOk disablePast disableToolbar
                                     variant={"inline"} label={"בחר/י תאריך"}
                                     format={"dd/MM/yyyy"} name={"date"}  value={searchParameters.date}
                                     onChange={selectedDate => handleDateChange(selectedDate)}/>
@@ -81,7 +90,7 @@ const SearchForm = ({ setShowResults }) => {
                         <Grid item xs={12}   sm={4}>
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                 <KeyboardTimePicker
-                                    required autoOk ampm={false} variant={"inline"} label={"שעת התחלה"}
+                                    required={false} autoOk ampm={false} variant={"inline"} label={"טווח שעות - התחלה"}
                                     minutesStep={5} value={searchParameters.startHour} onChange={handleStartHour}
                                     keyboardIcon={<ClockIcon/>}/>
                             </MuiPickersUtilsProvider>
@@ -89,7 +98,7 @@ const SearchForm = ({ setShowResults }) => {
                         <Grid item xs={12}   sm={4}>
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                 <KeyboardTimePicker
-                                    required autoOk ampm={false} variant={"inline"} label={"שעת סיום"}
+                                    required={false} autoOk ampm={false} variant={"inline"} label={"טווח שעות - סיום"}
                                     minutesStep={5} value={searchParameters.endHour} onChange={handleEndHour}
                                     keyboardIcon={<ClockIcon/>}/>
                             </MuiPickersUtilsProvider>
@@ -114,7 +123,7 @@ const SearchForm = ({ setShowResults }) => {
                 <Grid container>
                 <Grid item xs={12}  sm={2}>
                     <FormGroup style={{margin: "10px 0 0 0"}}>
-                        <TextField required type="number" name="groupSize" label={"מס' משתתפים/ות מקסימלי"}
+                        <TextField required={false} type="number" name="groupSize" label={"מס' משתתפים/ות מקסימלי"}
                                    InputProps={{inputProps: { min: 2, max: 100 }}}
                                    value={searchParameters.groupSize} onChange={handleChange}/>
                     </FormGroup>
@@ -127,6 +136,21 @@ const SearchForm = ({ setShowResults }) => {
                                                onChange={handleCheckbox} name={"institution"} />}
                             label={"אני רוצה ללמוד רק עם סטודנטים/יות מהמוסד האקדמי שלי"}/>
                     </FormGroup>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel htmlFor="city-native-simple">עיר</InputLabel>
+                        <Select
+                            native
+                            value={searchParameters.city}
+                            onChange={handleCity}
+                            inputProps={{
+                                name: 'city',
+                                id: 'city-native-simple',
+                            }}
+                        >
+                            <option aria-label="None" value="" />
+                            {citiesNames.map(city => <option value={city}>{city}</option>)}
+                        </Select>
+                    </FormControl>
                 </Grid>
             </Grid>
             <ButtonGroup style={{margin: "10px 0 0 0"}}>
