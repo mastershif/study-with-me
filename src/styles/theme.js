@@ -11,6 +11,9 @@ const theme = createMuiTheme({
         secondary: {
             main: "#FF0053"
         },
+        background: {
+            default: "#f5f5f7"
+        },
     },
     direction: 'rtl',
 })
