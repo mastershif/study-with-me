@@ -12,7 +12,7 @@ const useStyles = makeStyles(newStyle => ({
     page: {
         margin: newStyle.spacing(5),
         padding: newStyle.spacing(3),
-        backgroundColor: theme.palette.background.main
+        backgroundColor: theme.palette.background.default
     },
     root: {
         '& .MuiFormControl-root': {
@@ -28,12 +28,10 @@ const GroupsList = styled.ul`
   justify-content: center;
 `;
 
-const Search = () => {
+const Search = (props) => {
     const [showResults, setShowResults] = useState(false);
 
     const classes = useStyles();
-
-const Search = (props) => {
 
     const getColumns = () => {
         if (isWidthUp('xl', props.width)) {return 5;}
@@ -61,7 +59,5 @@ const Search = (props) => {
         </Paper>
     )
 }
-
-export default Search;
 
 export default withWidth()(Search);
