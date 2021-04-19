@@ -6,6 +6,10 @@ const Title = styled.h1`
   font-size: 4rem;
   font-weight: 500;
   text-align: center;
+  max-width: 85%;
+  @media (max-width: 700px) {
+    font-size: 2rem;
+  }
 `;
 
 const MainTitle = ({ textLine1, textLine2 }) => {

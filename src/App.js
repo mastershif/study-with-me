@@ -52,6 +52,9 @@ const CardsGrid = styled.div`
   max-width: 980px;
   min-height: 250px;
   margin-top: 1.15rem;
+  @media (max-width: 700px) {
+    flex-direction: column;
+  }
 `;
 
 function App() {
