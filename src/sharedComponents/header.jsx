@@ -6,20 +6,19 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import appTheme from "../styles/theme";
 import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from '@material-ui/icons/Add';
+import MobileMenu from "./mobileMenu";
 
 const Logo = styled.a`
   color: ${appTheme.palette.background.default};
   line-height: 1.15;
-  font-size: 3rem;
   font-weight: 500;
   font-style: italic;
   text-decoration: none;
   font-family: 'Permanent Marker', cursive;
-  margin-right: 0.75em;
+  margin-right: 0.5em;
   text-shadow: 0 0 6px ${appTheme.palette.secondary.main}, 0 0 9px ${appTheme.palette.secondary.main};
 `;
 
@@ -33,10 +32,26 @@ const useStyles = makeStyles((theme) => ({
     iconButton: {
         fontSize: 20,
     },
+    menuButton: {
+        fontSize: 20,
+        display: 'none',
+        [theme.breakpoints.down("xs")]: {
+            display: 'inline',
+        },
+    },
     title: {
         flexGrow: 1,
         marginBottom: '4px',
+        fontSize: '3rem',
+        [theme.breakpoints.down("xs")]: {
+            fontSize: '2rem',
+        },
     },
+    buttonsBar: {
+        [theme.breakpoints.down("xs")]: {
+            display: 'none',
+        },
+    }
 }));
 
 const Header = () => {
@@ -47,19 +62,24 @@ const Header = () => {
         <div className={classes.root}>
             <AppBar color={"primary"} position="static" elevation={1}>
                 <Toolbar>
+                    <IconButton className={classes.menuButton} aria-label="menu" color="inherit">
+                        <MobileMenu />
+                    </IconButton>
                     <div className={classes.title}>
                         <Logo edge="start" href="/">Study With Me</Logo>
                     </div>
-                    <Button className={classes.textButton} color="inherit" href="/signIn">התחברות / הרשמה</Button>
-                    <IconButton className={classes.iconButton} aria-label="search" color="inherit" href="/search">
-                        <SearchIcon />
-                    </IconButton>
-                    <IconButton className={classes.iconButton} aria-label="create" color="inherit" href="/createGroup">
-                        <AddIcon />
-                    </IconButton>
-                    <IconButton className={classes.iconButton} aria-label="profile" color="inherit" href="/profile">
-                        <PersonOutlineIcon />
-                    </IconButton>
+                    <div className={classes.buttonsBar}>
+                        <Button className={classes.textButton} color="inherit" href="/signIn">התחברות / הרשמה</Button>
+                        <IconButton className={classes.iconButton} aria-label="search" color="inherit" href="/search">
+                            <SearchIcon />
+                        </IconButton>
+                        <IconButton className={classes.iconButton} aria-label="create" color="inherit" href="/createGroup">
+                            <AddIcon />
+                        </IconButton>
+                        <IconButton className={classes.iconButton} aria-label="profile" color="inherit" href="/profile">
+                            <PersonOutlineIcon />
+                        </IconButton>
+                    </div>
                 </Toolbar>
             </AppBar>
         </div>
