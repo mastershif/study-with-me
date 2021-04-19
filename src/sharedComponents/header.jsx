@@ -12,7 +12,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from '@material-ui/icons/Add';
 
 const Logo = styled.a`
-  color: ${appTheme.palette.secondary.main};
+  color: ${appTheme.palette.background.default};
   line-height: 1.15;
   font-size: 3rem;
   font-weight: 500;
@@ -20,6 +20,7 @@ const Logo = styled.a`
   text-decoration: none;
   font-family: 'Permanent Marker', cursive;
   margin-right: 0.75em;
+  text-shadow: 0 0 6px ${appTheme.palette.secondary.main}, 0 0 9px ${appTheme.palette.secondary.main};
 `;
 
 const useStyles = makeStyles((theme) => ({
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         flexGrow: 1,
+        marginBottom: '4px',
     },
 }));
 
@@ -43,7 +45,7 @@ const Header = () => {
 
     return (
         <div className={classes.root}>
-            <AppBar color={"transparent"} position="static" elevation={0}>
+            <AppBar color={"primary"} position="static" elevation={1}>
                 <Toolbar>
                     <div className={classes.title}>
                         <Logo edge="start" href="/">Study With Me</Logo>
