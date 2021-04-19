@@ -1,40 +1,30 @@
 import {useState} from "react";
 import * as Styles from "../styles/createGroupStyle"
-import {Grid, TextField, Checkbox, Paper, Button, RadioGroup, Radio,
-    FormControlLabel, FormControl, FormLabel, FormGroup, ButtonGroup} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
+import {
+    Grid, TextField, Checkbox, Button, RadioGroup, Radio,
+    FormControlLabel, FormControl, FormLabel, FormGroup, ButtonGroup, Select, MenuItem, Divider
+} from "@material-ui/core";
 import ClockIcon from "@material-ui/icons/AccessTime";
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
-import theme from "../styles/theme";
 import {MuiPickersUtilsProvider, KeyboardDatePicker, KeyboardTimePicker} from "@material-ui/pickers";
 import DateFnsUtils from '@date-io/date-fns';
+import he from "date-fns/locale/he";
+import {Autocomplete} from "@material-ui/lab";
+import {citiesNames} from "./searchComponents/cities";
 
-const useStyles = makeStyles(newStyle => ({
-    page: {
-        margin: newStyle.spacing(5),
-        padding: newStyle.spacing(3),
-        border: '2px solid',
-        borderRadius: '7px',
-        borderColor: theme.palette.primary.main,
-        boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.3)'
-    },
-    root: {
-        '& .MuiFormControl-root': {
-            width: '90%',
-            margin: newStyle.spacing(0.5)
-        }
-    },
-}))
+//This is the create-group page, including the form with all the necessary fields.
 
 const initialValues = {
     groupTitle: '',
     groupDescription: '',
-    groupSize: null,
+    groupPurpose: '',
+    groupSize: '',
     date: null,
     startHour: null,
     endHour: null,
-    isVirtual: 'frontal',
+    meetingType: 'פרונטלית',
+    city: '',
     place: '',
     link: '',
     institution: false,
@@ -44,17 +34,18 @@ const initialValues = {
 const CreateGroup = () => {
 
     const [values, setValues] = useState(initialValues);
-    const classes = useStyles();
+    const classes = Styles.useStyles();
 
     const handleChange = event => {
         const {name, value} = event.target;
         setValues({...values, [name]:value});
     };
-
     const handleDateChange = (selectedDate) => {setValues({...values, date: selectedDate})}
-    const handleStartHour = (selectedHour) => {setValues({...values, startHour: selectedHour})}
-    const handleEndHour = (selectedHour) => {setValues({...values, endHour: selectedHour})}
+    const handleStartHour = (hour) => {setValues({...values, startHour: hour})}
+    const handleEndHour = (hour) => {setValues({...values, endHour: hour})}
     const handleCheckbox = (event) => {setValues({...values, [event.target.name]: event.target.checked})}
+    const handleCity = (event, value) => {setValues({...values, city: value})}
+
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -62,62 +53,112 @@ const CreateGroup = () => {
         setValues(initialValues)
     };
 
+    //A variable for rendering the frontal or virtual meeting form (address or meeting URL).
+
     let FrontalOrVirtual;
-    if (values.isVirtual === 'frontal') {
+    if (values.meetingType === 'פרונטלית') {
         FrontalOrVirtual = (
-            <TextField required label={"מיקום"} variant={"outlined"} name={"place"}
-                       value={values.place} onChange={handleChange}/>
+            <>
+                <Autocomplete options={citiesNames} value={values.city} name={"city"}
+                              onChange={handleCity} getOptionLabel={(option) => option}
+                    renderInput={(params) =>
+                        <TextField {...params} label={"עיר"} required
+                                   InputLabelProps={{ shrink: true }} variant={"standard"} />}
+                />
+                <TextField required InputLabelProps={{ shrink: true }}
+                           label={"מיקום מדויק"} variant={"standard"} name={"place"}
+                           placeholder={"לדוגמה: הספרייה המרכזית באוניברסיטת תל-אביב"}
+                           value={values.place} onChange={handleChange}/>
+                <Styles.Warning>
+                    נא להזין כתובות <u>ציבוריות</u> בלבד! מיקום הפגישה עשוי להיות גלוי לכל גולשי האתר.
+                </Styles.Warning>
+            </>
         );
     }
     else {
         FrontalOrVirtual = (
             <>
-                <Styles.Text>לחצ/י על <a href="https://meet.google.com/new" target="_blank" rel="noreferrer">קישור זה</a> על מנת ליצור שיחת וידאו עתידית.
-                    לאחר מכן העתק/י את קישור הפגישה לשדה המופיע מטה.</Styles.Text>
-                <TextField required label={"קישור"} placeholder={"העתק/י לכאן..."} variant={"outlined"}
-                           InputLabelProps={{ shrink: true }}  name={"link"}
+                <Styles.Text>
+                    לחצ/י על <a href="https://meet.google.com/new" target="_blank" rel="noreferrer">קישור זה</a> על מנת ליצור שיחת וידאו עתידית.
+                    לאחר מכן העתק/י את קישור הפגישה לשדה המופיע מטה.
+                </Styles.Text>
+                <TextField required type={"url"} label={"קישור"} placeholder={"העתק/י לכאן..."}
+                           variant={"outlined"} InputLabelProps={{ shrink: true }}  name={"link"}
                            value={values.link} onChange={handleChange}/>
-                <Styles.Warning>שימ/י לב! קישור זה מחייב שימוש בחשבון ה-Gmail
-                    המחובר כעת במהלך הפגישה ויקנה לך הרשאות מנהל/ת במהלכה.</Styles.Warning>
+                <Styles.Warning>
+                    שימ/י לב! קישור זה מחייב שימוש בחשבון ה-Gmail המחובר כעת במהלך הפגישה ויקנה לך הרשאות מנהל/ת במהלכה.
+                </Styles.Warning>
             </>
         );
     }
 
     return (
-        <Paper className={classes.page}>
+        <div className={classes.page}>
             <form className={classes.root} onSubmit={handleSubmit}>
                 <Styles.Title>יצירת קבוצה</Styles.Title>
                 <Grid container>
-                    <Grid item xs={12} sm={8}>
-                        <Styles.Label>נושא</Styles.Label>
-                        <TextField required variant={"outlined"} name={"groupTitle"}
-                                   value={values.groupTitle} onChange={handleChange}/>
-                        <Styles.Label>תיאור הקבוצה</Styles.Label>
-                        <TextField required variant={"outlined"} multiline rows={9} name={"groupDescription"}
-                                   value={values.groupDescription} onChange={handleChange}/>
+                    <Grid item xs={12} md={8}>
+                        <Grid container>
+                            <Grid item xs={12} md={8}>
+                                <Styles.Label>נושא</Styles.Label>
+                                <TextField autoFocus required variant={"outlined"} name={"groupTitle"}
+                                           inputProps={{maxLength: 40}}
+                                           value={values.groupTitle} onChange={handleChange}/>
+                            </Grid>
+                            <Grid item xs={12} md={4}>
+                                <FormControl className={classes.select}>
+                                    <Styles.Label>מטרה</Styles.Label>
+                                    <Select required name={"groupPurpose"} variant={"outlined"}
+                                            value={values.groupPurpose} onChange={handleChange}>
+                                        <MenuItem value={"למידה למבחן"}>למידה למבחן</MenuItem>
+                                        <MenuItem value={"חזרה על החומר"}>חזרה על החומר</MenuItem>
+                                        <MenuItem value={"להתרכז ביחד"}>להתרכז ביחד</MenuItem>
+                                        <MenuItem value={"אחר"}>אחר</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Styles.Label>תיאור הקבוצה</Styles.Label>
+                                <TextField variant={"outlined"} multiline rows={9} name={"groupDescription"}
+                                           inputProps={{maxLength: 500}}
+                                           value={values.groupDescription} onChange={handleChange}/>
+                            </Grid>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12} sm={4}>
+                    <Grid item xs={12} md={4}>
                         <Grid container>
                             <Grid item xs={6}>
-                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <MuiPickersUtilsProvider utils={DateFnsUtils} locale={he}>
                                     <KeyboardDatePicker
-                                        required autoOk disablePast disableToolbar
+                                        required autoOk disablePast
                                         variant={"inline"} label={"בחר/י תאריך"}
+                                        InputProps={{inputProps: {dir: "ltr"}}}
+                                        invalidDateMessage={"נא להזין תאריך חוקי."}
+                                        minDateMessage={"נא להזין תאריך חוקי."}
+                                        maxDateMessage={"נא להזין תאריך חוקי."}
                                         format={"dd/MM/yyyy"} name={"date"}  value={values.date}
                                         onChange={selectedDate => handleDateChange(selectedDate)}/>
                                 </MuiPickersUtilsProvider>
                                 <TextField required type="number" name="groupSize" label={"מס' המשתתפים/ות"}
-                                           InputProps={{inputProps: { min: 2, max: 100 }}}
+                                           InputProps={{inputProps: {min: 2, max: 100, values: /\d/}}}
                                            value={values.groupSize} onChange={handleChange}/>
                             </Grid>
                             <Grid item xs={6}>
                                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                     <KeyboardTimePicker
                                         required autoOk ampm={false} variant={"inline"} label={"שעת התחלה"}
+                                        InputProps={{inputProps: {dir: "ltr"}}}
+                                        invalidDateMessage={"נא להזין שעה חוקית."}
+                                        minDateMessage={"נא להזין שעה חוקית."}
+                                        maxDateMessage={"נא להזין שעה חוקית."}
                                         minutesStep={5} value={values.startHour} onChange={handleStartHour}
                                         keyboardIcon={<ClockIcon/>}/>
                                     <KeyboardTimePicker
                                         required autoOk ampm={false} variant={"inline"} label={"שעת סיום"}
+                                        InputProps={{inputProps: {dir: "ltr"}}}
+                                        invalidDateMessage={"נא להזין שעה חוקית."}
+                                        minDateMessage={"נא להזין שעה חוקית."}
+                                        maxDateMessage={"נא להזין שעה חוקית."}
                                         minutesStep={5} value={values.endHour} onChange={handleEndHour}
                                         keyboardIcon={<ClockIcon/>}/>
                                 </MuiPickersUtilsProvider>
@@ -125,10 +166,10 @@ const CreateGroup = () => {
                             <Grid item xs={12}>
                                 <FormControl component="fieldset" style={{margin: "30px 5px 0"}}>
                                     <FormLabel component="legend">סוג הפגישה</FormLabel>
-                                    <RadioGroup name={"isVirtual"} value={values.isVirtual}
+                                    <RadioGroup name={"meetingType"} value={values.meetingType}
                                                 row onChange={handleChange}>
-                                        <FormControlLabel value={"frontal"} control={<Radio/>} label={"פרונטלית"} />
-                                        <FormControlLabel value={"virtual"} control={<Radio/>} label={"וירטואלית"} />
+                                        <FormControlLabel value={"פרונטלית"} control={<Radio/>} label={"פרונטלית"} />
+                                        <FormControlLabel value={"וירטואלית"} control={<Radio/>} label={"וירטואלית"} />
                                     </RadioGroup>
                                 </FormControl>
                             </Grid>
@@ -138,20 +179,22 @@ const CreateGroup = () => {
                         </Grid>
                     </Grid>
                     <Grid item xs={12}>
-                        <FormGroup style={{margin: "10px 0 0 0"}}>
-                            <FormControlLabel
-                                control={<Checkbox checked={values.institution}
-                                                   onChange={handleCheckbox} name={"institution"} />}
-                                label={"ברצוני שרק סטודנטים/יות מהמוסד האקדמי שלי יוכלו להצטרף לקבוצה."}/>
-                            <FormControlLabel
-                                control={<Checkbox checked={values.calendar}
-                                                   onChange={handleCheckbox} name={"calendar"} />}
+                        <FormGroup className={classes.checkboxGroup}>
+                            <FormControlLabel className={classes.checkbox}
+                                control={<Checkbox name={"institution"}
+                                                   checked={values.institution} onChange={handleCheckbox}  />}
+                                label={"ברצוני שרק סטודנטים/יות מהמוסד האקדמי שלי יוכלו להצטרף לקבוצה."}
+                            />
+                            <Divider />
+                            <FormControlLabel className={classes.checkbox}
+                                control={<Checkbox name={"calendar"}
+                                                   checked={values.calendar} onChange={handleCheckbox} />}
                                 label={"אנא הוסיפו עבורי אירוע ביומן עם פרטי הפגישה."}
                             />
                         </FormGroup>
                     </Grid>
                 </Grid>
-                <ButtonGroup style={{margin: "10px 0 0 0"}}>
+                <ButtonGroup className={classes.buttonGroup}>
                     <Button style={{margin: "0 0 0 5px"}}
                             variant={"contained"} color={"secondary"} size={"large"} href={"/"}
                             className={classes.button} startIcon={<DeleteIcon />}>ביטול</Button>
@@ -159,7 +202,7 @@ const CreateGroup = () => {
                             className={classes.button} startIcon={<SaveIcon />}>אישור</Button>
                 </ButtonGroup>
             </form>
-        </Paper>
+        </div>
     )
 }
 

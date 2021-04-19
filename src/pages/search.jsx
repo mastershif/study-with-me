@@ -10,8 +10,7 @@ import {useState} from "react";
 
 const useStyles = makeStyles(newStyle => ({
     page: {
-        margin: newStyle.spacing(5),
-        padding: newStyle.spacing(3),
+        margin: theme.spacing(3),
         backgroundColor: theme.palette.background.default
     },
     root: {
