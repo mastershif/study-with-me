@@ -22,7 +22,6 @@ import rtl from "jss-rtl";
 
 import SignIn from "./pages/signIn";
 import SecondaryTitle from "./sharedComponents/secondaryTitle";
-import SignUp from "./pages/signUp";
 
 //In order that the material-ui components will work perfect in hebrew.
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -62,87 +61,48 @@ const CardsGrid = styled.div `
 `;
 
 function App() {
-    return ( <
-        StylesProvider jss = { jss } >
-        <
-        ThemeProvider theme = { theme } >
-        <
-        GlobalStyle / >
-        <
-        Router >
-        <
-        div >
-        <
-        Header >
-        <
-        Link to = "/profile" > Profile < /Link> <
-        /Header> <
-        Switch >
-        <
-        Route exact path = "/" >
-        <
-        PageContainer >
-        <
-        MainContent >
-        <
-        MainTitle textLine1 = { "הצטרפו לקבוצת לימוד" }
-        textLine2 = { " או התחילו קבוצת לימוד חדשה עכשיו" }
-        /> <
-        Description text = {
-            "קבוצות משותפות ללמידה למבחנים, חזרה על החומר או סתם כדי לעזור לך להתרכז"
-        }
-        /> <
-        SecondaryTitle text = { "הקבוצה תעזור לך ללמוד!" }
-        /> <
-        CardsGrid >
-        <
-        JoinGroupCard / >
-        <
-        CreateGroupCard / >
-        <
-        /CardsGrid> <
-        /MainContent> <
-        /PageContainer> <
-        /Route> <
-        Route path = "/profile" >
-        <
-        Profile / >
-        <
-        /Route> <
-        Route path = "/profileSettings" >
-        <
-        ProfileSettings / >
-        <
-        /Route> <
-        Route path = "/createGroup" >
-        <
-        CreateGroup / >
-        <
-        /Route> <
-        Route path = "/search" >
-        <
-        Search / >
-        <
-        /Route>
+    return ( 
+      <StylesProvider jss={jss}>
+          <ThemeProvider theme={theme}>
+              <GlobalStyle />
+              <Router>
+                  <div>
+                      <Header>
+                          <Link to="/profile">Profile</Link>
+                      </Header>
+                      <Switch>
+                          <Route exact path="/">
+                              <PageContainer>
+                                  <MainContent>
+                                      <MainTitle textLine1={'הצטרפו לקבוצת לימוד'} textLine2={' או התחילו קבוצת לימוד חדשה עכשיו'} />
+                                      <Description text={'קבוצות משותפות ללמידה למבחנים, חזרה על החומר או סתם כדי לעזור לך להתרכז'} />
+                                      <SecondaryTitle text={'הקבוצה תעזור לך ללמוד!'} />
+                                      <CardsGrid>
+                                          <JoinGroupCard />
+                                          <CreateGroupCard />
+                                      </CardsGrid>
+                                  </MainContent>
+                              </PageContainer>
+                          </Route>
+                          <Route path="/profile">
+                              <Profile />
+                          </Route>
+                          <Route path="/createGroup">
+                              <CreateGroup />
+                          </Route>
+                          <Route path="/search">
+                              <Search />
+                          </Route>
 
-        <
-        Route exact path = "/signIn" >
-        <
-        SignIn / >
-        <
-        /Route>
+                        <Route exact path="/signIn">
+                            <SignIn />
 
-        <
-        Route exact path = "/signUp" >
-        <
-        SignUp / >
-        <
-        /Route> <
-        /Switch> <
-        /div> <
-        /Router> <
-        /ThemeProvider> <
-        /StylesProvider>
+                        </Route>
+                      </Switch>
+                  </div>
+              </Router>
+          </ThemeProvider>
+      </StylesProvider>
     );
 }
 
