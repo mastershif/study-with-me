@@ -2,10 +2,10 @@ import Typography from "@material-ui/core/Typography";
 
 let MeetingPlaceOrLink = (props) => {
 
-    const {group, showLinkOrLocation} = props;
+    const {group, isProfile} = props;
 
     if (group.meetingType === "וירטואלית") {
-        if (showLinkOrLocation === false) {
+        if (isProfile === false) {
             return (
                 <>
                     <Typography variant="body1" component="p">
@@ -25,7 +25,7 @@ let MeetingPlaceOrLink = (props) => {
         }
     }
     else if (group.meetingType === "פרונטלית") {
-        if (showLinkOrLocation === false) {
+        if (isProfile === false) {
             return (
                 <>
                     <Typography variant="body1" component="p">

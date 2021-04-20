@@ -7,7 +7,7 @@ h1.user-name-header-settings {
 }
 
 h1.user-name-header-profile {
-    margin: 0px 0 15px;
+    margin: 0 0 15px;
     text-align: center;
     line-height: 3.5rem;
     font-size: xx-large;
@@ -20,7 +20,7 @@ img.user-image {
     height: auto; */
     clip-path: circle(35%);
     max-width: 300px;
-    max-width: 300px;
+    max-height: 300px;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -52,8 +52,8 @@ label.user-img-upload:hover {
     cursor: pointer;
 }
 
-Grid.profile-property {
-    display: "flex";
-    align-items: "center";
-    justify-content: "center";
-}
+/*Grid.profile-property {*/
+/*    display: "flex";*/
+/*    align-items: "center";*/
+/*    justify-content: "center";*/
+/*}*/

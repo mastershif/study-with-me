@@ -28,7 +28,7 @@ export const CardRow = styled.div`
   margin-bottom: 10px;
 `;
 
-export const Text = styled.text`
+export const Text = styled.p`
   display: flex;
   margin: 0 5px 0 0;
   font-size: 14px;

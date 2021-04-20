@@ -23,11 +23,6 @@ const userDanaMastergroups = [{
                 name: "נעמה ניסן",
                 photo: "https://randomuser.me/api/portraits/women/94.jpg",
             },
-            {
-                id: 3,
-                name: "איתי לוי",
-                photo: "https://randomuser.me/api/portraits/men/14.jpg",
-            },
         ],
     },
     {
@@ -74,11 +69,6 @@ const userDanaMastergroups = [{
                 id: 6,
                 name: "ניר אברמוב",
                 photo: "https://randomuser.me/api/portraits/men/46.jpg",
-            },
-            {
-                id: 7,
-                name: "הילה נחמיאס",
-                photo: "https://randomuser.me/api/portraits/women/68.jpg",
             },
         ],
     },
