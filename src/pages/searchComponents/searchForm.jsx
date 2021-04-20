@@ -118,9 +118,9 @@ const SearchForm = ({ setShowResults }) => {
                 <Grid item xs={12} sm={12} className={classes.noBackground}>
                 <MiniTitle>סינונים נוספים:</MiniTitle>
                 <Grid container style={{margin: "10px 0 0 0"}}>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12} md={10} lg={6}>
                     <Grid container>
-                        <Grid item xs={12}  sm={4}>
+                        <Grid item xs={12} sm={4}>
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                 <KeyboardDatePicker
                                     required={false} autoOk disablePast disableToolbar
@@ -129,7 +129,7 @@ const SearchForm = ({ setShowResults }) => {
                                     onChange={selectedDate => handleDateChange(selectedDate)}/>
                             </MuiPickersUtilsProvider>
                         </Grid>
-                        <Grid item xs={12}   sm={4}>
+                        <Grid item xs={12} sm={4}>
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                 <KeyboardTimePicker
                                     required={false} autoOk ampm={false} variant={"inline"} label={"טווח שעות - התחלה"}
@@ -137,7 +137,7 @@ const SearchForm = ({ setShowResults }) => {
                                     keyboardIcon={<ClockIcon/>}/>
                             </MuiPickersUtilsProvider>
                         </Grid>
-                        <Grid item xs={12}   sm={4}>
+                        <Grid item xs={12} sm={4}>
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                 <KeyboardTimePicker
                                     required={false} autoOk ampm={false} variant={"inline"} label={"טווח שעות - סיום"}
@@ -149,7 +149,7 @@ const SearchForm = ({ setShowResults }) => {
                 </Grid>
                 </Grid>
                 <Grid container>
-                <Grid item xs={12}  sm={2}>
+                <Grid item xs={8} sm={4} md={3} lg={2}>
                     <FormGroup style={{margin: "10px 0 0 0"}}>
                         <TextField required={false} type="number" name="groupSize" label={"מס' משתתפים/ות מקסימלי"}
                                    InputProps={{inputProps: { min: 2, max: 100 }}}
