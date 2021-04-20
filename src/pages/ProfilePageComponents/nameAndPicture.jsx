@@ -16,7 +16,7 @@ class NamePicture extends Component {
           <IconButton
             href="/profileSettings"
             style={{ cursor: "hover", backgroundColor: "transparent" }}
-            title={"Profile Settings"}
+            title={"הגדרות פרופיל"}
           >
             <SettingsIcon
               color="secondary"
@@ -28,7 +28,7 @@ class NamePicture extends Component {
         <img
           className="user-image"
           src={this.state.img}
-          alt="Nothing to show"
+          alt="אין תמונה להצגה"
         />
       </div>
     );

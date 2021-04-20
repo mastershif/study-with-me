@@ -47,8 +47,8 @@ class DataDisplay extends Component {
 
     if (toBeDisplayed === "Personal") {
       return (
-        <Grid container spacing={10} direction="row" justify="center">
-          <Grid item xs={5}>
+        <Grid container alignItems={"center"}>
+          <Grid item style={{marginRight: 20}}>
             <h4>שם משתמש:</h4>
             <h4>כתובת אימייל:</h4>
             <h4>מוסד לימודים:</h4>
@@ -56,10 +56,9 @@ class DataDisplay extends Component {
             <h4>חוג ראשי:</h4>
             <h4>חוג משני:</h4>
           </Grid>
-          <Grid item xs={7}>
+          <Grid item style={{marginRight: 35}}>
             <h4>{this.state.username}</h4>
-            <h4>{this.state.lastName}</h4>
-            <h4>{this.state.eMailAddress}</h4>
+            <h4 style={{fontSize: 14}}>{this.state.eMailAddress}</h4>
             <h4>{this.state.institute}</h4>
             <h4>{this.state.degree}</h4>
             <h4>{this.state.major}</h4>

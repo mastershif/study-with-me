@@ -19,7 +19,6 @@ class ProfileMenu extends Component {
       <div>
         <Grid
           container
-          spacing={2}
           direction="column"
           alignItems="center"
           justify="center"
@@ -30,7 +29,6 @@ class ProfileMenu extends Component {
               color="primary"
               aria-label="large outlined primary button group"
               size="large"
-              style={{ fontSize: 100 }}
             >
               <Button onClick={() => this.changeChosenData("Groups")}>
                 הקבוצות שלי

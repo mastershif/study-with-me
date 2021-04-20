@@ -24,10 +24,10 @@ class UserImage extends Component {
               hidden
             />
             <img
-              title={"Change Profile Picture"}
+              title={"החלפת תמונת פרופיל"}
               className="user-image"
               src={this.state.img}
-              alt="Missing"
+              alt="אין תמונה"
             />
           </label>
         </div>
