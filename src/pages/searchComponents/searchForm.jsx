@@ -17,6 +17,21 @@ import ClockIcon from "@material-ui/icons/AccessTime";
 import {useState} from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import {citiesNames} from "./cities";
+import styled from "styled-components";
+
+const Title = styled.h1`
+  margin: 0 0 5px;
+  line-height: 3.5rem;
+  font-size: xx-large;
+  font-weight: bold;
+  padding: 1rem;
+`;
+
+const MiniTitle = styled.div`
+  line-height: 2.5rem;
+  font-size: large;
+  font-weight: bold;
+`;
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -25,6 +40,15 @@ const useStyles = makeStyles((theme) => ({
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
+    },
+    whiteBackground: {
+        backgroundColor: 'white',
+        padding: '1rem',
+        borderRadius: '10px',
+    },
+    noBackground: {
+        padding: '1rem',
+        borderRadius: '10px',
     },
 }));
 
@@ -66,45 +90,15 @@ const SearchForm = ({ setShowResults }) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <Styles.Title>חיפוש קבוצה</Styles.Title>
+            <Title>חיפוש קבוצה</Title>
             <Grid container>
+                <Grid item xs={12} sm={12} className={classes.whiteBackground}>
                 <Grid item xs={12} sm={6}>
                     <FormGroup style={{margin: "10px 0 0 0"}}>
                         <Styles.Label style={{margin: "0 0 8px 0"}}>מילות חיפוש</Styles.Label>
                         <TextField required={false} variant={"outlined"} name={"groupTitle"}
                                    value={searchParameters.groupTitle} onChange={handleChange}/>
                     </FormGroup>
-                </Grid>
-                <Grid container style={{margin: "16px 0 0 0"}}>
-                <Grid item xs={12} sm={6}>
-                    <Grid container>
-                        <Grid item xs={12}  sm={4}>
-                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                <KeyboardDatePicker
-                                    required={false} autoOk disablePast disableToolbar
-                                    variant={"inline"} label={"בחר/י תאריך"}
-                                    format={"dd/MM/yyyy"} name={"date"}  value={searchParameters.date}
-                                    onChange={selectedDate => handleDateChange(selectedDate)}/>
-                            </MuiPickersUtilsProvider>
-                        </Grid>
-                        <Grid item xs={12}   sm={4}>
-                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                <KeyboardTimePicker
-                                    required={false} autoOk ampm={false} variant={"inline"} label={"טווח שעות - התחלה"}
-                                    minutesStep={5} value={searchParameters.startHour} onChange={handleStartHour}
-                                    keyboardIcon={<ClockIcon/>}/>
-                            </MuiPickersUtilsProvider>
-                        </Grid>
-                        <Grid item xs={12}   sm={4}>
-                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                <KeyboardTimePicker
-                                    required={false} autoOk ampm={false} variant={"inline"} label={"טווח שעות - סיום"}
-                                    minutesStep={5} value={searchParameters.endHour} onChange={handleEndHour}
-                                    keyboardIcon={<ClockIcon/>}/>
-                            </MuiPickersUtilsProvider>
-                        </Grid>
-                    </Grid>
-                </Grid>
                 </Grid>
                 <Grid container>
                     <Grid item xs={6}>
@@ -120,8 +114,42 @@ const SearchForm = ({ setShowResults }) => {
                         </FormGroup>
                     </Grid>
                 </Grid>
+                </Grid>
+                <Grid item xs={12} sm={12} className={classes.noBackground}>
+                <MiniTitle>סינונים נוספים:</MiniTitle>
+                <Grid container style={{margin: "10px 0 0 0"}}>
+                <Grid item xs={12} sm={12} md={10} lg={6}>
+                    <Grid container>
+                        <Grid item xs={12} sm={4}>
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <KeyboardDatePicker
+                                    required={false} autoOk disablePast disableToolbar
+                                    variant={"inline"} label={"בחר/י תאריך"}
+                                    format={"dd/MM/yyyy"} name={"date"}  value={searchParameters.date}
+                                    onChange={selectedDate => handleDateChange(selectedDate)}/>
+                            </MuiPickersUtilsProvider>
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <KeyboardTimePicker
+                                    required={false} autoOk ampm={false} variant={"inline"} label={"טווח שעות - התחלה"}
+                                    minutesStep={5} value={searchParameters.startHour} onChange={handleStartHour}
+                                    keyboardIcon={<ClockIcon/>}/>
+                            </MuiPickersUtilsProvider>
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <KeyboardTimePicker
+                                    required={false} autoOk ampm={false} variant={"inline"} label={"טווח שעות - סיום"}
+                                    minutesStep={5} value={searchParameters.endHour} onChange={handleEndHour}
+                                    keyboardIcon={<ClockIcon/>}/>
+                            </MuiPickersUtilsProvider>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                </Grid>
                 <Grid container>
-                <Grid item xs={12}  sm={2}>
+                <Grid item xs={8} sm={4} md={3} lg={2}>
                     <FormGroup style={{margin: "10px 0 0 0"}}>
                         <TextField required={false} type="number" name="groupSize" label={"מס' משתתפים/ות מקסימלי"}
                                    InputProps={{inputProps: { min: 2, max: 100 }}}
@@ -153,10 +181,11 @@ const SearchForm = ({ setShowResults }) => {
                     </FormControl>
                 </Grid>
             </Grid>
-            <ButtonGroup style={{margin: "10px 0 0 0"}}>
+            <ButtonGroup style={{margin: "10px 0 0 0", paddingRight: "1rem"}}>
                 <Button variant={"contained"} color={"primary"} size={"large"} type={"submit"}
                          startIcon={<SearchIcon />}>חיפוש</Button>
             </ButtonGroup>
+            </Grid>
         </form>
     )
 }
