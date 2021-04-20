@@ -1,5 +1,13 @@
-h1.user-name-header {
-    margin: 0 0 15px;
+h1.user-name-header-settings {
+    margin: 50px 0 15px;
+    text-align: center;
+    line-height: 3.5rem;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+h1.user-name-header-profile {
+    margin: 0px 0 15px;
     text-align: center;
     line-height: 3.5rem;
     font-size: xx-large;

@@ -12,15 +12,19 @@ class NamePicture extends Component {
   render() {
     return (
       <div>
-        <IconButton
-          displayFlex="right"
-          href="/profileSettings"
-          style={{ cursor: "hover", backgroundColor: "transparent" }}
-          onClick={() => console.log("move to settings page")}
-        >
-          <SettingsIcon color="primary" style={{ fontSize: 35, padding: 15 }} />
-        </IconButton>
-        <h1 className="user-name-header">{this.state.name}</h1>
+        <div className="settings-icon">
+          <IconButton
+            href="/profileSettings"
+            style={{ cursor: "hover", backgroundColor: "transparent" }}
+            title={"Profile Settings"}
+          >
+            <SettingsIcon
+              color="secondary"
+              style={{ fontSize: 35, padding: 15 }}
+            />
+          </IconButton>
+        </div>
+        <h1 className="user-name-header-profile">{this.state.name}</h1>
         <img
           className="user-image"
           src={this.state.img}

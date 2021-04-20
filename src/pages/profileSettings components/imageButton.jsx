@@ -14,7 +14,7 @@ class UserImage extends Component {
   render() {
     return (
       <div>
-        <h1 className="user-name-header">{this.state.name}</h1>
+        <h1 className="user-name-header-settings">{this.state.name}</h1>
         <div className="label-user-image">
           <label htmlFor="img-upload" className="user-img-upload">
             <input
@@ -23,7 +23,12 @@ class UserImage extends Component {
               onChange={this.handleImgChange}
               hidden
             />
-            <img className="user-image" src={this.state.img} alt="Missing" />
+            <img
+              title={"Change Profile Picture"}
+              className="user-image"
+              src={this.state.img}
+              alt="Missing"
+            />
           </label>
         </div>
       </div>
