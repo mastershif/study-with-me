@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-
 import GroupProfile from "../groupDialogComponents/groupProfile";
 import styled from "styled-components";
 import userDanaMastergroups from "../../mockData/DanasGroups";
@@ -79,7 +78,7 @@ class DataDisplay extends Component {
             >
               {userDanaMastergroups.map((group) => (
                 <GridListTile key={group.id} cols={1}>
-                  <GroupProfile group={group} showLinkOrLocation={true} />
+                  <GroupProfile group={group} isProfile={true} />
                 </GridListTile>
               ))}
             </GridList>

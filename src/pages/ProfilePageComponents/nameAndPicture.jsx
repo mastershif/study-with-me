@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../../pagesStyle/profilePageStyle.css";
+import "../../styles/profilePageStyle.css";
 import SettingsIcon from "@material-ui/icons/Settings";
 import IconButton from "@material-ui/core/IconButton";
 

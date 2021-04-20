@@ -10,7 +10,7 @@ import GroupDialog from "../groupDialog";
 
 const GroupProfile = (props) => {
 
-    const {group, showLinkOrLocation} = props;
+    const {group, isProfile} = props;
     const classes = Styles.useStyles();
     const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
@@ -43,7 +43,7 @@ const GroupProfile = (props) => {
             </CardContent>
             <Button variant={"outlined"} color={"primary"}
                     size={"large"} onClick={handleOpenDialog}>מידע נוסף</Button>
-            <GroupDialog group={group} showLinkOrLocation={showLinkOrLocation}
+            <GroupDialog group={group} isProfile={isProfile}
                          onClose={handleCloseDialog} open={dialogIsOpen}/>
         </Card>
     )

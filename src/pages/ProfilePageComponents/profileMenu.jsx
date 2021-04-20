@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import DataDisplay from "./dataDisplay";
 import Grid from "@material-ui/core/Grid";
-import "../../pagesStyle/profilePageStyle.css";
+import "../../styles/profilePageStyle.css";
 
 class ProfileMenu extends Component {
   state = {

@@ -87,6 +87,9 @@ function App() {
                           <Route path="/profile">
                               <Profile />
                           </Route>
+                          <Route path = "/profileSettings">
+                              <ProfileSettings/>
+                          </Route>
                           <Route path="/createGroup">
                               <CreateGroup />
                           </Route>
