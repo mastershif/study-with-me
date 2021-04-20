@@ -70,7 +70,7 @@ const Header = () => {
                         <Logo edge="start" href="/">Study With Me</Logo>
                     </div>
                     <div className={classes.buttonsBar}>
-                        <Button className={classes.textButton} color="inherit" href="/signIn">התחברות / הרשמה</Button>
+                        <Button className={classes.textButton} color="inherit" href="/signIn">התחברות</Button>
                         <IconButton className={classes.iconButton} aria-label="search" color="inherit" href="/search">
                             <SearchIcon />
                         </IconButton>

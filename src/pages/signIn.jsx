@@ -83,7 +83,7 @@ export default function SignIn() {
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
                 </Avatar>
-                <Typography component="h1" variant="4">
+                <Typography component="h1" variant="h4">
                     התחברות
                 </Typography>
                 <div style={{ display: 'flex', flexWrap: 'wrap' }} >
@@ -100,7 +100,7 @@ export default function SignIn() {
                                 style={styles.ImageIconStyle}
                             />
                             <View style={styles.SeparatorLine} />
-                            <Text style={styles.TextStyle}>התחבר\י דרך גוגל</Text>
+                            <Text style={styles.TextStyle}>התחבר/י דרך גוגל</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.FacebookStyle} activeOpacity={0.5}
                                           onPress={() => Alert.alert("Clicked!")}
@@ -112,7 +112,7 @@ export default function SignIn() {
                                 style={styles.ImageIconStyle}
                             />
                             <View style={styles.SeparatorLine} />
-                            <Text style={styles.TextStyle}>התחבר\י דרך פייסבוק</Text>
+                            <Text style={styles.TextStyle}>התחבר/י דרך פייסבוק</Text>
                         </TouchableOpacity>
                     </View>
                 </div>

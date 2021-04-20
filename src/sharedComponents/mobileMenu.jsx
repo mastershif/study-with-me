@@ -8,12 +8,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuIcon from "@material-ui/icons/Menu";
+import LockIcon from '@material-ui/icons/Lock';
 import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from '@material-ui/icons/Add';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import { Link } from "react-router-dom";
 
-const menuIcons = [<PersonOutlineIcon />, <SearchIcon />, <AddIcon />, <PersonOutlineIcon />];
+const menuIcons = [<LockIcon />, <SearchIcon />, <AddIcon />, <PersonOutlineIcon />];
 const menuPaths = ['/signIn', '/search', '/createGroup', '/profile'];
 
 const useStyles = makeStyles({
@@ -56,8 +57,8 @@ const MobileMenu = () => {
             onKeyDown={toggleDrawer(anchor, false)}
         >
             <List>
-                {['התחברות / הרשמה', 'חיפוש קבוצה', 'יצירת קבוצה', 'פרופיל'].map((text, index) => (
-                    <Link to={menuPaths[index]} className={classes.link}>
+                {['התחברות', 'חיפוש קבוצה', 'יצירת קבוצה', 'פרופיל'].map((text, index) => (
+                    <Link to={menuPaths[index]} key={index} className={classes.link}>
                         <List>
                             <ListItem button key={text}>
                                 <ListItemIcon>
