@@ -17,7 +17,6 @@ import rtl from 'jss-rtl';
 
 import SignIn from "./pages/signIn"
 import SecondaryTitle from "./sharedComponents/secondaryTitle";
-import SignUp from "./pages/signUp";
 
 //In order that the material-ui components will work perfect in hebrew.
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -93,10 +92,7 @@ function App() {
 
                         <Route exact path="/signIn">
                             <SignIn />
-                        </Route>
 
-                        <Route exact path="/signUp">
-                            <SignUp />
                         </Route>
                       </Switch>
                   </div>
