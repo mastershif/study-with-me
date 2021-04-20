@@ -61,7 +61,7 @@ const CardsGrid = styled.div `
 `;
 
 function App() {
-    return ( 
+    return (
       <StylesProvider jss={jss}>
           <ThemeProvider theme={theme}>
               <GlobalStyle />
