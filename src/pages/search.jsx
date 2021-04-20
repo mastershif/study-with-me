@@ -13,7 +13,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import theme from "../styles/theme";
 import { useState } from "react";
 
-<<<<<<< HEAD
 const useStyles = makeStyles((newStyle) => ({
   page: {
     margin: newStyle.spacing(5),
@@ -24,14 +23,8 @@ const useStyles = makeStyles((newStyle) => ({
     "& .MuiFormControl-root": {
       width: "90%",
       margin: newStyle.spacing(0.5),
-=======
-const useStyles = makeStyles(newStyle => ({
-    page: {
-        margin: theme.spacing(3),
-        backgroundColor: theme.palette.background.default
->>>>>>> 4d0b290a792498581703e2c615aaad23dc784066
     },
-  },
+  }
 }));
 
 const GroupsList = styled.ul`
