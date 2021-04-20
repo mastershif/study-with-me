@@ -17,6 +17,9 @@ const CardContainer = styled.a`
     color: #0070f3;
     border-color: #0070f3;
   }
+  @media (max-width: 835px) {
+    min-width: 80%;
+  }
 `;
 
 const CherryHighlight = styled.span`

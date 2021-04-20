@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import Search from "../search";
 
 import GroupProfile from "../groupDialogComponents/groupProfile";
 import styled from "styled-components";
@@ -11,11 +10,6 @@ import {
   isWidthUp,
   withWidth,
 } from "@material-ui/core";
-import SearchForm from "../searchComponents/searchForm";
-import { Paper } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import theme from "../../styles/theme";
-import { useState } from "react";
 
 class DataDisplay extends Component {
   state = {
