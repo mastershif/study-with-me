@@ -17,6 +17,21 @@ import ClockIcon from "@material-ui/icons/AccessTime";
 import {useState} from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import {citiesNames} from "./cities";
+import styled from "styled-components";
+
+const Title = styled.h1`
+  margin: 0 0 5px;
+  line-height: 3.5rem;
+  font-size: xx-large;
+  font-weight: bold;
+  padding: 1rem;
+`;
+
+const MiniTitle = styled.div`
+  line-height: 2.5rem;
+  font-size: large;
+  font-weight: bold;
+`;
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -25,6 +40,15 @@ const useStyles = makeStyles((theme) => ({
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
+    },
+    whiteBackground: {
+        backgroundColor: 'white',
+        padding: '1rem',
+        borderRadius: '10px',
+    },
+    noBackground: {
+        padding: '1rem',
+        borderRadius: '10px',
     },
 }));
 
@@ -66,8 +90,9 @@ const SearchForm = ({ setShowResults }) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <Styles.Title>חיפוש קבוצה</Styles.Title>
+            <Title>חיפוש קבוצה</Title>
             <Grid container>
+                <Grid item xs={12} sm={12} className={classes.whiteBackground}>
                 <Grid item xs={12} sm={6}>
                     <FormGroup style={{margin: "10px 0 0 0"}}>
                         <Styles.Label style={{margin: "0 0 8px 0"}}>מילות חיפוש</Styles.Label>
@@ -75,7 +100,24 @@ const SearchForm = ({ setShowResults }) => {
                                    value={searchParameters.groupTitle} onChange={handleChange}/>
                     </FormGroup>
                 </Grid>
-                <Grid container style={{margin: "16px 0 0 0"}}>
+                <Grid container>
+                    <Grid item xs={6}>
+                        <FormGroup style={{margin: "10px 0 0 0"}}>
+                            <FormControl component="fieldset" style={{margin: "30px 5px 0"}}>
+                                <FormLabel component="legend">סוג הקבוצה</FormLabel>
+                                <RadioGroup name={"isVirtual"} value={searchParameters.isVirtual}
+                                            row onChange={handleChange}>
+                                    <FormControlLabel value={"virtual"} control={<Radio/>} label={"וירטואלית"} />
+                                    <FormControlLabel value={"frontal"} control={<Radio/>} label={"פרונטלית"} />
+                                </RadioGroup>
+                            </FormControl>
+                        </FormGroup>
+                    </Grid>
+                </Grid>
+                </Grid>
+                <Grid item xs={12} sm={12} className={classes.noBackground}>
+                <MiniTitle>סינונים נוספים:</MiniTitle>
+                <Grid container style={{margin: "10px 0 0 0"}}>
                 <Grid item xs={12} sm={6}>
                     <Grid container>
                         <Grid item xs={12}  sm={4}>
@@ -105,20 +147,6 @@ const SearchForm = ({ setShowResults }) => {
                         </Grid>
                     </Grid>
                 </Grid>
-                </Grid>
-                <Grid container>
-                    <Grid item xs={6}>
-                        <FormGroup style={{margin: "10px 0 0 0"}}>
-                            <FormControl component="fieldset" style={{margin: "30px 5px 0"}}>
-                                <FormLabel component="legend">סוג הקבוצה</FormLabel>
-                                <RadioGroup name={"isVirtual"} value={searchParameters.isVirtual}
-                                            row onChange={handleChange}>
-                                    <FormControlLabel value={"virtual"} control={<Radio/>} label={"וירטואלית"} />
-                                    <FormControlLabel value={"frontal"} control={<Radio/>} label={"פרונטלית"} />
-                                </RadioGroup>
-                            </FormControl>
-                        </FormGroup>
-                    </Grid>
                 </Grid>
                 <Grid container>
                 <Grid item xs={12}  sm={2}>
@@ -153,10 +181,11 @@ const SearchForm = ({ setShowResults }) => {
                     </FormControl>
                 </Grid>
             </Grid>
-            <ButtonGroup style={{margin: "10px 0 0 0"}}>
+            <ButtonGroup style={{margin: "10px 0 0 0", paddingRight: "1rem"}}>
                 <Button variant={"contained"} color={"primary"} size={"large"} type={"submit"}
                          startIcon={<SearchIcon />}>חיפוש</Button>
             </ButtonGroup>
+            </Grid>
         </form>
     )
 }
