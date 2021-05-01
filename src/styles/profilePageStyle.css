@@ -15,10 +15,7 @@ h1.user-name-header-profile {
 }
 
 img.user-image {
-    /* border-radius: 50%;
-    width: 300px;
-    height: auto; */
-    clip-path: circle(35%);
+    clip-path: circle(37%);
     max-width: 300px;
     max-height: 300px;
     display: block;

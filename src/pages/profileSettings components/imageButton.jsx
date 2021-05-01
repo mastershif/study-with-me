@@ -4,7 +4,8 @@ class UserImage extends Component {
   state = {
     name: "Master Dana",
     img:
-      "https://images.unsplash.com/photo-1544507888-56d73eb6046e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80",
+      "https://lh3.googleusercontent.com/proxy/820UyNH3CVw12ji79OgvjPgeRWL0upDMEKEcZmr-qJzk1dWGPHvf1yjINeTySi9wnNMHaJqno0YGlvNoMOcKzdpVtwvkeoUQ3izUngxJFa80DkUYfACAmiIlqPy4",
+    // "https://images.unsplash.com/photo-1544507888-56d73eb6046e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80",
   };
 
   handleImgChange = (event) => {

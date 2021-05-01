@@ -11,7 +11,7 @@ const ProfileSettings = () => {
           <UserImage />
         </Grid>
       </Grid>
-      <Grid container direction="column" alignItems="center" justify="center">
+      <Grid container direction="column" alignItems="center">
         <Grid item xs={12}>
           <ProfileProperties />
         </Grid>
