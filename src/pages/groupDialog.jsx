@@ -1,13 +1,11 @@
 import * as Styles from "../styles/groupDialogStyle"
 import {
-    Accordion, AccordionDetails, AccordionSummary, Button,
-    Dialog, DialogContent, DialogTitle, Grid, IconButton, Typography, Avatar, Menu, MenuItem
+    Accordion, AccordionDetails, AccordionSummary, Avatar, Menu, MenuItem,
+    Dialog, DialogContent, DialogTitle, Grid, IconButton, Typography
 } from "@material-ui/core";
 import {AvatarGroup} from '@material-ui/lab';
 import CloseIcon from '@material-ui/icons/Close';
 import ShareIcon from '@material-ui/icons/Share';
-import AddIcon from '@material-ui/icons/AddCircleOutline';
-import RemoveIcon from '@material-ui/icons/RemoveCircleOutline';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import he from "date-fns/locale/he";
 import GroupOccupancyStatus from "./groupDialogComponents/groupOccupancyStatus";
@@ -16,6 +14,9 @@ import {useState} from "react";
 import {WhatsappShareButton, FacebookShareButton, EmailShareButton,
     WhatsappIcon, FacebookIcon, EmailIcon} from "react-share";
 import {format} from "date-fns";
+import JoinButton from "./groupDialogComponents/joinButton";
+import LeaveButton from "./groupDialogComponents/leaveButton";
+
 
 const GroupDialog = (props) => {
 
@@ -30,20 +31,6 @@ const GroupDialog = (props) => {
 
     const openShare = (event) => {setAnchorEl(event.currentTarget);}
     const closeShare = () => {setAnchorEl(null);};
-
-    let JoinOrExitButton;
-    if (isProfile) {
-        JoinOrExitButton = (
-            <Button variant={"contained"} color={"secondary"} size={"large"}
-                    startIcon={<RemoveIcon />}>יציאה מהקבוצה</Button>
-        )
-    }
-    else {
-        JoinOrExitButton = (
-            <Button variant={"contained"} color={"primary"} size={"large"}
-                    startIcon={<AddIcon />}>הצטרפות לקבוצה</Button>
-        )
-    }
 
     return (
         <Dialog classes={{paper: classes.dialog}} onClose={onClose} open={open} fullWidth>
@@ -150,9 +137,7 @@ const GroupDialog = (props) => {
                     </AccordionDetails>
                 </Accordion>
             </DialogContent>
-            <>
-                {JoinOrExitButton}
-            </>
+            {isProfile === true ? <LeaveButton/> : <JoinButton/>}
         </Dialog>
     )
 }
