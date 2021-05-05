@@ -1,7 +1,7 @@
 import {useState} from "react";
-import {Button, Snackbar} from "@material-ui/core";
+import {Button} from "@material-ui/core";
 import RemoveIcon from "@material-ui/icons/RemoveCircleOutline";
-import {Alert} from "@material-ui/lab";
+import JoinOrLeaveAlert from "./joinOrLeaveAlert";
 
 
 const LeaveButton = () => {
@@ -16,29 +16,14 @@ const LeaveButton = () => {
         setOpen(false);
     }
 
-    const handleCloseAlert = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setOpen(false);
-    }
-
     return (
         <>
             <Button variant={"contained"} color={"secondary"}
                     size={"large"} onClick={handleLeaving}
                     startIcon={<RemoveIcon />}>עזיבת הקבוצה</Button>
-            <Snackbar open={open} autoHideDuration={4000} onClose={handleCloseAlert}
-                      anchorOrigin={{ vertical: 'bottom', horizontal: "right" }}>
-                <Alert severity={"success"} onClose={handleCloseAlert}
-                       action={
-                           <Button color="secondary" size="small" onClick={handleUndoLeaving}>
-                               ביטול
-                           </Button>
-                       } >
-                    עזבת את הקבוצה בהצלחה!
-                </Alert>
-            </Snackbar>
+            <JoinOrLeaveAlert open={open} setOpen={setOpen} handleUndo={handleUndoLeaving}
+                              message={"עזבת את הקבוצה!"}
+            />
         </>
     )
 }
