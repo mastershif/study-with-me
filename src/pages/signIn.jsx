@@ -5,9 +5,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { StyleSheet, View, Text, Image, TouchableOpacity, Alert} from 'react-native-web';
-import FacebookIcon from '../assets/Facebook_Login_Button.png';
-import GoogleIcon from '../assets/Google_Plus.png';
+import { StyleSheet, View, TouchableOpacity } from 'react-native-web';
+
+import Google from '../sharedComponents/Google';
+import Facebook from '../sharedComponents/Facebook';
 
 const styles = StyleSheet.create({
     MainContainer: {
@@ -73,50 +74,28 @@ const useStyles = makeStyles((theme) => ({
 
 TouchableOpacity.defaultProps = { activeOpacity: 0.8 };
 
-export default function SignIn() {
-    const classes = useStyles();
+const SignIn = () => {
+            return(
+                <Container component="main" maxWidth="xs">
+                    <div className={useStyles().paper}>
+                        <CssBaseline />
+                        <Avatar className={useStyles().avatar}>
+                            <LockOutlinedIcon />
+                        </Avatar>
+                        <Typography component="h1" variant="4">
+                            התחברות
+                        </Typography>
+                        <div style={{ display: 'flex', flexWrap: 'wrap' }} >
+                            <View style={styles.MainContainer}>
 
-    return (
-        <Container component="main" maxWidth="xs">
-            <div className={classes.paper}>
-                <CssBaseline />
-                <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h4">
-                    התחברות
-                </Typography>
-                <div style={{ display: 'flex', flexWrap: 'wrap' }} >
-                    <View style={styles.MainContainer}>
-                        <TouchableOpacity style={styles.GooglePlusStyle}
-                                          activeOpacity={0.5}
-                                          onPress={(res) => Alert.alert('[Login Success] currentUser:', res.profileObj)}
-                                          cookiePolicy='single_host_origin'
-                                          isSignedIn={true}
-                                          itemScope='profile email'
-                                          clientId={'YOUR_CLIENT_ID.apps.googleusercontent.com'}>
-                            <Image
-                                source={GoogleIcon}
-                                style={styles.ImageIconStyle}
-                            />
+                            <Google />  
                             <View style={styles.SeparatorLine} />
-                            <Text style={styles.TextStyle}>התחבר/י דרך גוגל</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.FacebookStyle} activeOpacity={0.5}
-                                          onPress={() => Alert.alert("Clicked!")}
-                                          callback={(response) => console.log(response)}
-                                          appId="1206715649505081"
-                                          fields="name,email,picture">
-                            <Image
-                                source={FacebookIcon}
-                                style={styles.ImageIconStyle}
-                            />
-                            <View style={styles.SeparatorLine} />
-                            <Text style={styles.TextStyle}>התחבר/י דרך פייסבוק</Text>
-                        </TouchableOpacity>
-                    </View>
-                </div>
-            </div>
-        </Container>
-    );
+                            <Facebook />
+                                
+                           </View>
+                        </div> 
+                    </div>
+                </Container>
+                );
 }
+export default SignIn;

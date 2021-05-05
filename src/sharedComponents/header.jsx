@@ -11,6 +11,9 @@ import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from '@material-ui/icons/Add';
 import MobileMenu from "./mobileMenu";
 
+//import Google from './Google';
+//import Facebook from './Facebook';
+
 const Logo = styled.a`
   color: ${appTheme.palette.background.default};
   line-height: 1.15;
@@ -55,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+
 const Header = () => {
 
     const classes = useStyles();
@@ -70,7 +74,9 @@ const Header = () => {
                         <Logo edge="start" href="/">Study With Me</Logo>
                     </div>
                     <div className={classes.buttonsBar}>
-                        <Button className={classes.textButton} color="inherit" href="/signIn">התחברות</Button>
+                        
+                        <Button className={classes.textButton} color="inherit" href="/signIn">להתחברות</Button>
+                                        
                         <IconButton className={classes.iconButton} aria-label="search" color="inherit" href="/search">
                             <SearchIcon />
                         </IconButton>
