@@ -69,7 +69,6 @@ export default function CustomizedSelects(props) {
     return (
       <div>
         <FormControl className={classes.margin}>
-          <InputLabel htmlFor="demo-customized-textbox">{props.id}</InputLabel>
           <NativeSelect
             id="demo-customized-select-native"
             value={props.userValue}
