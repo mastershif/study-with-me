@@ -70,7 +70,7 @@ const CreateGroup = () => {
         <div className={classes.page}>
             <Card className={classes.card}>
                 <CardContent>
-                    <form method={"POST"}>
+                    <form>
                         <Stepper activeStep={activeStep} alternativeLabel>
                             {steps.map((label) => {
                                 return (
