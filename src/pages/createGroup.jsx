@@ -50,8 +50,16 @@ const CreateGroup = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         await getSchema(activeStep).validate(values, { abortEarly: false }).then( () => {
-            setActiveStep((prevActiveStep) => prevActiveStep + 1);
-            console.log(values);
+            fetch("http://localhost:5000/group", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(values),
+            })
+                .then((response) => response.text())
+                .then((data) => console.log(data))
+                .then(() => setActiveStep((prevActiveStep) => prevActiveStep + 1));
         }).catch( (err) => {
             errors = err;
         });
@@ -62,7 +70,7 @@ const CreateGroup = () => {
         <div className={classes.page}>
             <Card className={classes.card}>
                 <CardContent>
-                    <form>
+                    <form method={"POST"}>
                         <Stepper activeStep={activeStep} alternativeLabel>
                             {steps.map((label) => {
                                 return (
