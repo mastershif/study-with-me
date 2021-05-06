@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-//import { BrowserRouter, Link, Redirect, Route, Router, Switch } from 'react-router-dom';
+import { BrowserRouter, Link, Redirect, Route, Router, Switch, useHistory } from 'react-router-dom';
 
 import "../styles/GFStyle.css";
 //import App from '../App';
@@ -37,7 +37,6 @@ const GoogleAuthProvider = ({ children }) => {
     )
 }*/
 
-
 export default class Google extends React.Component {
 
     constructor(props) {
@@ -51,6 +50,11 @@ export default class Google extends React.Component {
 
         this.handleLogin = this.handleLogin.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
+
+        this.signIn = this.signIn.bind(this);
+        this.signOut = this.signOut.bind(this);
+
+
     }
 
     handleLogin(response) {
@@ -115,9 +119,7 @@ export default class Google extends React.Component {
                 console.log('E-mail: ' + googleUser.getBasicProfile().getEmail());
                 console.log('Id_Token' + googleUser.getAuthResponse().id_token); // The ID token to pass to the backend
                 console.log('Image_URL: ' + googleUser.getBasicProfile().getImageUrl());
-                onsubmit( () => { console.log ('User signs in!');
-                                    window.location.href='/';
-                                    this.setState({isSignedIn: true}) })            
+                onsubmit( () => { console.log ('User signs in!'); })            
             },
             function(error) { alert(JSON.stringify(error, undefined, 2)); }
                 //console.log('Sign-in error', error);})
@@ -143,12 +145,49 @@ export default class Google extends React.Component {
              <Redirect to="/signIn" />
     }*/
 
+    signIn() {
+        const authInstance =  window.gapi.auth2.getAuthInstance()
+        const isSignedIn = authInstance.isSignedIn.get()
+        authInstance.isSignedIn.listen(isSignedIn => {
+            this.setState({isSignedIn})
+        })
+        authInstance.disconnect().then(() => {
+            this.setState({isSignedIn: true});
+        });
+        if(isSignedIn) {
+            console.log('User signed in.');
+            this.setState({isSignedIn});
+        } else {
+            this.setState({isSignedIn: true});
+        }
+    }
+
+    signOut() {
+        const authInstance =  window.gapi.auth2.getAuthInstance()
+        const isSignedIn = authInstance.isSignedIn.get()
+        authInstance.isSignedIn.listen(isSignedIn => {
+            this.setState({isSignedIn});
+        })
+        authInstance.signOut().then(function () {
+            this.setState({isSignedIn: false});
+        });
+        if(!isSignedIn) {
+            console.log('User signed out.');
+            this.setState({isSignedIn});
+        } else {
+            this.setState({isSignedIn: false});
+        }
+    }
+
     render() {
         return (
-            <button className="loginBtn loginBtn--google" ref="googleLoginBtn"
-                            onClick={this.handleLogin}>
-                    התחבר\י דרך גוגל
-            </button>    
+            <div>
+            <Link to={this.state.isSignedIn ? "/" : "/signIn"} />
+                <button className="loginBtn loginBtn--google" ref="googleLoginBtn"
+                            onClick={this.state.isSignedIn ? this.signOut : this.signIn}>
+                            {this.state.isSignedIn ? "התנתק/י דרך גוגל" : "התחבר/י דרך גוגל"}
+                </button>      
+           </div>       
         )
     }
 }
