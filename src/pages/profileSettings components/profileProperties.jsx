@@ -14,7 +14,49 @@ class ProfileProperties extends Component {
     institute: "אוניברסיטת תל-אביב",
     degree: "ראשון",
     major: "מדעי המחשב",
-    minor: "פיזיקה",
+    minor: "מתמטיקה",
+  };
+
+  async componentDidMount() {
+    await fetch(
+      "http://localhost:5000/profileSettings/" + this.state.emailAddress
+    )
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            username: result.username,
+            institute: result.institute,
+            degree: result.degree,
+            major: result.major,
+            minor: result.minor,
+          });
+        },
+        (error) => {
+          console.log(error);
+          console.log("There was a problem!");
+        }
+      );
+  }
+
+  updateUserProperties = () => {
+    fetch("http://localhost:5000/profileSettings", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.state.username,
+        email: this.state.emailAddress,
+        institute: this.state.institute,
+        degree: this.state.degree,
+        major: this.state.major,
+        minor: this.state.minor,
+      }),
+    })
+      .then((response) => response.text())
+      .then((data) => console.log(data))
+      .then(() => (window.location.href = "/profile"));
   };
 
   handleUsernameChange = (newUsername) => {
@@ -46,7 +88,7 @@ class ProfileProperties extends Component {
             flexWrap: "wrap",
             justifyContent: "center",
           }}
-          class="flex-container"
+          className="flex-container"
         >
           <div style={{ display: "flex", flexGrow: "6" }}>
             <Grid container>
@@ -70,15 +112,29 @@ class ProfileProperties extends Component {
             </Grid>
             <Grid container>
               <Grid item xs={12}>
-                <h3>{this.state.emailAddress}</h3>
-                <div style={{ display: "flex", alignItems: "flex-end" }}>
+                <h3 style={{ padding: "0px 0px 0px 15px" }}>
+                  {this.state.emailAddress}
+                </h3>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-end",
+                    padding: "0px 0px 0px 15px",
+                  }}
+                >
                   <ProfileProperty
                     id="שם משתמש"
                     userValue={this.state.username}
                     handleChange={this.handleUsernameChange}
                   />
                 </div>
-                <div style={{ display: "flex", alignItems: "flex-end" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-end",
+                    padding: "23px 0px 0px 15px",
+                  }}
+                >
                   <ProfileProperty
                     id="מוסד"
                     userValue={this.state.institute}
@@ -93,25 +149,31 @@ class ProfileProperties extends Component {
             <Grid container>
               <Grid item xs={12}>
                 <h3
-                  style={{ padding: "20px 0px 20px 0px", textAlign: "center" }}
+                  style={{ padding: "0px 0px 20px 0px", textAlign: "center" }}
                 >
                   תואר:
                 </h3>
                 <h3
-                  style={{ padding: "17px 0px 20px 0px", textAlign: "center" }}
+                  style={{ padding: "18px 0px 20px 0px", textAlign: "center" }}
                 >
                   חוג ראשי:
                 </h3>
                 <h3
-                  style={{ padding: "17px 0px 20px 0px", textAlign: "center" }}
+                  style={{ padding: "18px 0px 20px 0px", textAlign: "center" }}
                 >
                   חוג משני:
                 </h3>
               </Grid>
             </Grid>
-            <Grid container spacing={0}>
+            <Grid container>
               <Grid item xs={12}>
-                <div style={{ display: "flex", alignItems: "flex-end" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-end",
+                    padding: "4px 0px 21px 0px",
+                  }}
+                >
                   <ProfileProperty
                     id="תואר"
                     userValue={this.state.degree}
@@ -119,7 +181,13 @@ class ProfileProperties extends Component {
                     handleChange={this.handleDegreeChange}
                   />
                 </div>
-                <div style={{ display: "flex", alignItems: "flex-end" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-end",
+                    padding: "4px 0px 21px 15px",
+                  }}
+                >
                   <ProfileProperty
                     id="חוג ראשי"
                     userValue={this.state.major}
@@ -127,7 +195,13 @@ class ProfileProperties extends Component {
                     handleChange={this.handleMajorChange}
                   />
                 </div>
-                <div style={{ display: "flex", alignItems: "flex-end" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-end",
+                    padding: "4px 0px 21px 15px",
+                  }}
+                >
                   <ProfileProperty
                     id="חוג משני"
                     userValue={this.state.minor}
@@ -139,8 +213,12 @@ class ProfileProperties extends Component {
             </Grid>
           </div>
         </div>
-        <div style={{ textAlign: "center" }}>
-          <Button variant="contained" color="secondary">
+        <div style={{ textAlign: "center", padding: "0px 0px 20px 0px" }}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => this.updateUserProperties()}
+          >
             <SaveIcon
               style={{ padding: "0px 0px 0px 10px", fontWight: "bold" }}
             ></SaveIcon>
