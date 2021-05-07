@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { BrowserRouter, Link, Redirect, Route, Router, Switch, useHistory } from 'react-router-dom';
+
 
 import "../styles/GFStyle.css";
 //import App from '../App';
@@ -182,11 +183,18 @@ export default class Google extends React.Component {
     render() {
         return (
             <div>
-            <Link to={this.state.isSignedIn ? "/" : "/signIn"} />
+            <BrowserRouter>
+            <Switch>
+                <Route exact path="/signIn">
+
                 <button className="loginBtn loginBtn--google" ref="googleLoginBtn"
                             onClick={this.state.isSignedIn ? this.signOut : this.signIn}>
                             {this.state.isSignedIn ? "התנתק/י דרך גוגל" : "התחבר/י דרך גוגל"}
-                </button>      
+                </button> 
+                    </Route>
+                 <Link to="/"/>
+                </Switch>
+            </BrowserRouter>     
            </div>       
         )
     }

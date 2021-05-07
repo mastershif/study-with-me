@@ -1,9 +1,9 @@
 import React from 'react';
 import FacebookLoginBtn from 'react-facebook-login';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import "../styles/GFStyle.css";
-import App from '../App';
+//import App from '../App';
 
 export default class Facebook extends React.Component {
 

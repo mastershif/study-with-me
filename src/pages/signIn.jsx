@@ -10,6 +10,24 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native-web';
 import Google from '../sharedComponents/Google';
 import Facebook from '../sharedComponents/Facebook';
 
+import { useAuth0 } from '@auth0/auth0-react';
+import LoginButton from '../sharedComponents/LoginButton';
+import LogoutButton from '../sharedComponents/LogoutButton';
+import { Button } from '@material-ui/core';
+
+//import {login, logout} from './Auth0';
+
+
+const Auth = () => {
+    const { isAuthenticated } = useAuth0();
+    return (
+        <Button>
+            { isAuthenticated ? <LogoutButton/> : <LoginButton/> }
+            </Button>
+    );
+};
+
+
 const styles = StyleSheet.create({
     MainContainer: {
         flex: 1,
@@ -75,6 +93,10 @@ const useStyles = makeStyles((theme) => ({
 TouchableOpacity.defaultProps = { activeOpacity: 0.8 };
 
 const SignIn = () => {
+
+    const { isLoading } = useAuth0();
+        if(isLoading) {
+    }
             return(
                 <Container component="main" maxWidth="xs">
                     <div className={useStyles().paper}>
@@ -88,10 +110,17 @@ const SignIn = () => {
                         <div style={{ display: 'flex', flexWrap: 'wrap' }} >
                             <View style={styles.MainContainer}>
 
-                            <Google />  
+                            <Google />
                             <View style={styles.SeparatorLine} />
                             <Facebook />
-                                
+
+                            <View style={styles.SeparatorLine} />
+
+                            <LoginButton />  
+                            <View style={styles.SeparatorLine} />
+                            <LogoutButton />
+
+                           
                            </View>
                         </div> 
                     </div>
