@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import CreateGroupCard from "./sharedComponents/createGroupCard";
 import JoinGroupCard from "./sharedComponents/joinGroupCard";
@@ -61,6 +61,10 @@ const CardsGrid = styled.div `
 `;
 
 function App() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [user, setUser] = useState();
+    console.log('the current user is: ', user);
+
     return (
       <StylesProvider jss={jss}>
           <ThemeProvider theme={theme}>
@@ -98,7 +102,7 @@ function App() {
                           </Route>
 
                         <Route exact path="/signIn">
-                            <SignIn />
+                            <SignIn isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setUser={setUser}/>
 
                         </Route>
                       </Switch>
