@@ -17,12 +17,7 @@ class ProfileMenu extends Component {
   render() {
     return (
       <div>
-        <Grid
-          container
-          direction="column"
-          alignItems="center"
-          justify="center"
-        >
+        <Grid container direction="column" alignItems="center" justify="center">
           <Grid item xs={12}>
             <ButtonGroup
               variant="text"
