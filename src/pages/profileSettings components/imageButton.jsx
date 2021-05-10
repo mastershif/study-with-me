@@ -4,7 +4,7 @@ class UserImage extends Component {
   state = {
     username: "Master Dana",
     emailAddress: "dana.poleg@gmail.com",
-    img:
+    userImg:
       "https://www.pngkey.com/png/detail/230-2301779_best-classified-apps-default-user-profile.png",
     // "https://images.unsplash.com/photo-1544507888-56d73eb6046e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80",
   };
@@ -16,9 +16,15 @@ class UserImage extends Component {
       .then((res) => res.json())
       .then(
         (result) => {
+          let updatedUserImg;
+          if (result.userImg !== "") {
+            updatedUserImg = require("../../" + result.userImg).default; /////// need to change when repositories will be united under one folder
+          } else {
+            updatedUserImg = this.state.userImg;
+          }
           this.setState({
             username: result.username,
-            // imgURL: result.imgURL
+            userImg: updatedUserImg,
           });
         },
         (error) => {
@@ -28,7 +34,15 @@ class UserImage extends Component {
   }
 
   handleImgChange = (event) => {
-    this.setState({ img: URL.createObjectURL(event.target.files[0]) });
+    this.setState({ userImg: URL.createObjectURL(event.target.files[0]) });
+    let newImg = new FormData();
+    newImg.append("userImage", event.target.files[0]);
+    fetch("http://localhost:5000/profileSettings/" + this.state.emailAddress, {
+      method: "PUT",
+      body: newImg,
+    })
+      .then((response) => response.text())
+      .then((data) => console.log(data));
   };
 
   render() {
@@ -46,7 +60,7 @@ class UserImage extends Component {
             <img
               title={"החלפת תמונת פרופיל"}
               className="user-image"
-              src={this.state.img}
+              src={this.state.userImg}
               alt="אין תמונה"
             />
           </label>

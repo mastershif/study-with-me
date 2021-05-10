@@ -7,19 +7,27 @@ class NamePicture extends Component {
   state = {
     username: "Master Dana",
     emailAddress: "dana.poleg@gmail.com",
-    imgURL:
+    userImg:
       "https://www.pngkey.com/png/detail/230-2301779_best-classified-apps-default-user-profile.png",
     // "https://images.unsplash.com/photo-1544507888-56d73eb6046e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80",
   };
 
   async componentDidMount() {
-    await fetch("http://localhost:5000/profile/" + this.state.emailAddress)
+    await fetch(
+      "http://localhost:5000/profileSettings/" + this.state.emailAddress
+    )
       .then((res) => res.json())
       .then(
         (result) => {
+          let updatedUserImg;
+          if (result.userImg !== "") {
+            updatedUserImg = require("../../" + result.userImg).default; /////// need to change when repositories will be united under one folder
+          } else {
+            updatedUserImg = this.state.userImg;
+          }
           this.setState({
             username: result.username,
-            // imgURL: result.imgURL
+            userImg: updatedUserImg,
           });
         },
         (error) => {
@@ -46,7 +54,7 @@ class NamePicture extends Component {
         <h1 className="user-name-header-profile">{this.state.username}</h1>
         <img
           className="user-image"
-          src={this.state.imgURL}
+          src={this.state.userImg}
           alt="אין תמונה להצגה"
         />
       </div>

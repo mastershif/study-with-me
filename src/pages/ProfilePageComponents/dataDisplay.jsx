@@ -18,7 +18,7 @@ class DataDisplay extends Component {
     degree: "ראשון",
     major: "מדעי המחשב",
     minor: "פיזיקה",
-    groups: ["אלגברה לינארית 1", "מבוא לאקונומטריקה", "מבוא לחקר תרבויות"],
+    groups: [1, 2],
   };
 
   async componentDidMount() {
@@ -79,6 +79,25 @@ class DataDisplay extends Component {
               <h4 style={{ fontSize: 14 }}>{this.state.emailAddress}</h4>
               <h4>{this.state.institute}</h4>
               <h4>{this.state.degree}</h4>
+            </Grid>
+          </Grid>
+        );
+      } else if (this.state.minor === "") {
+        return (
+          <Grid container alignItems={"center"}>
+            <Grid item style={{ marginRight: 20 }}>
+              <h4>שם משתמש:</h4>
+              <h4>כתובת אימייל:</h4>
+              <h4>מוסד לימודים:</h4>
+              <h4>תואר:</h4>
+              <h4>חוג ראשי:</h4>
+            </Grid>
+            <Grid item style={{ marginRight: 35 }}>
+              <h4>{this.state.username}</h4>
+              <h4 style={{ fontSize: 14 }}>{this.state.emailAddress}</h4>
+              <h4>{this.state.institute}</h4>
+              <h4>{this.state.degree}</h4>
+              <h4>{this.state.major}</h4>
             </Grid>
           </Grid>
         );
