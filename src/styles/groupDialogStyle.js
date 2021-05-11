@@ -38,5 +38,12 @@ export const useStyles = makeStyles(theme => ({
         "&$expanded": {
             margin: 0
         }
-    }
+    },
+    fab: {
+        position: 'absolute',
+        bottom: theme.spacing(7),
+        right: theme.spacing(2),
+        backgroundColor: theme.palette.success.main,
+        color: 'white'
+    },
 }))

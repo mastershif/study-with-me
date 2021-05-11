@@ -4,15 +4,17 @@ import {ButtonGroup, Card, CardContent, Step, StepLabel, Stepper} from "@materia
 import Button from "@material-ui/core/Button";
 import FormStepContent from "./createGroupComponents/formStepContent";
 import {formSchema} from "./createGroupComponents/formValidation";
+import {useHistory} from "react-router-dom";
 
 
-const initialValues = {
-    groupTitle: '', groupDescription: '', groupPurpose: '', institution: false,
+let initialValues = {
+    _id: '', groupTitle: '', groupDescription: '', groupPurpose: '', institution: false,
     groupSize: '', date: null, startHour: null, endHour: null, calendar: false,
     meetingType: 'פרונטלית', city: '', place: '', link: '',
 }
 
 let errors = {};
+let lastTimeClicked = 0, currentTimeClicked;
 
 const getSteps = () => {
     return ['נושא ותיאור', 'זמן וגודל', 'מיקום'];
@@ -22,12 +24,20 @@ const getSchema = (activeStep) => {
     return formSchema[activeStep];
 }
 
-const CreateGroup = () => {
+const CreateGroup = (props) => {
+
+    // If we are editing a group, the values should be the current group values.
+    const {isEdit, group} = props;
+    if (isEdit === true) {
+        initialValues = group;
+    }
 
     const [values, setValues] = useState(initialValues);
     const [activeStep, setActiveStep] = useState(0);
+    let history = useHistory();
     const steps = getSteps();
     const classes = Styles.useStyles();
+    console.log(values);
 
     const [, forceUpdateState] = useState();
     const forceUpdate = useCallback(() => forceUpdateState({}), []);
@@ -49,8 +59,17 @@ const CreateGroup = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        await getSchema(activeStep).validate(values, { abortEarly: false }).then( () => {
-            fetch("http://localhost:5000/group", {
+        await getSchema(activeStep).validate(values, { abortEarly: false })
+            .then( () => {
+                // Prevents multi-submitting the same group by rapid clicking the button.
+                currentTimeClicked = performance.now();
+                let diff = currentTimeClicked - lastTimeClicked;
+                lastTimeClicked = currentTimeClicked;
+                if (diff <= 1000) {
+                    throw new Error('Tried to create multiple identical groups rapidly.');
+                }
+            })
+            .then( () => {fetch("http://localhost:5000/group", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -58,8 +77,16 @@ const CreateGroup = () => {
                 body: JSON.stringify(values),
             })
                 .then((response) => response.text())
-                .then((data) => console.log(data))
-                .then(() => setActiveStep((prevActiveStep) => prevActiveStep + 1));
+                .then(
+                    (data) => console.log(data),
+                    (error) =>  console.log(error))
+                .then(() => {
+                    setActiveStep((prevActiveStep) => prevActiveStep + 1)
+                    setTimeout(function() {
+                        history.push('/');
+                    }, 3000);
+                })
+                .catch((error) => console.log(error));
         }).catch( (err) => {
             errors = err;
         });
@@ -80,7 +107,7 @@ const CreateGroup = () => {
                                 );
                             })}
                         </Stepper>
-                        {activeStep === steps.length ? (
+                        {activeStep >= steps.length ? (
                             <Styles.FinishForm>
                                 הקבוצה נוצרה בהצלחה!
                             </Styles.FinishForm>
@@ -90,10 +117,17 @@ const CreateGroup = () => {
                                                  values={values} setValues={setValues}
                                 />
                                 <ButtonGroup style={{marginTop: 20}}>
-                                    <Button disabled={activeStep === 0} variant={"contained"}
-                                            color={"secondary"} size={"large"} onClick={handleBack}>
-                                        חזרה
-                                    </Button>
+                                    {activeStep === 0 ? (
+                                        <Button variant={"contained"} color={"secondary"}
+                                                size={"large"} onClick={history.goBack}>
+                                            ביטול
+                                        </Button>
+                                    ) : (
+                                        <Button variant={"contained"}
+                                                color={"secondary"} size={"large"} onClick={handleBack}>
+                                            חזרה
+                                        </Button>
+                                    )}
                                     {activeStep === steps.length - 1 ? (
                                         <Button variant={"contained"} type={"submit"}
                                                 color={"primary"} size={"large"}

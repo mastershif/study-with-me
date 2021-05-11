@@ -24,7 +24,7 @@ const FormStepContent = (props) => {
     const handleStartHour = (hour) => {setValues({...values, startHour: hour})}
     const handleEndHour = (hour) => {setValues({...values, endHour: hour})}
     const handleCheckbox = (event) => {setValues({...values, [event.target.name]: event.target.checked})}
-    const handleCity = (event, value) => {setValues({...values, city: value})}
+    const handleCity = (event, value) => {setValues({...values, city: value === null ? '' : value})}
 
     const getErrorMessage = (name) => {
         return (
