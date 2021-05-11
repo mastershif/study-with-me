@@ -37,7 +37,6 @@ const CreateGroup = (props) => {
     let history = useHistory();
     const steps = getSteps();
     const classes = Styles.useStyles();
-    console.log(values);
 
     const [, forceUpdateState] = useState();
     const forceUpdate = useCallback(() => forceUpdateState({}), []);
