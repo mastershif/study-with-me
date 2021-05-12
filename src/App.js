@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import CreateGroupCard from "./sharedComponents/createGroupCard";
 import JoinGroupCard from "./sharedComponents/joinGroupCard";
 import MainTitle from "./sharedComponents/mainTitle";
@@ -64,66 +64,103 @@ function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [user, setUser] = useState();
     const [group, setGroup] = useState();
-    console.log('the current user is: ', user);
+    console.log("the current user is: ", user);
 
-    return (
-        <StylesProvider jss={jss}>
-            <ThemeProvider theme={theme}>
-                <GlobalStyle />
-                <Router>
-                    <div>
-                        <Header>
-                            <Link to="/profile">Profile</Link>
-                        </Header>
-                        <Switch>
-                            <Route exact path="/">
-                                <PageContainer>
-                                    <MainContent>
-                                        <MainTitle textLine1={'הצטרפו לקבוצת לימוד'} textLine2={' או התחילו קבוצת לימוד חדשה עכשיו'} />
-                                        <Description text={'קבוצות משותפות ללמידה למבחנים, חזרה על החומר או סתם כדי לעזור לך להתרכז'} />
-                                        <SecondaryTitle text={'הקבוצה תעזור לך ללמוד!'} />
-                                        <CardsGrid>
-                                            <JoinGroupCard />
-                                            <CreateGroupCard />
-                                        </CardsGrid>
-                                    </MainContent>
-                                </PageContainer>
-                            </Route>
-                            <Route path="/profile">
-                                <Profile />
-                            </Route>
-                            <Route path = "/profileSettings">
-                                <ProfileSettings/>
-                            </Route>
-                            <Route path="/createGroup">
-                                <CreateGroup isEdit={false} group={null} />
-                            </Route>
-                            <Route path="/editGroup/:_id">
-                                {(props) => {
-                                    const _id = props.match.params._id;
-                                    fetch("http://localhost:5000/group/" + _id)
-                                        .then((response) => response.json())
-                                        .then((result) => group === undefined ? setGroup(result) : null)
-                                        .catch((error) => console.log(error));
-                                    if (group) {
-                                        return (<CreateGroup isEdit={true} group={group} />)
-                                    }
-                                    return null;
-                                }}
-                            </Route>
-                            <Route path="/search">
-                                <Search />
-                            </Route>
+    return ( <
+        StylesProvider jss = { jss } >
+        <
+        ThemeProvider theme = { theme } >
+        <
+        GlobalStyle / >
+        <
+        Router >
+        <
+        div >
+        <
+        Header >
+        <
+        Link to = "/profile" > Profile < /Link> <
+        /Header> <
+        Switch >
+        <
+        Route exact path = "/" >
+        <
+        PageContainer >
+        <
+        MainContent >
+        <
+        MainTitle textLine1 = { "הצטרפו לקבוצת לימוד" }
+        textLine2 = { " או התחילו קבוצת לימוד חדשה עכשיו" }
+        /> <
+        Description text = {
+            "קבוצות משותפות ללמידה למבחנים, חזרה על החומר או סתם כדי לעזור לך להתרכז"
+        }
+        /> <
+        SecondaryTitle text = { "הקבוצה תעזור לך ללמוד!" }
+        /> <
+        CardsGrid >
+        <
+        JoinGroupCard / >
+        <
+        CreateGroupCard / >
+        <
+        /CardsGrid> <
+        /MainContent> <
+        /PageContainer> <
+        /Route> <
+        Route path = "/profile" >
+        <
+        Profile / >
+        <
+        /Route> <
+        Route path = "/profileSettings" >
+        <
+        ProfileSettings / >
+        <
+        /Route> <
+        Route path = "/createGroup" >
+        <
+        CreateGroup isEdit = { false }
+        group = { null }
+        /> <
+        /Route> <
+        Route path = "/editGroup/:_id" > {
+            (props) => {
+                const _id = props.match.params._id;
+                fetch("http://localhost:5000/group/" + _id)
+                    .then((response) => response.json())
+                    .then((result) =>
+                        group === undefined ? setGroup(result) : null
+                    )
+                    .catch((error) => console.log(error));
+                if (group) {
+                    return <CreateGroup isEdit = { true }
+                    group = { group }
+                    />;
+                }
+                return null;
+            }
+        } <
+        /Route> <
+        Route path = "/search" >
+        <
+        Search / >
+        <
+        /Route>
 
-                            <Route exact path="/signIn">
-                                <SignIn isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setUser={setUser}/>
-
-                            </Route>
-                        </Switch>
-                    </div>
-                </Router>
-            </ThemeProvider>
-        </StylesProvider>
+        <
+        Route exact path = "/signIn" >
+        <
+        SignIn isLoggedIn = { isLoggedIn }
+        setIsLoggedIn = { setIsLoggedIn }
+        setUser = { setUser }
+        /> <
+        /Route> <
+        /Switch> <
+        /div> <
+        /Router> <
+        /ThemeProvider> <
+        /StylesProvider>
     );
 }
 
