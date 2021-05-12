@@ -30,7 +30,6 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
     const classes = useStyles();
 
     const onLoginViaGoogle = (response) => {
-        setIsLoggedIn(true);
         const profile = response.profileObj;
         const userDetails = {
             email: profile.email,
@@ -38,14 +37,15 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
             lastName: profile.familyName,
             imageUrl: profile.imageUrl
         }
-        setUser(userDetails);
         setUserInLocalStorage(userDetails);
+        setUser(userDetails);
+        setIsLoggedIn(true);
     };
 
     const onLogoutGoogle = (response) => {
+        removeUserFromLocalStorage();
         setIsLoggedIn(false);
         setUser(undefined);
-        removeUserFromLocalStorage();
         console.log(response);
         console.log('logged out');
     };

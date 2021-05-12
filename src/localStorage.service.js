@@ -26,7 +26,7 @@ const removeItem = (key) => {
 };
 
 export const setUserInLocalStorage = (userObject) => {
-    setObject('userDetails');
+    setObject('userDetails', userObject);
 }
 
 export const getUserFromLocalStorage = () => {
