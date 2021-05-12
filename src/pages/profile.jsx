@@ -3,7 +3,7 @@ import NamePicture from "./ProfilePageComponents/nameAndPicture";
 import ProfileMenu from "./ProfilePageComponents/profileMenu";
 import Grid from "@material-ui/core/Grid";
 
-const Profile = () => {
+const Profile = ({ user }) => {
   return (
     <React.Fragment>
       <Grid container>

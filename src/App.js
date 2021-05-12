@@ -63,53 +63,84 @@ const CardsGrid = styled.div `
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [user, setUser] = useState();
-    console.log('the current user is: ', user);
+    console.log("the current user is: ", user);
 
-    return (
-      <StylesProvider jss={jss}>
-          <ThemeProvider theme={theme}>
-              <GlobalStyle />
-              <Router>
-                  <div>
-                      <Header>
-                          <Link to="/profile">Profile</Link>
-                      </Header>
-                      <Switch>
-                          <Route exact path="/">
-                              <PageContainer>
-                                  <MainContent>
-                                      <MainTitle textLine1={'הצטרפו לקבוצת לימוד'} textLine2={' או התחילו קבוצת לימוד חדשה עכשיו'} />
-                                      <Description text={'קבוצות משותפות ללמידה למבחנים, חזרה על החומר או סתם כדי לעזור לך להתרכז'} />
-                                      <SecondaryTitle text={'הקבוצה תעזור לך ללמוד!'} />
-                                      <CardsGrid>
-                                          <JoinGroupCard />
-                                          <CreateGroupCard />
-                                      </CardsGrid>
-                                  </MainContent>
-                              </PageContainer>
-                          </Route>
-                          <Route path="/profile">
-                              <Profile />
-                          </Route>
-                          <Route path = "/profileSettings">
-                              <ProfileSettings/>
-                          </Route>
-                          <Route path="/createGroup">
-                              <CreateGroup />
-                          </Route>
-                          <Route path="/search">
-                              <Search />
-                          </Route>
+    return ( <
+        StylesProvider jss = { jss } >
+        <
+        ThemeProvider theme = { theme } >
+        <
+        GlobalStyle / >
+        <
+        Router >
+        <
+        div >
+        <
+        Header >
+        <
+        Link to = "/profile" > Profile < /Link> <
+        /Header> <
+        Switch >
+        <
+        Route exact path = "/" >
+        <
+        PageContainer >
+        <
+        MainContent >
+        <
+        MainTitle textLine1 = { "הצטרפו לקבוצת לימוד" }
+        textLine2 = { " או התחילו קבוצת לימוד חדשה עכשיו" }
+        /> <
+        Description text = {
+            "קבוצות משותפות ללמידה למבחנים, חזרה על החומר או סתם כדי לעזור לך להתרכז"
+        }
+        /> <
+        SecondaryTitle text = { "הקבוצה תעזור לך ללמוד!" }
+        /> <
+        CardsGrid >
+        <
+        JoinGroupCard / >
+        <
+        CreateGroupCard / >
+        <
+        /CardsGrid> <
+        /MainContent> <
+        /PageContainer> <
+        /Route> <
+        Route path = "/profile" >
+        <
+        Profile / >
+        <
+        /Route> <
+        Route path = "/profileSettings" >
+        <
+        ProfileSettings / >
+        <
+        /Route> <
+        Route path = "/createGroup" >
+        <
+        CreateGroup / >
+        <
+        /Route> <
+        Route path = "/search" >
+        <
+        Search / >
+        <
+        /Route>
 
-                        <Route exact path="/signIn">
-                            <SignIn isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setUser={setUser}/>
-
-                        </Route>
-                      </Switch>
-                  </div>
-              </Router>
-          </ThemeProvider>
-      </StylesProvider>
+        <
+        Route exact path = "/signIn" >
+        <
+        SignIn isLoggedIn = { isLoggedIn }
+        setIsLoggedIn = { setIsLoggedIn }
+        setUser = { setUser }
+        /> <
+        /Route> <
+        /Switch> <
+        /div> <
+        /Router> <
+        /ThemeProvider> <
+        /StylesProvider>
     );
 }
 

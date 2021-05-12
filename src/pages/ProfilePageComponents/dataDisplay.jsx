@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import GroupProfile from "../groupDialogComponents/groupProfile";
 import styled from "styled-components";
-import userDanaMastergroups from "../../mockData/DanasGroups";
+import userDanaMastergroups from "../../mockData/DanasGroups"; ////// delete this after inserting to database
 import {
   GridList,
   GridListTile,
@@ -18,7 +18,7 @@ class DataDisplay extends Component {
     degree: "ראשון",
     major: "מדעי המחשב",
     minor: "פיזיקה",
-    groups: [1, 2],
+    userGroups: [],
   };
 
   async componentDidMount() {
@@ -27,11 +27,12 @@ class DataDisplay extends Component {
       .then(
         (result) => {
           this.setState({
-            username: result.username,
-            institute: result.institute,
-            degree: result.degree,
-            major: result.major,
-            minor: result.minor,
+            username: result[0].username,
+            institute: result[0].institute,
+            degree: result[0].degree,
+            major: result[0].major,
+            minor: result[0].minor,
+            userGroups: result[1],
           });
         },
         (error) => {
@@ -130,10 +131,10 @@ class DataDisplay extends Component {
             <GridList
               cellHeight={"auto"}
               spacing={0}
-              cols={Math.min(userDanaMastergroups.length, getColumns())}
+              cols={Math.min(this.state.userGroups.length, getColumns())}
             >
-              {userDanaMastergroups.map((group) => (
-                <GridListTile key={group.id} cols={1}>
+              {this.state.userGroups.map((group) => (
+                <GridListTile key={group._id} cols={1}>
                   <GroupProfile group={group} isProfile={true} />
                 </GridListTile>
               ))}
