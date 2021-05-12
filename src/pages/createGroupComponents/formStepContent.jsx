@@ -9,7 +9,7 @@ import he from "date-fns/locale/he";
 import ClockIcon from "@material-ui/icons/AccessTime";
 import GroupOutlinedIcon from '@material-ui/icons/GroupOutlined';
 import {Autocomplete} from "@material-ui/lab";
-import {citiesNames} from "../searchComponents/cities";
+import {sortedCitiesNames} from "../../assets/cities";
 
 
 const FormStepContent = (props) => {
@@ -169,7 +169,7 @@ const FormStepContent = (props) => {
                             <div>
                                 <Grid container spacing={3}>
                                     <Grid item xs={12} md={6}>
-                                        <Autocomplete options={citiesNames} value={values.city} name={"city"}
+                                        <Autocomplete options={sortedCitiesNames} value={values.city} name={"city"}
                                                       onChange={handleCity} fullWidth
                                                       getOptionSelected={(option,value) => value.value === option.value}
                                                       renderInput={(params) =>

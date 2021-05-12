@@ -1,4 +1,3 @@
-
 const collator = new Intl.Collator('he');
 
 const citiesNames = [

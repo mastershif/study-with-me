@@ -1,22 +1,13 @@
 import * as Styles from '../../styles/createGroupStyle';
-import {
-    Button, ButtonGroup,
-    Checkbox,
-    FormControl,
-    FormControlLabel,
-    FormGroup,
-    FormLabel,
-    Grid, InputLabel, makeStyles,
-    Radio,
-    RadioGroup, Select,
-    TextField
-} from "@material-ui/core";
+import {Button, ButtonGroup, Checkbox, FormControl, FormControlLabel,
+    FormGroup, FormLabel, Grid, InputLabel, makeStyles,
+    Radio, RadioGroup, Select, TextField} from "@material-ui/core";
 import {KeyboardDatePicker, KeyboardTimePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import ClockIcon from "@material-ui/icons/AccessTime";
 import {useState} from "react";
 import SearchIcon from "@material-ui/icons/Search";
-import {sortedCitiesNames} from "./cities";
+import {sortedCitiesNames} from "../../assets/cities";
 import styled from "styled-components";
 
 const Title = styled.h1`
