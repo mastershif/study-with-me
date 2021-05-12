@@ -15,7 +15,7 @@ const onRedirectCallBack = (state) => {
 return (
     <Auth0Provider
             domain={domain}
-            client_id={client_id}
+            clientId={client_id}
             redirctUri={window.location.origin}
             onRedirectCallBack={onRedirectCallBack}
             >

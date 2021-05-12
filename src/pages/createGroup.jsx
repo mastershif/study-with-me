@@ -11,7 +11,7 @@ import {MuiPickersUtilsProvider, KeyboardDatePicker, KeyboardTimePicker} from "@
 import DateFnsUtils from '@date-io/date-fns';
 import he from "date-fns/locale/he";
 import {Autocomplete} from "@material-ui/lab";
-import {citiesNames} from "./searchComponents/cities";
+import {sortedCitiesNames} from "./searchComponents/cities";
 
 //This is the create-group page, including the form with all the necessary fields.
 
@@ -59,7 +59,7 @@ const CreateGroup = () => {
     if (values.meetingType === 'פרונטלית') {
         FrontalOrVirtual = (
             <>
-                <Autocomplete options={citiesNames} value={values.city} name={"city"}
+                <Autocomplete options={sortedCitiesNames} value={values.city} name={"city"}
                               onChange={handleCity} getOptionLabel={(option) => option}
                     renderInput={(params) =>
                         <TextField {...params} label={"עיר"} required

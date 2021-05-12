@@ -11,6 +11,9 @@ import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from '@material-ui/icons/Add';
 import MobileMenu from "./mobileMenu";
 
+import LoginButton from '../sharedComponents/LoginButton';
+import LogoutButton from '../sharedComponents/LogoutButton';
+
 //import Google from './Google';
 //import Facebook from './Facebook';
 
@@ -75,8 +78,11 @@ const Header = () => {
                     </div>
                     <div className={classes.buttonsBar}>
                         
+                        <LoginButton  />  
+                        <LogoutButton  />
+
                         <Button className={classes.textButton} color="inherit" href="/signIn">להתחברות</Button>
-                                        
+                              
                         <IconButton className={classes.iconButton} aria-label="search" color="inherit" href="/search">
                             <SearchIcon />
                         </IconButton>
