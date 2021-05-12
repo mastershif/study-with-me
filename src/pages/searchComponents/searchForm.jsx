@@ -16,7 +16,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import ClockIcon from "@material-ui/icons/AccessTime";
 import {useState} from "react";
 import SearchIcon from "@material-ui/icons/Search";
-import {citiesNames} from "./cities";
+import {sortedCitiesNames} from "./cities";
 import styled from "styled-components";
 
 const Title = styled.h1`
@@ -176,7 +176,7 @@ const SearchForm = ({ setShowResults }) => {
                             }}
                         >
                             <option aria-label="None" value="" />
-                            {citiesNames.map(city => <option value={city}>{city}</option>)}
+                            {sortedCitiesNames.map(city => <option value={city}>{city}</option>)}
                         </Select>
                     </FormControl>
                 </Grid>
