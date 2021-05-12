@@ -16,6 +16,7 @@ import {WhatsappShareButton, FacebookShareButton, EmailShareButton,
 import {format} from "date-fns";
 import JoinButton from "./groupDialogComponents/joinButton";
 import LeaveButton from "./groupDialogComponents/leaveButton";
+import EditGroupButton from "./groupDialogComponents/editGroupButton";
 
 
 const GroupDialog = (props) => {
@@ -52,7 +53,6 @@ const GroupDialog = (props) => {
                                     <FacebookIcon size={'2.5rem'} round/>
                                 </FacebookShareButton>
                             </MenuItem>
-
                             <MenuItem>
                                 <WhatsappShareButton title={group.groupTitle} separator=":: ">
                                     <WhatsappIcon size={'2.5rem'} round />
@@ -136,6 +136,7 @@ const GroupDialog = (props) => {
                         </AvatarGroup>
                     </AccordionDetails>
                 </Accordion>
+                <EditGroupButton group={group} />
             </DialogContent>
             {isProfile === true ? <LeaveButton/> : <JoinButton/>}
         </Dialog>
