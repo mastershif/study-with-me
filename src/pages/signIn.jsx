@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import styled from "styled-components";
+import { setUserInLocalStorage, removeUserFromLocalStorage } from "../localStorage.service";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -31,17 +32,20 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
     const onLoginViaGoogle = (response) => {
         setIsLoggedIn(true);
         const profile = response.profileObj;
-        setUser({
+        const userDetails = {
             email: profile.email,
             firstName: profile.givenName,
             lastName: profile.familyName,
             imageUrl: profile.imageUrl
-        });
+        }
+        setUser(userDetails);
+        setUserInLocalStorage(userDetails);
     };
 
     const onLogoutGoogle = (response) => {
         setIsLoggedIn(false);
         setUser(undefined);
+        removeUserFromLocalStorage();
         console.log(response);
         console.log('logged out');
     };
@@ -60,14 +64,16 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
                 </Avatar>
                 <ButtonContainer>
                     {/*show log in button only if the user is not logged in yet*/}
-                    { !isLoggedIn && <GoogleLogin
+                    { !isLoggedIn &&
+                    <GoogleLogin
                         clientId={'101612216779-7o7aqog0rj9vopdu7ffukfs67i6n4ba7.apps.googleusercontent.com'}
                         onSuccess={onLoginViaGoogle}
                         buttonText={'להתחבר'}
                         cookiePolicy={'single_host_origin'}
                     />}
                     {/*show log out button only if the user is logged in*/}
-                    { isLoggedIn && <GoogleLogout
+                    { isLoggedIn &&
+                    <GoogleLogout
                         clientId={'101612216779-7o7aqog0rj9vopdu7ffukfs67i6n4ba7.apps.googleusercontent.com'}
                         buttonText={'להתנתק'}
                         onLogoutSuccess={onLogoutGoogle}
