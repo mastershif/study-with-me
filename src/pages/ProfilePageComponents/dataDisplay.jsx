@@ -2,13 +2,7 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import GroupProfile from "../groupDialogComponents/groupProfile";
 import styled from "styled-components";
-import userDanaMastergroups from "../../mockData/DanasGroups"; ////// delete this after inserting to database
-import {
-  GridList,
-  GridListTile,
-  isWidthUp,
-  withWidth,
-} from "@material-ui/core";
+import {GridList, GridListTile, isWidthUp, withWidth,} from "@material-ui/core";
 
 class DataDisplay extends Component {
   state = {
