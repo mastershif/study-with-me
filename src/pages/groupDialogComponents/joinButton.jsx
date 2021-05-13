@@ -12,7 +12,7 @@ const JoinButton = ({ groupId }) => {
 
     const handleJoining = async () => {
         const response = await fetch("http://localhost:5000/joinGroup", {
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
