@@ -30,7 +30,7 @@ export const setUserInLocalStorage = (userObject) => {
 }
 
 export const getUserFromLocalStorage = () => {
-    getObject('userDetails');
+    return getObject('userDetails');
 }
 
 export const removeUserFromLocalStorage = () => {

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import GroupProfile from "../groupDialogComponents/groupProfile";
 import styled from "styled-components";
-import userDanaMastergroups from "../../mockData/DanasGroups"; ////// delete this after inserting to database
+import { getUserFromLocalStorage } from "../../localStorage.service";
 import {
   GridList,
   GridListTile,
@@ -12,21 +12,23 @@ import {
 
 class DataDisplay extends Component {
   state = {
-    username: "Master Dana",
-    emailAddress: "dana.poleg@gmail.com",
-    institute: "אוניברסיטת תל-אביב",
-    degree: "ראשון",
-    major: "מדעי המחשב",
-    minor: "פיזיקה",
+    username: "",
+    emailAddress: "",
+    institute: "",
+    degree: "",
+    major: "",
+    minor: "",
     userGroups: [],
   };
 
   async componentDidMount() {
-    await fetch("http://localhost:5000/profile/" + this.state.emailAddress)
+    let userDetails = getUserFromLocalStorage();
+    await fetch("http://localhost:5000/profile/" + userDetails.email)
       .then((res) => res.json())
       .then(
         (result) => {
           this.setState({
+            emailAddress: result[0].email,
             username: result[0].username,
             institute: result[0].institute,
             degree: result[0].degree,

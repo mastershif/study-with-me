@@ -6,25 +6,26 @@ import { degree } from "./Categories data/categoriesDB";
 import { institutions } from "./Categories data/categoriesDB";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
+import { getUserFromLocalStorage } from "../../localStorage.service";
 
 class ProfileProperties extends Component {
   state = {
-    username: "Master Dana",
-    emailAddress: "dana.poleg@gmail.com",
-    institute: "אוניברסיטת תל-אביב",
-    degree: "ראשון",
-    major: "מדעי המחשב",
-    minor: "מתמטיקה",
+    username: "",
+    emailAddress: "",
+    institute: "",
+    degree: "",
+    major: "",
+    minor: "",
   };
 
   async componentDidMount() {
-    await fetch(
-      "http://localhost:5000/profileSettings/" + this.state.emailAddress
-    )
+    let userDetails = getUserFromLocalStorage();
+    await fetch("http://localhost:5000/profileSettings/" + userDetails.email)
       .then((res) => res.json())
       .then(
         (result) => {
           this.setState({
+            emailAddress: result.email,
             username: result.username,
             institute: result.institute,
             degree: result.degree,
@@ -138,7 +139,9 @@ class ProfileProperties extends Component {
                   <ProfileProperty
                     id="מוסד"
                     userValue={this.state.institute}
-                    data={institutions}
+                    data={institutions.sort((a, b) => {
+                      return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+                    })}
                     handleChange={this.handleInstituteChange}
                   />
                 </div>
@@ -191,7 +194,9 @@ class ProfileProperties extends Component {
                   <ProfileProperty
                     id="חוג ראשי"
                     userValue={this.state.major}
-                    data={major_minor}
+                    data={major_minor.sort((a, b) => {
+                      return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+                    })}
                     handleChange={this.handleMajorChange}
                   />
                 </div>
@@ -205,7 +210,9 @@ class ProfileProperties extends Component {
                   <ProfileProperty
                     id="חוג משני"
                     userValue={this.state.minor}
-                    data={major_minor}
+                    data={major_minor.sort((a, b) => {
+                      return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+                    })}
                     handleChange={this.handleMinorChange}
                   />
                 </div>
