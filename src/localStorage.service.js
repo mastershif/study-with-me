@@ -13,8 +13,11 @@ const setObject = (key, object) => {
 
 const getObject = (key) => {
     const object = localStorage.getItem(LOCAL_STORAGE_PREFIX + key);
+    console.log('the object from local storage is: ', object);
     try {
-        return JSON.parse(object);
+        const result = JSON.parse(object);
+        console.log('the parsed result is: ', result);
+        return result;
     } catch (e) {
         console.error(e);
         return {};
@@ -30,7 +33,7 @@ export const setUserInLocalStorage = (userObject) => {
 }
 
 export const getUserFromLocalStorage = () => {
-    getObject('userDetails');
+    return getObject('userDetails');
 }
 
 export const removeUserFromLocalStorage = () => {
