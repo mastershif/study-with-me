@@ -94,33 +94,33 @@ class ProfileProperties extends Component {
           <div style={{ display: "flex", flexGrow: "6" }}>
             <Grid container>
               <Grid item xs={12}>
-                <h3
-                  style={{ padding: "0px 0px 20px 0px", textAlign: "center" }}
+                <h4
+                  style={{ padding: "20px 0px 20px 0px", textAlign: "center" }}
                 >
                   כתובת אימייל:
-                </h3>
-                <h3
+                </h4>
+                <h4
                   style={{ padding: "18px 0px 20px 0px", textAlign: "center" }}
                 >
                   שם משתמש:
-                </h3>
-                <h3
+                </h4>
+                <h4
                   style={{ padding: "18px 0px 20px 0px", textAlign: "center" }}
                 >
                   מוסד לימודים:
-                </h3>
+                </h4>
               </Grid>
             </Grid>
             <Grid container>
               <Grid item xs={12}>
-                <h3 style={{ padding: "0px 0px 0px 15px" }}>
+                <h4 style={{ padding: "20px 40px 0px 20px" }}>
                   {this.state.emailAddress}
-                </h3>
+                </h4>
                 <div
                   style={{
                     display: "flex",
                     alignItems: "flex-end",
-                    padding: "0px 0px 0px 15px",
+                    padding: "0px 20px 0px 20px",
                   }}
                 >
                   <ProfileProperty
@@ -133,7 +133,7 @@ class ProfileProperties extends Component {
                   style={{
                     display: "flex",
                     alignItems: "flex-end",
-                    padding: "23px 0px 0px 15px",
+                    padding: "15px 20px 0px 20px",
                   }}
                 >
                   <ProfileProperty
@@ -151,21 +151,21 @@ class ProfileProperties extends Component {
           <div style={{ display: "flex", flexGrow: "6" }}>
             <Grid container>
               <Grid item xs={12}>
-                <h3
-                  style={{ padding: "0px 0px 20px 0px", textAlign: "center" }}
+                <h4
+                  style={{ padding: "20px 0px 20px 0px", textAlign: "center" }}
                 >
                   תואר:
-                </h3>
-                <h3
-                  style={{ padding: "18px 0px 20px 0px", textAlign: "center" }}
+                </h4>
+                <h4
+                  style={{ padding: "18px 25px 20px 0px", textAlign: "center" }}
                 >
                   חוג ראשי:
-                </h3>
-                <h3
-                  style={{ padding: "18px 0px 20px 0px", textAlign: "center" }}
+                </h4>
+                <h4
+                  style={{ padding: "18px 20px 20px 0px", textAlign: "center" }}
                 >
                   חוג משני:
-                </h3>
+                </h4>
               </Grid>
             </Grid>
             <Grid container>
@@ -174,7 +174,7 @@ class ProfileProperties extends Component {
                   style={{
                     display: "flex",
                     alignItems: "flex-end",
-                    padding: "4px 0px 21px 0px",
+                    padding: "20px 20px 0px 15px",
                   }}
                 >
                   <ProfileProperty
@@ -188,7 +188,7 @@ class ProfileProperties extends Component {
                   style={{
                     display: "flex",
                     alignItems: "flex-end",
-                    padding: "4px 0px 21px 15px",
+                    padding: "25px 20px 21px 15px",
                   }}
                 >
                   <ProfileProperty
@@ -204,7 +204,7 @@ class ProfileProperties extends Component {
                   style={{
                     display: "flex",
                     alignItems: "flex-end",
-                    padding: "4px 0px 21px 15px",
+                    padding: "3px 20px 21px 15px",
                   }}
                 >
                   <ProfileProperty

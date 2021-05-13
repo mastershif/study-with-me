@@ -68,7 +68,11 @@ class DataDisplay extends Component {
     };
 
     if (toBeDisplayed === "Personal") {
-      if (this.state.degree === "אחר") {
+      if (
+        this.state.degree === "אחר" ||
+        this.state.degree === "" ||
+        this.state.minor === ""
+      ) {
         return (
           <Grid container alignItems={"center"}>
             <Grid item style={{ marginRight: 20 }}>

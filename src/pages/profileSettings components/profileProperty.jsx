@@ -1,8 +1,8 @@
+import { FormControl, TextField } from "@material-ui/core";
 import React from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
-import NativeSelect from "@material-ui/core/NativeSelect";
+import { Autocomplete } from "@material-ui/lab";
 import InputBase from "@material-ui/core/InputBase";
 
 const BootstrapInput = withStyles((theme) => ({
@@ -49,9 +49,13 @@ const useStyles = makeStyles((theme) => ({
 export default function CustomizedSelects(props) {
   const classes = useStyles();
 
-  const onValueChange = (event) => {
-    props.handleChange(event.target.value);
-    event.preventDefault();
+  const defaultProps = {
+    options: props.data,
+    getOptionLabel: (option) => option.name,
+  };
+
+  const onValueChange = (newValue) => {
+    props.handleChange(newValue);
   };
 
   if (props.id === "שם משתמש") {
@@ -67,27 +71,24 @@ export default function CustomizedSelects(props) {
     );
   } else
     return (
-      <div>
-        <FormControl className={classes.margin}>
-          <NativeSelect
-            id="demo-customized-select-native"
-            value={props.userValue}
-            onChange={onValueChange}
-            input={<BootstrapInput />}
-          >
-            <option value="" disabled>
-              {props.userValue}
-            </option>
-            <option aria-label="None" value="" />
-            {props.data.map((possability) => {
-              return (
-                <option key={possability.id} value={possability.name}>
-                  {possability.name}
-                </option>
-              );
-            })}
-          </NativeSelect>
-        </FormControl>
+      <div style={{ width: 230 }}>
+        <Autocomplete
+          {...defaultProps}
+          id={props.id}
+          fullWidth
+          onChange={(option, value) => {
+            if (value !== null) {
+              onValueChange(value.name);
+            }
+          }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              margin="normal"
+              placeholder={props.userValue}
+            />
+          )}
+        />
       </div>
     );
 }

@@ -65,6 +65,8 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
         body: JSON.stringify({
           username: userDetails.firstName + " " + userDetails.lastName,
           email: userDetails.email,
+          institute: "אחר",
+          degree: "אחר",
           userImg: userDetails.imageUrl,
         }),
       });
