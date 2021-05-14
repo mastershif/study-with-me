@@ -210,7 +210,7 @@ const GroupDialog = (props) => {
             <Typography>חברי הקבוצה</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            {/* <AvatarGroup max={6}>
+            <AvatarGroup max={6}>
               {group.people.map((people) => (
                 <Avatar
                   key={people.id}
@@ -219,11 +219,11 @@ const GroupDialog = (props) => {
                   src={people.photo}
                 />
               ))}
-            </AvatarGroup> */}
+            </AvatarGroup>
           </AccordionDetails>
         </Accordion>
       </DialogContent>
-      {isProfile === true ? <LeaveButton /> : <JoinButton />}
+      {isProfile === true ? <LeaveButton /> : <JoinButton groupId={group._id} />}
     </Dialog>
   );
 };

@@ -60,7 +60,7 @@ export default function CustomizedSelects(props) {
 
   if (props.id === "שם משתמש") {
     return (
-      <FormControl className={classes.margin}>
+      <FormControl className={classes.margin} style={{ width: 230 }}>
         <InputLabel htmlFor="username">{props.id}</InputLabel>
         <BootstrapInput
           id="username"

@@ -113,7 +113,7 @@ class ProfileProperties extends Component {
             </Grid>
             <Grid container>
               <Grid item xs={12}>
-                <h4 style={{ padding: "20px 40px 0px 20px" }}>
+                <h4 style={{ padding: "20px 35px 0px 20px" }}>
                   {this.state.emailAddress}
                 </h4>
                 <div
@@ -133,7 +133,7 @@ class ProfileProperties extends Component {
                   style={{
                     display: "flex",
                     alignItems: "flex-end",
-                    padding: "15px 20px 0px 20px",
+                    padding: "15px 28px 0px 20px",
                   }}
                 >
                   <ProfileProperty
