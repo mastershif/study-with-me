@@ -32,17 +32,48 @@ const ButtonContainer = styled.div`
 const SignIn = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
   const classes = useStyles();
 
-  const onLoginViaGoogle = (response) => {
+  const onLoginViaGoogle = async (response) => {
     const profile = response.profileObj;
     const userDetails = {
       email: profile.email,
       firstName: profile.givenName,
       lastName: profile.familyName,
-      imageUrl: profile.imageUrl,
+      imageUrl: profile.imageUrl.replace("s96", "s500"),
     };
     setUserInLocalStorage(userDetails);
     setUser(userDetails);
     setIsLoggedIn(true);
+    let isNew = true;
+    await fetch("http://localhost:5000/signIn/" + userDetails.email)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          if (result) {
+            isNew = false;
+          }
+        },
+        (error) => {
+          console.log("There was a problem in Signing-in!");
+        }
+      );
+    if (isNew) {
+      await fetch("http://localhost:5000/signIn/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: userDetails.firstName + " " + userDetails.lastName,
+          email: userDetails.email,
+          institute: "אחר",
+          degree: "אחר",
+          userImg: userDetails.imageUrl,
+        }),
+      });
+      window.location.href = "/profileSettings";
+    } else {
+      window.location.href = "/";
+    }
   };
 
   const onLogoutGoogle = (response) => {

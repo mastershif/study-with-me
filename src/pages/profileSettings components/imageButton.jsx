@@ -1,28 +1,32 @@
 import React, { Component } from "react";
+import { getUserFromLocalStorage } from "../../localStorage.service";
 
 class UserImage extends Component {
   state = {
-    username: "Master Dana",
-    emailAddress: "dana.poleg@gmail.com",
-    userImg:
-      "https://www.pngkey.com/png/detail/230-2301779_best-classified-apps-default-user-profile.png",
-    // "https://images.unsplash.com/photo-1544507888-56d73eb6046e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80",
+    username: "",
+    emailAddress: "",
+    userImg: "",
+    // "https://www.pngkey.com/png/detail/230-2301779_best-classified-apps-default-user-profile.png",
   };
 
   async componentDidMount() {
-    await fetch(
-      "http://localhost:5000/profileSettings/" + this.state.emailAddress
-    )
+    let userDetails = getUserFromLocalStorage();
+    await fetch("http://localhost:5000/profileSettings/" + userDetails.email)
       .then((res) => res.json())
       .then(
         (result) => {
           let updatedUserImg;
           if (result.userImg !== "") {
-            updatedUserImg = require("../../" + result.userImg).default; /////// need to change when repositories will be united under one folder
+            if (result.userImg.includes("http")) {
+              updatedUserImg = result.userImg;
+            } else {
+              updatedUserImg = require("../../" + result.userImg).default; /////// need to change when repositories will be united under one folder
+            }
           } else {
             updatedUserImg = this.state.userImg;
           }
           this.setState({
+            emailAddress: result.email,
             username: result.username,
             userImg: updatedUserImg,
           });

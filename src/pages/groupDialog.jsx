@@ -100,12 +100,12 @@ const GroupDialog = (props) => {
                                 <Grid container>
                                     <Grid item xs={12} sm={4}>
                                         <Typography variant="body1" component="p">
-                                            שעת התחלה: <b>{group.startHour}</b>
+                                            שעת התחלה: <b>{format(parseISO(group.startHour), "HH:mm", {locale: he,})}</b>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12} sm={8}>
                                         <Typography variant="body1" component="p">
-                                            שעת סיום: <b>{group.endHour}</b>
+                                            שעת סיום: <b>{format(parseISO(group.endHour), "HH:mm", {locale: he,})}</b>
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -138,7 +138,7 @@ const GroupDialog = (props) => {
                 </Accordion>
                 <EditGroupButton group={group} />
             </DialogContent>
-            {isProfile === true ? <LeaveButton/> : <JoinButton groupId={group.id}/>}
+            {isProfile === true ? <LeaveButton/> : <JoinButton groupId={group._id}/>}
         </Dialog>
     )
 }

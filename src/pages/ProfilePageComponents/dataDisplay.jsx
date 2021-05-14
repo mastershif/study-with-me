@@ -2,25 +2,37 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import GroupProfile from "../groupDialogComponents/groupProfile";
 import styled from "styled-components";
+<<<<<<< HEAD
 import {GridList, GridListTile, isWidthUp, withWidth,} from "@material-ui/core";
+=======
+import { getUserFromLocalStorage } from "../../localStorage.service";
+import {
+  GridList,
+  GridListTile,
+  isWidthUp,
+  withWidth,
+} from "@material-ui/core";
+>>>>>>> profile-settings-input-validation
 
 class DataDisplay extends Component {
   state = {
-    username: "Master Dana",
-    emailAddress: "dana.poleg@gmail.com",
-    institute: "אוניברסיטת תל-אביב",
-    degree: "ראשון",
-    major: "מדעי המחשב",
-    minor: "פיזיקה",
+    username: "",
+    emailAddress: "",
+    institute: "",
+    degree: "",
+    major: "",
+    minor: "",
     userGroups: [],
   };
 
   async componentDidMount() {
-    await fetch("http://localhost:5000/profile/" + this.state.emailAddress)
+    let userDetails = getUserFromLocalStorage();
+    await fetch("http://localhost:5000/profile/" + userDetails.email)
       .then((res) => res.json())
       .then(
         (result) => {
           this.setState({
+            emailAddress: result[0].email,
             username: result[0].username,
             institute: result[0].institute,
             degree: result[0].degree,
@@ -60,7 +72,11 @@ class DataDisplay extends Component {
     };
 
     if (toBeDisplayed === "Personal") {
-      if (this.state.degree === "אחר") {
+      if (
+        this.state.degree === "אחר" ||
+        this.state.degree === "" ||
+        this.state.minor === ""
+      ) {
         return (
           <Grid container alignItems={"center"}>
             <Grid item style={{ marginRight: 20 }}>

@@ -6,25 +6,26 @@ import { degree } from "./Categories data/categoriesDB";
 import { institutions } from "./Categories data/categoriesDB";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
+import { getUserFromLocalStorage } from "../../localStorage.service";
 
 class ProfileProperties extends Component {
   state = {
-    username: "Master Dana",
-    emailAddress: "dana.poleg@gmail.com",
-    institute: "אוניברסיטת תל-אביב",
-    degree: "ראשון",
-    major: "מדעי המחשב",
-    minor: "מתמטיקה",
+    username: "",
+    emailAddress: "",
+    institute: "",
+    degree: "",
+    major: "",
+    minor: "",
   };
 
   async componentDidMount() {
-    await fetch(
-      "http://localhost:5000/profileSettings/" + this.state.emailAddress
-    )
+    let userDetails = getUserFromLocalStorage();
+    await fetch("http://localhost:5000/profileSettings/" + userDetails.email)
       .then((res) => res.json())
       .then(
         (result) => {
           this.setState({
+            emailAddress: result.email,
             username: result.username,
             institute: result.institute,
             degree: result.degree,
@@ -93,33 +94,33 @@ class ProfileProperties extends Component {
           <div style={{ display: "flex", flexGrow: "6" }}>
             <Grid container>
               <Grid item xs={12}>
-                <h3
-                  style={{ padding: "0px 0px 20px 0px", textAlign: "center" }}
+                <h4
+                  style={{ padding: "20px 0px 20px 0px", textAlign: "center" }}
                 >
                   כתובת אימייל:
-                </h3>
-                <h3
+                </h4>
+                <h4
                   style={{ padding: "18px 0px 20px 0px", textAlign: "center" }}
                 >
                   שם משתמש:
-                </h3>
-                <h3
+                </h4>
+                <h4
                   style={{ padding: "18px 0px 20px 0px", textAlign: "center" }}
                 >
                   מוסד לימודים:
-                </h3>
+                </h4>
               </Grid>
             </Grid>
             <Grid container>
               <Grid item xs={12}>
-                <h3 style={{ padding: "0px 0px 0px 15px" }}>
+                <h4 style={{ padding: "20px 35px 0px 20px" }}>
                   {this.state.emailAddress}
-                </h3>
+                </h4>
                 <div
                   style={{
                     display: "flex",
                     alignItems: "flex-end",
-                    padding: "0px 0px 0px 15px",
+                    padding: "0px 20px 0px 20px",
                   }}
                 >
                   <ProfileProperty
@@ -132,13 +133,15 @@ class ProfileProperties extends Component {
                   style={{
                     display: "flex",
                     alignItems: "flex-end",
-                    padding: "23px 0px 0px 15px",
+                    padding: "15px 28px 0px 20px",
                   }}
                 >
                   <ProfileProperty
                     id="מוסד"
                     userValue={this.state.institute}
-                    data={institutions}
+                    data={institutions.sort((a, b) => {
+                      return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+                    })}
                     handleChange={this.handleInstituteChange}
                   />
                 </div>
@@ -148,21 +151,21 @@ class ProfileProperties extends Component {
           <div style={{ display: "flex", flexGrow: "6" }}>
             <Grid container>
               <Grid item xs={12}>
-                <h3
-                  style={{ padding: "0px 0px 20px 0px", textAlign: "center" }}
+                <h4
+                  style={{ padding: "20px 0px 20px 0px", textAlign: "center" }}
                 >
                   תואר:
-                </h3>
-                <h3
-                  style={{ padding: "18px 0px 20px 0px", textAlign: "center" }}
+                </h4>
+                <h4
+                  style={{ padding: "18px 25px 20px 0px", textAlign: "center" }}
                 >
                   חוג ראשי:
-                </h3>
-                <h3
-                  style={{ padding: "18px 0px 20px 0px", textAlign: "center" }}
+                </h4>
+                <h4
+                  style={{ padding: "18px 20px 20px 0px", textAlign: "center" }}
                 >
                   חוג משני:
-                </h3>
+                </h4>
               </Grid>
             </Grid>
             <Grid container>
@@ -171,7 +174,7 @@ class ProfileProperties extends Component {
                   style={{
                     display: "flex",
                     alignItems: "flex-end",
-                    padding: "4px 0px 21px 0px",
+                    padding: "20px 20px 0px 15px",
                   }}
                 >
                   <ProfileProperty
@@ -185,13 +188,15 @@ class ProfileProperties extends Component {
                   style={{
                     display: "flex",
                     alignItems: "flex-end",
-                    padding: "4px 0px 21px 15px",
+                    padding: "25px 20px 21px 15px",
                   }}
                 >
                   <ProfileProperty
                     id="חוג ראשי"
                     userValue={this.state.major}
-                    data={major_minor}
+                    data={major_minor.sort((a, b) => {
+                      return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+                    })}
                     handleChange={this.handleMajorChange}
                   />
                 </div>
@@ -199,13 +204,15 @@ class ProfileProperties extends Component {
                   style={{
                     display: "flex",
                     alignItems: "flex-end",
-                    padding: "4px 0px 21px 15px",
+                    padding: "3px 20px 21px 15px",
                   }}
                 >
                   <ProfileProperty
                     id="חוג משני"
                     userValue={this.state.minor}
-                    data={major_minor}
+                    data={major_minor.sort((a, b) => {
+                      return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+                    })}
                     handleChange={this.handleMinorChange}
                   />
                 </div>
