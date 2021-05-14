@@ -61,7 +61,9 @@ class ProfileProperties extends Component {
   };
 
   handleUsernameChange = (newUsername) => {
-    this.setState({ username: newUsername });
+    if (newUsername !== "") {
+      this.setState({ username: newUsername });
+    }
   };
 
   handleInstituteChange = (newInstitute) => {

@@ -60,18 +60,18 @@ export default function CustomizedSelects(props) {
 
   if (props.id === "שם משתמש") {
     return (
-      <FormControl className={classes.margin} style={{ width: 230 }}>
+      <FormControl className={classes.margin} style={{ width: 200 }}>
         <InputLabel htmlFor="username">{props.id}</InputLabel>
         <BootstrapInput
           id="username"
           placeholder={props.userValue}
-          onChange={onValueChange}
+          onChange={(event) => { onValueChange(event.target.value) }}
         />
       </FormControl>
     );
   } else
     return (
-      <div style={{ width: 230 }}>
+      <div style={{ width: 200 }}>
         <Autocomplete
           {...defaultProps}
           id={props.id}

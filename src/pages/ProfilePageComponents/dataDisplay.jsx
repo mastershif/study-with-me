@@ -2,17 +2,8 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import GroupProfile from "../groupDialogComponents/groupProfile";
 import styled from "styled-components";
-<<<<<<< HEAD
-import {GridList, GridListTile, isWidthUp, withWidth,} from "@material-ui/core";
-=======
-import { getUserFromLocalStorage } from "../../localStorage.service";
-import {
-  GridList,
-  GridListTile,
-  isWidthUp,
-  withWidth,
-} from "@material-ui/core";
->>>>>>> profile-settings-input-validation
+import { GridList, GridListTile, isWidthUp, withWidth, } from "@material-ui/core";
+import {getUserFromLocalStorage} from '../../localStorage.service'
 
 class DataDisplay extends Component {
   state = {

@@ -13,7 +13,7 @@ import MeetingPlaceOrLink from "./groupDialogComponents/meetingPlaceOrLink"
 import {useState} from "react";
 import {WhatsappShareButton, FacebookShareButton, EmailShareButton,
     WhatsappIcon, FacebookIcon, EmailIcon} from "react-share";
-import {format} from "date-fns";
+import { format, parseISO } from "date-fns";
 import JoinButton from "./groupDialogComponents/joinButton";
 import LeaveButton from "./groupDialogComponents/leaveButton";
 import EditGroupButton from "./groupDialogComponents/editGroupButton";

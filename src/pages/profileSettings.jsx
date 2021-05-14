@@ -1,7 +1,7 @@
 import React from "react";
-import ProfileProperties from "./profileSettings components/profileProperties";
+import ProfileProperties from "./profileSettingsComponents/profileProperties";
 import Grid from "@material-ui/core/Grid";
-import UserImage from "./profileSettings components/imageButton";
+import UserImage from "./profileSettingsComponents/imageButton";
 
 const ProfileSettings = () => {
   return (
