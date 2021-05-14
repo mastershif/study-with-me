@@ -93,7 +93,7 @@ const GroupDialog = (props) => {
                         <Grid container>
                             <Grid item xs={12}>
                                 <Typography gutterBottom variant="body1" component="p">
-                                    הפגישה תתקיים <b>ב{format(group.date, "EEEE, 'ה-'d 'ב'MMMM yyyy", {locale: he})}</b>.
+                                    הפגישה תתקיים <b>ב{format(parseISO(group.date), "EEEE, 'ה-'d 'ב'MMMM yyyy", {locale: he})}</b>
                                 </Typography>
                             </Grid>
                             <Grid item xs={12} style={{marginTop: '10px'}}>
@@ -128,12 +128,12 @@ const GroupDialog = (props) => {
                         <Typography>חברי הקבוצה</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <AvatarGroup max={6}>
+                        {/* <AvatarGroup max={6}>
                             {group.people.map(people => (
                                 <Avatar key={people.id} alt={people.name}
                                         title={people.name} src={people.photo} />
                             ))}
-                        </AvatarGroup>
+                        </AvatarGroup> */}
                     </AccordionDetails>
                 </Accordion>
                 <EditGroupButton group={group} />

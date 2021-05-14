@@ -36,9 +36,7 @@ const GroupProfile = (props) => {
         <Styles.CardRow>
           <TodayOutlinedIcon />
           <Styles.Text>
-            {format(parseISO(group.date), "EEEE, 'ה-'d 'ב'MMMM yyyy", {
-              locale: he,
-            })}
+            {format(parseISO(group.date), "EEEE, 'ה-'d 'ב'MMMM yyyy", {locale: he,})}
           </Styles.Text>
         </Styles.CardRow>
         <Styles.CardRow>

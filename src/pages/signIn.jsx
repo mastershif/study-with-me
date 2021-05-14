@@ -70,9 +70,9 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
           userImg: userDetails.imageUrl,
         }),
       });
-      window.location.href = "/profileSettings";
+      // window.location.href = "/profileSettings";
     } else {
-      window.location.href = "/";
+      // window.location.href = "/";
     }
   };
 

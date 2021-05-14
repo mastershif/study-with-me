@@ -10,6 +10,7 @@ import appTheme from "../styles/theme";
 import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from '@material-ui/icons/Add';
 import MobileMenu from "./mobileMenu";
+import {getUserFromLocalStorage} from '../localStorage.service'
 
 const Logo = styled.a`
   color: ${appTheme.palette.background.default};
@@ -58,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
 const Header = () => {
 
     const classes = useStyles();
+    const userDetails = getUserFromLocalStorage();
 
     return (
         <div className={classes.root}>
@@ -74,12 +76,8 @@ const Header = () => {
                         <IconButton className={classes.iconButton} aria-label="search" color="inherit" href="/search">
                             <SearchIcon />
                         </IconButton>
-                        <IconButton className={classes.iconButton} aria-label="create" color="inherit" href="/createGroup">
-                            <AddIcon />
-                        </IconButton>
-                        <IconButton className={classes.iconButton} aria-label="profile" color="inherit" href="/profile">
-                            <PersonOutlineIcon />
-                        </IconButton>
+                        {userDetails !== null ? <IconButton className={classes.iconButton} aria-label="create" color="inherit" href="/createGroup"> <AddIcon /> </IconButton> :<div></div>}
+                        {userDetails !== null ? <IconButton className={classes.iconButton} aria-label="profile" color="inherit" href="/profile"> <PersonOutlineIcon /> </IconButton> :<div></div>}
                     </div>
                 </Toolbar>
             </AppBar>
