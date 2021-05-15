@@ -1,36 +1,29 @@
 import GroupProfile from "./groupDialogComponents/groupProfile";
-import styled from "styled-components";
-import Groups from "../mockData/groupsMockData"
+import * as Styles from "../styles/searchStyle";
 import {GridList, GridListTile, isWidthUp, withWidth} from "@material-ui/core";
 import SearchForm from './searchComponents/searchForm';
 import {Paper} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
-import theme from "../styles/theme";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
-const useStyles = makeStyles(newStyle => ({
-    page: {
-        margin: theme.spacing(3),
-        backgroundColor: theme.palette.background.default
-    },
-    root: {
-        '& .MuiFormControl-root': {
-            width: '90%',
-            margin: newStyle.spacing(0.5),
-        }
-    },
-}))
-
-const GroupsList = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-`;
 
 const Search = (props) => {
-    const [showResults, setShowResults] = useState(false);
 
-    const classes = useStyles();
+    const [showResults, setShowResults] = useState(false);
+    const [allGroups, setAllGroups] = useState();
+    const [results, setResults] = useState();
+    const classes = Styles.useStyles();
+
+    const getAllGroups = () => {
+        fetch("http://localhost:5000/allGroups/")
+            .then((response) => response.json())
+            .then((result) => setAllGroups(result))
+            .catch((error) => console.log(error));
+    }
+
+    useEffect(() => {getAllGroups()}, []);
+
+    console.log(allGroups);
+    console.log(results);
 
     const getColumns = () => {
         if (isWidthUp('xl', props.width)) {return 5;}
@@ -42,18 +35,18 @@ const Search = (props) => {
 
     return (
         <Paper className={classes.page} elevation={0}>
-            <SearchForm setShowResults={setShowResults}/>
+            <SearchForm allGroups={allGroups} setResults={setResults} setShowResults={setShowResults}/>
             { showResults &&
-            <GroupsList>
+            <Styles.GroupsList>
                 <GridList cellHeight={'auto'} spacing={0}
-                          cols={Math.min(Groups.length, getColumns())}>
-                    {Groups.map(group => (
-                        <GridListTile key={group.id} cols={1}>
-                            <GroupProfile group={group} isProfile={false} />
+                          cols={Math.min(results.length, getColumns())}>
+                    {results && results.map(group => (
+                        <GridListTile key={group.item._id} cols={1}>
+                            <GroupProfile group={group.item} isProfile={false} />
                         </GridListTile>
                     ))}
                 </GridList>
-            </GroupsList>
+            </Styles.GroupsList>
             }
         </Paper>
     )

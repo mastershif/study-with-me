@@ -18,14 +18,6 @@ export const useStyles = makeStyles(theme => ({
     }
 }))
 
-export const Label = styled.label`
-  line-height: 1.5;
-  display: block;
-  margin-top: 10px;
-  font-size: 14px;
-  font-weight: 400;
-`;
-
 export const Text = styled.p`
   line-height: 1.5;
   display: block;

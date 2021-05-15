@@ -36,8 +36,8 @@ const GroupDialog = (props) => {
     return (
         <Dialog classes={{paper: classes.dialog}} onClose={onClose} open={open} fullWidth>
             <DialogTitle onClose={onClose}>
-                <GroupOccupancyStatus currentGroupSize={group.currentGroupSize}
-                                      maxGroupSize={group.maxGroupSize} />
+                <GroupOccupancyStatus currentGroupSize={group.users.length}
+                                      maxGroupSize={group.groupSize} />
                 <Typography className={classes.groupTitleTypo} gutterBottom variant="h5" component="p">
                     {group.groupTitle}
                 </Typography>
@@ -100,12 +100,12 @@ const GroupDialog = (props) => {
                                 <Grid container>
                                     <Grid item xs={12} sm={4}>
                                         <Typography variant="body1" component="p">
-                                            שעת התחלה: <b>{format(parseISO(group.startHour), "HH:mm", {locale: he,})}</b>
+                                            שעת התחלה: <b>{format(parseISO(group.startHour), "HH:mm", {locale: he})}</b>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12} sm={8}>
                                         <Typography variant="body1" component="p">
-                                            שעת סיום: <b>{format(parseISO(group.endHour), "HH:mm", {locale: he,})}</b>
+                                            שעת סיום: <b>{format(parseISO(group.endHour), "HH:mm", {locale: he})}</b>
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -128,12 +128,12 @@ const GroupDialog = (props) => {
                         <Typography>חברי הקבוצה</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        {/* <AvatarGroup max={6}>
-                            {group.people.map(people => (
-                                <Avatar key={people.id} alt={people.name}
-                                        title={people.name} src={people.photo} />
-                            ))}
-                        </AvatarGroup> */}
+                        {/*<AvatarGroup max={6}>*/}
+                        {/*    {group.users.map(user => (*/}
+                        {/*        <Avatar key={user._id} alt={user.name}*/}
+                        {/*                title={user.name} src={user.photo} />*/}
+                        {/*    ))}*/}
+                        {/*</AvatarGroup>*/}
                     </AccordionDetails>
                 </Accordion>
                 <EditGroupButton group={group} />
