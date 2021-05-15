@@ -59,7 +59,6 @@ function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [user, setUser] = useState();
     const [group, setGroup] = useState();
-    console.log('the current user is: ', user);
 
     return (
         <StylesProvider jss={jss}>

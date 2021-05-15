@@ -13,10 +13,8 @@ const setObject = (key, object) => {
 
 const getObject = (key) => {
     const object = localStorage.getItem(LOCAL_STORAGE_PREFIX + key);
-    console.log('the object from local storage is: ', object);
     try {
         const result = JSON.parse(object);
-        console.log('the parsed result is: ', result);
         return result;
     } catch (e) {
         console.error(e);
