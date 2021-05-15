@@ -3,12 +3,13 @@ import * as Styles from "../../styles/groupDialogStyle";
 import EditIcon from "@material-ui/icons/Edit";
 
 
-const EditGroupButton = () => {
+const EditGroupButton = (props) => {
 
+    const { id } = props;
     const classes = Styles.useStyles();
 
     return (
-        <Fab className={classes.fab} href={'/editGroup/609504980f10de27949b9666'}>
+        <Fab className={classes.fab} href={'/editGroup/' + id}>
             {<EditIcon/>}
         </Fab>
     )
