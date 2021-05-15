@@ -1,20 +1,20 @@
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import * as Styles from "../styles/createGroupStyle"
 import {ButtonGroup, Card, CardContent, Step, StepLabel, Stepper} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import FormStepContent from "./createGroupComponents/formStepContent";
 import {formSchema} from "./createGroupComponents/formValidation";
 import {useHistory} from "react-router-dom";
+import {getUserFromLocalStorage} from "../localStorage.service";
 
+let errors = {};
+let lastTimeClicked = 0, currentTimeClicked;
 
 let initialValues = {
     _id: '', groupTitle: '', groupDescription: '', groupPurpose: '', institution: false,
     groupSize: '', date: null, startHour: null, endHour: null, calendar: false,
-    meetingType: 'פרונטלית', city: '', place: '', link: '',
-}
-
-let errors = {};
-let lastTimeClicked = 0, currentTimeClicked;
+    meetingType: 'פרונטלית', city: '', place: '', link: '', admin: undefined
+};
 
 const getSteps = () => {
     return ['נושא ותיאור', 'זמן וגודל', 'מיקום'];
@@ -31,7 +31,6 @@ const CreateGroup = (props) => {
     if (isEdit === true) {
         initialValues = group;
     }
-
     const [values, setValues] = useState(initialValues);
     const [activeStep, setActiveStep] = useState(0);
     let history = useHistory();
@@ -41,11 +40,23 @@ const CreateGroup = (props) => {
     const [, forceUpdateState] = useState();
     const forceUpdate = useCallback(() => forceUpdateState({}), []);
 
+    const getUserFromDb = async () => {
+        const userDetails = getUserFromLocalStorage();
+        const userFromDb = await fetch("http://localhost:5000/profileSettings/" + userDetails.email)
+            .then(response => response.json());
+        initialValues.admin = userFromDb._id;
+    }
+    useEffect(() => {
+        if (!isEdit) {
+            getUserFromDb();
+        }
+    }, [isEdit]);
+
     const handleNext = async (event) => {
         event.preventDefault();
-        await getSchema(activeStep).validate(values, { abortEarly: false }).then( () => {
+        await getSchema(activeStep).validate(values, { abortEarly: false }).then(() => {
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        }).catch( (err) => {
+        }).catch((err) => {
             errors = err;
         });
         forceUpdate();
@@ -59,7 +70,7 @@ const CreateGroup = (props) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         await getSchema(activeStep).validate(values, { abortEarly: false })
-            .then( () => {
+            .then(() => {
                 // Prevents multi-submitting the same group by rapid clicking the button.
                 currentTimeClicked = performance.now();
                 let diff = currentTimeClicked - lastTimeClicked;
@@ -68,27 +79,28 @@ const CreateGroup = (props) => {
                     throw new Error('Tried to create multiple identical groups rapidly.');
                 }
             })
-            .then( () => {fetch("http://localhost:5000/group", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(values),
-            })
-                .then((response) => response.text())
-                .then(
-                    (data) => console.log(data),
-                    (error) =>  console.log(error))
-                .then(() => {
-                    setActiveStep((prevActiveStep) => prevActiveStep + 1)
-                    setTimeout(function() {
-                        history.push('/');
-                    }, 3000);
+            .then(() => {
+                fetch("http://localhost:5000/group", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(values),
                 })
-                .catch((error) => console.log(error));
-        }).catch( (err) => {
-            errors = err;
-        });
+                    .then((response) => response.text())
+                    .then(
+                        (data) => console.log(data),
+                        (error) => console.log(error))
+                    .then(() => {
+                        setActiveStep((prevActiveStep) => prevActiveStep + 1)
+                        setTimeout(function () {
+                            history.push('/');
+                        }, 3000);
+                    })
+                    .catch((error) => console.log(error));
+            }).catch((err) => {
+                errors = err;
+            });
         forceUpdate();
     };
 
