@@ -1,4 +1,4 @@
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import * as Styles from "../styles/createGroupStyle"
 import {ButtonGroup, Card, CardContent, Step, StepLabel, Stepper} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
@@ -10,6 +10,12 @@ import {getUserFromLocalStorage} from "../localStorage.service";
 let errors = {};
 let lastTimeClicked = 0, currentTimeClicked;
 
+let initialValues = {
+    _id: '', groupTitle: '', groupDescription: '', groupPurpose: '', institution: false,
+    groupSize: '', date: null, startHour: null, endHour: null, calendar: false,
+    meetingType: 'פרונטלית', city: '', place: '', link: '', admin: undefined
+};
+
 const getSteps = () => {
     return ['נושא ותיאור', 'זמן וגודל', 'מיקום'];
 }
@@ -18,22 +24,13 @@ const getSchema = (activeStep) => {
     return formSchema[activeStep];
 }
 
-const CreateGroup = async (props) => {
-
-    const userDetails = getUserFromLocalStorage();
-    const user = await fetch("http://localhost:5000/profileSettings/" + userDetails.email);
-    let initialValues = {
-        _id: '', groupTitle: '', groupDescription: '', groupPurpose: '', institution: false,
-        groupSize: '', date: null, startHour: null, endHour: null, calendar: false,
-        meetingType: 'פרונטלית', city: '', place: '', link: '', admin: user._id
-    };
+const CreateGroup = (props) => {
 
     // If we are editing a group, the values should be the current group values.
     const {isEdit, group} = props;
     if (isEdit === true) {
         initialValues = group;
     }
-    console.log('initialValues for group are: ', initialValues);
     const [values, setValues] = useState(initialValues);
     const [activeStep, setActiveStep] = useState(0);
     let history = useHistory();
@@ -42,6 +39,18 @@ const CreateGroup = async (props) => {
 
     const [, forceUpdateState] = useState();
     const forceUpdate = useCallback(() => forceUpdateState({}), []);
+
+    const getUserFromDb = async () => {
+        const userDetails = getUserFromLocalStorage();
+        const userFromDb = await fetch("http://localhost:5000/profileSettings/" + userDetails.email)
+            .then(response => response.json());
+        initialValues.admin = userFromDb._id;
+    }
+    useEffect(() => {
+        if (!isEdit) {
+            getUserFromDb();
+        }
+    }, [isEdit]);
 
     const handleNext = async (event) => {
         event.preventDefault();
