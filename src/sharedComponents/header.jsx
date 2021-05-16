@@ -110,7 +110,6 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
                                 clientId={
                                     "101612216779-7o7aqog0rj9vopdu7ffukfs67i6n4ba7.apps.googleusercontent.com"
                                 }
-                                buttonText={"להתנתק"}
                                 onLogoutSuccess={onLogoutGoogle}
                                 onFailure={onLogoutGoogleFailure}
                                 render={renderProps => (
