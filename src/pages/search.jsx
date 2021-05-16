@@ -4,14 +4,17 @@ import {GridList, GridListTile, isWidthUp, withWidth} from "@material-ui/core";
 import SearchForm from './searchComponents/searchForm';
 import {Paper} from "@material-ui/core";
 import {useEffect, useState} from "react";
+import { getUserFromLocalStorage } from '../localStorage.service';
 
 
 const Search = (props) => {
 
     const [showResults, setShowResults] = useState(false);
+    const [userID, setUserID] = useState();
     const [allGroups, setAllGroups] = useState();
     const [results, setResults] = useState();
     const classes = Styles.useStyles();
+    const user = getUserFromLocalStorage();
 
     const getAllGroups = () => {
         fetch("http://localhost:5000/allGroups/")
@@ -20,7 +23,17 @@ const Search = (props) => {
             .catch((error) => console.log(error));
     }
 
-    useEffect(() => {getAllGroups()}, []);
+    const getUserID = (user) => {
+        fetch("http://localhost:5000/profileSettings/" + user.email)
+            .then((response) => response.json())
+            .then((result) => setUserID(result._id))
+            .catch((error) => console.log(error));
+    }
+
+    useEffect(() => {
+        getAllGroups();
+        getUserID(user);
+    }, []);
 
     console.log(allGroups);
     console.log(results);
@@ -42,7 +55,7 @@ const Search = (props) => {
                           cols={Math.min(results.length, getColumns())}>
                     {results && results.map(group => (
                         <GridListTile key={group.item._id} cols={1}>
-                            <GroupProfile group={group.item} isProfile={false} />
+                            <GroupProfile group={group.item} isProfile={false} userID={userID} />
                         </GridListTile>
                     ))}
                 </GridList>

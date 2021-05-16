@@ -21,7 +21,7 @@ import EditGroupButton from "./groupDialogComponents/editGroupButton";
 
 const GroupDialog = (props) => {
 
-    const {group, isProfile, open, onClose} = props;
+    const {group, isProfile, open, onClose, userID} = props;
     const classes = Styles.useStyles();
     const [expanded, setExpanded] = useState('accord1');
     const [anchorEl, setAnchorEl] = useState(null);
@@ -31,7 +31,8 @@ const GroupDialog = (props) => {
     };
 
     const openShare = (event) => {setAnchorEl(event.currentTarget);}
-    const closeShare = () => {setAnchorEl(null);};
+    const closeShare = () => { setAnchorEl(null); };
+
 
     return (
         <Dialog classes={{paper: classes.dialog}} onClose={onClose} open={open} fullWidth>
@@ -138,7 +139,7 @@ const GroupDialog = (props) => {
                 </Accordion>
                 <EditGroupButton group={group} />
             </DialogContent>
-            {isProfile === true ? <LeaveButton/> : <JoinButton groupId={group._id}/>}
+            {group.users.includes(userID) === true ? <LeaveButton /> : <JoinButton group={group} groupId={group._id} />}
         </Dialog>
     )
 }

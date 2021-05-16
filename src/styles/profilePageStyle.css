@@ -1,5 +1,5 @@
 h1.user-name-header-settings {
-    margin: 50px 0 15px;
+    margin: 50px 0 0px;
     text-align: center;
     line-height: 3.5rem;
     font-size: xx-large;
@@ -7,7 +7,7 @@ h1.user-name-header-settings {
 }
 
 h1.user-name-header-profile {
-    margin: 0 0 15px;
+    margin: 0 0 0px;
     text-align: center;
     line-height: 3.5rem;
     font-size: xx-large;
@@ -21,7 +21,7 @@ img.user-image {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
 }
 
 .label-user-image {
@@ -30,7 +30,6 @@ img.user-image {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 20px;
     outline: None;
 }
 

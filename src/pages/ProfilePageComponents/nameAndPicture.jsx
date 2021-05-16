@@ -3,11 +3,14 @@ import "../../styles/profilePageStyle.css";
 import SettingsIcon from "@material-ui/icons/Settings";
 import IconButton from "@material-ui/core/IconButton";
 import { getUserFromLocalStorage } from "../../localStorage.service";
+import EventAvailableIcon from '@material-ui/icons/EventAvailable';
+import EventBusyIcon from '@material-ui/icons/EventBusy';
 
 class NamePicture extends Component {
   state = {
     username: "",
     emailAddress: "",
+    integrateCalendar: false,
     userImg: "",
     // "https://www.pngkey.com/png/detail/230-2301779_best-classified-apps-default-user-profile.png",
   };
@@ -43,7 +46,7 @@ class NamePicture extends Component {
   render() {
     return (
       <div>
-        <div className="settings-icon">
+        <div>
           <IconButton
             href="/profileSettings"
             style={{ cursor: "hover", backgroundColor: "transparent" }}
@@ -54,13 +57,31 @@ class NamePicture extends Component {
               style={{ fontSize: 35, padding: 15 }}
             />
           </IconButton>
+          {this.state.integrateCalendar === true ? <IconButton
+            onClick= {() => {this.setState({integrateCalendar: false})}}
+            style={{ cursor: "hover", backgroundColor: "transparent", float: "left" }}
+            title={"סנכרן עם היומן"}
+          >
+            <EventAvailableIcon
+              style={{ fontSize: 35, padding: 15, color: "#009900" }}
+            />
+          </IconButton> :
+          <IconButton
+            onClick= {() => {this.setState({integrateCalendar: true})}}
+            style={{ cursor: "hover", backgroundColor: "transparent", float: "left" }}
+            title={"בטל סנכרון עם היומן"}
+          >
+            <EventBusyIcon
+              style={{ fontSize: 35, padding: 15, color: "#cc0000" }}
+            />
+          </IconButton> }
         </div>
-        <h1 className="user-name-header-profile">{this.state.username}</h1>
-        <img
-          className="user-image"
-          src={this.state.userImg}
-          alt="אין תמונה להצגה"
-        />
+          <h1 className="user-name-header-profile">{this.state.username} </h1>
+          <img
+            className="user-image"
+            src={this.state.userImg}
+            alt="אין תמונה להצגה"
+            />
       </div>
     );
   }

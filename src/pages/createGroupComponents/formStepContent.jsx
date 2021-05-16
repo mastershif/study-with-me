@@ -143,12 +143,6 @@ const FormStepContent = (props) => {
                     </Grid>
                     <Grid container>
                         <Grid item xs={12}>
-                            <FormControlLabel style={{marginTop: 10}}
-                                              control={<Checkbox name={"calendar"}
-                                                                 checked={values.calendar} onChange={handleCheckbox}
-                                              />}
-                                              label={"אנא הוסיפו עבורי אירוע ביומן עם פרטי הפגישה."}
-                            />
                         </Grid>
                     </Grid>
                 </div>

@@ -9,7 +9,7 @@ import { useState } from "react";
 import GroupDialog from "../groupDialog";
 
 const GroupProfile = (props) => {
-    const { group, isProfile } = props;
+    const { group, isProfile, userID } = props;
     const classes = Styles.useStyles();
     const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
@@ -60,6 +60,7 @@ const GroupProfile = (props) => {
                 isProfile={isProfile}
                 onClose={handleCloseDialog}
                 open={dialogIsOpen}
+                userID={userID}
             />
         </Card>
     );

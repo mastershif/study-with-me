@@ -38,7 +38,7 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
       email: profile.email,
       firstName: profile.givenName,
       lastName: profile.familyName,
-      imageUrl: profile.imageUrl.replace("s96", "s500"),
+      imageUrl: profile.imageUrl.replace("s96", "s260"),
     };
     setUserInLocalStorage(userDetails);
     setUser(userDetails);
