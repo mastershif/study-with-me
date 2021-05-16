@@ -30,7 +30,6 @@ const ButtonContainer = styled.div`
   padding-top: 2rem;
   align-items: center;
   min-width: 150px;
-  justify-content: space-around;
 `;
 
 const SignIn = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
