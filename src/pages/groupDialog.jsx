@@ -137,7 +137,7 @@ const GroupDialog = (props) => {
                         {/*</AvatarGroup>*/}
                     </AccordionDetails>
                 </Accordion>
-                <EditGroupButton group={group} />
+                <EditGroupButton id={group._id} />
             </DialogContent>
             {group.users.includes(userID) === true ? <LeaveButton /> : <JoinButton group={group} groupId={group._id} />}
         </Dialog>
