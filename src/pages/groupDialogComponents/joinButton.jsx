@@ -40,7 +40,7 @@ const JoinButton = ({ group, groupId }) => {
         <>
             {group.users.length < group.groupSize ? <Button variant={"contained"} color={"primary"}
                                                         size={"large"} onClick={handleJoining}
-                                                        startIcon={<AddIcon />}>הצטרפות לקבוצה</Button> :
+                                                        startIcon={<AddIcon />}>הצטרף לקבוצה</Button> :
                                                         <Button variant={"contained"} color={"primary"}
                                                         size={"large"} disabled
                                                         startIcon={<BlockIcon />}>הקבוצה בתפוסה מלאה</Button> }
