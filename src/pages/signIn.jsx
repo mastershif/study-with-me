@@ -3,7 +3,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { GoogleLogin, GoogleLogout } from "react-google-login";
+import { GoogleLogin } from "react-google-login";
 import styled from "styled-components";
 import {
   setUserInLocalStorage,
@@ -115,17 +115,6 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
               onSuccess={onLoginViaGoogle}
               buttonText={"התחבר/י עם גוגל"}
               cookiePolicy={"single_host_origin"}
-            />
-          )}
-          {/*show log out button only if the user is logged in*/}
-          {isLoggedIn && (
-            <GoogleLogout
-              clientId={
-                "101612216779-7o7aqog0rj9vopdu7ffukfs67i6n4ba7.apps.googleusercontent.com"
-              }
-              buttonText={"להתנתק"}
-              onLogoutSuccess={onLogoutGoogle}
-              onFailure={onLogoutGoogleFailure}
             />
           )}
         </ButtonContainer>
