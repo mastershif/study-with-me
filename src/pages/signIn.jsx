@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
   googleLogin: {
     minWidth: '200px',
   },
+  googleLogout: {
+    minWidth: '140px',
+  },
 }));
 
 const ButtonContainer = styled.div`
@@ -120,10 +123,11 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
           {/*show log out button only if the user is logged in*/}
           {isLoggedIn && (
             <GoogleLogout
+              className={classes.googleLogin}
               clientId={
                 "101612216779-7o7aqog0rj9vopdu7ffukfs67i6n4ba7.apps.googleusercontent.com"
               }
-              buttonText={"להתנתק"}
+              buttonText={"להתנתק מהאתר"}
               onLogoutSuccess={onLogoutGoogle}
               onFailure={onLogoutGoogleFailure}
             />
