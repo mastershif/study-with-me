@@ -35,9 +35,6 @@ const Search = (props) => {
         getUserID(user);
     }, []);
 
-    console.log(allGroups);
-    console.log(results);
-
     const getColumns = () => {
         if (isWidthUp('xl', props.width)) {return 5;}
         if (isWidthUp('lg', props.width)) {return 4;}

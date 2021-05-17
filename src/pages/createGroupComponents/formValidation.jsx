@@ -41,7 +41,6 @@ const secondSchema = yup.object().shape({
     .typeError("נא לבחור שעת סיום.")
     .min(yup.ref("startHour"), "על שעת הסיום להיות מאוחרת משעת ההתחלה.")
     .required("נא לבחור שעת סיום."),
-  calendar: yup.boolean(),
 });
 
 const thirdSchema = yup.object().shape({
