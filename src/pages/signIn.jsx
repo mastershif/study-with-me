@@ -120,18 +120,6 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
               cookiePolicy={"single_host_origin"}
             />
           )}
-          {/*show log out button only if the user is logged in*/}
-          {/*{isLoggedIn && (*/}
-          {/*  <GoogleLogout*/}
-          {/*    className={classes.googleLogin}*/}
-          {/*    clientId={*/}
-          {/*      "101612216779-7o7aqog0rj9vopdu7ffukfs67i6n4ba7.apps.googleusercontent.com"*/}
-          {/*    }*/}
-          {/*    buttonText={"להתנתק מהאתר"}*/}
-          {/*    onLogoutSuccess={onLogoutGoogle}*/}
-          {/*    onFailure={onLogoutGoogleFailure}*/}
-          {/*  />*/}
-          {/*)}*/}
         </ButtonContainer>
       </div>
     </Container>
