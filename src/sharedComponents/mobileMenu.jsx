@@ -14,9 +14,6 @@ import AddIcon from '@material-ui/icons/Add';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import { Link } from "react-router-dom";
 
-const menuIcons = [<LockIcon />, <SearchIcon />, <AddIcon />, <PersonOutlineIcon />];
-const menuPaths = ['/signIn', '/search', '/createGroup', '/profile'];
-
 const useStyles = makeStyles({
     list: {
         width: 250,
@@ -30,7 +27,7 @@ const useStyles = makeStyles({
     }
 });
 
-const MobileMenu = () => {
+const MobileMenu = ({ isLoggedIn }) => {
     const classes = useStyles();
     const [state, setState] = React.useState({
         top: false,
@@ -38,6 +35,9 @@ const MobileMenu = () => {
         bottom: false,
         right: false,
     });
+    const navigationOptions = isLoggedIn ? ['חיפוש קבוצה', 'יצירת קבוצה', 'פרופיל', 'יציאה'] : ['התחברות', 'חיפוש קבוצה'];
+    const menuIcons = isLoggedIn ? [<SearchIcon />, <AddIcon />, <PersonOutlineIcon />, <LockIcon />] : [<LockIcon />, <SearchIcon />];
+    const menuPaths = isLoggedIn ? ['/search', '/createGroup', '/profile'] : ['/signIn', '/search'];
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -57,7 +57,7 @@ const MobileMenu = () => {
             onKeyDown={toggleDrawer(anchor, false)}
         >
             <List>
-                {['התחברות', 'חיפוש קבוצה', 'יצירת קבוצה', 'פרופיל'].map((text, index) => (
+                {navigationOptions.map((text, index) => (
                     <Link to={menuPaths[index]} key={index} className={classes.link}>
                         <List>
                             <ListItem button key={text}>

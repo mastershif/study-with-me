@@ -128,7 +128,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
             <AppBar color={"primary"} position="static" elevation={1}>
                 <Toolbar>
                     <IconButton className={classes.menuButton} aria-label="menu" color="inherit">
-                        <MobileMenu />
+                        <MobileMenu isLoggedIn={isLoggedIn}/>
                     </IconButton>
                     <div className={classes.title}>
                         <Logo edge="start" href="/">Study With Me</Logo>
