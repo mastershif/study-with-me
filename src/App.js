@@ -17,6 +17,7 @@ import { create } from "jss";
 import rtl from "jss-rtl";
 import SignIn from "./pages/signIn";
 import SecondaryTitle from "./sharedComponents/secondaryTitle";
+import {getUserFromLocalStorage} from "./localStorage.service";
 
 //In order that the material-ui components will work perfect in hebrew.
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -56,7 +57,7 @@ const CardsGrid = styled.div `
 `;
 
 function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(getUserFromLocalStorage() !== null);
     const [user, setUser] = useState();
     const [group, setGroup] = useState();
 
@@ -66,7 +67,9 @@ function App() {
                 <GlobalStyle />
                 <Router>
                     <div>
-                        <Header>
+                        <Header
+                            isLoggedIn={isLoggedIn}
+                            setIsLoggedIn={setIsLoggedIn}>
                             <Link to="/profile">Profile</Link>
                         </Header>
                         <Switch>

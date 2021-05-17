@@ -9,6 +9,7 @@ import {
   setUserInLocalStorage,
   removeUserFromLocalStorage,
 } from "../localStorage.service";
+import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,6 +35,7 @@ const ButtonContainer = styled.div`
 
 const SignIn = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
   const classes = useStyles();
+  const history = useHistory();
 
   const onLoginViaGoogle = async (response) => {
     const profile = response.profileObj;
@@ -77,6 +79,9 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
     } else {
       // window.location.href = "/";
     }
+    setTimeout(function () {
+      history.push('/');
+    }, 10);
   };
 
   const onLogoutGoogle = (response) => {
