@@ -26,10 +26,10 @@ const Logo = styled.a`
 `;
 
 const ProfilePic = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border: white;
-  border-radius: 2px;
+  border-radius: 50%;
 `;
 
 const useStyles = makeStyles((theme) => ({
