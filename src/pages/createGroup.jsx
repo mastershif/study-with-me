@@ -42,7 +42,7 @@ const CreateGroup = (props) => {
 
     const getUserFromDb = async () => {
         const userDetails = getUserFromLocalStorage();
-        const userFromDb = await fetch("http://localhost:5000/profileSettings/" + userDetails.email)
+        const userFromDb = await fetch("http://localhost:5000/profileSettings/" + userDetails?.email)
             .then(response => response.json());
         initialValues.admin = userFromDb._id;
     }

@@ -24,7 +24,7 @@ const Search = (props) => {
     }
 
     const getUserID = (user) => {
-        fetch("http://localhost:5000/profileSettings/" + user.email)
+        fetch("http://localhost:5000/profileSettings/" + user?.email)
             .then((response) => response.json())
             .then((result) => setUserID(result._id))
             .catch((error) => console.log(error));
