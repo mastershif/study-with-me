@@ -22,14 +22,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   googleLogin: {
-    minWidth: '150px',
+    minWidth: '200px',
   },
 }));
 
 const ButtonContainer = styled.div`
   padding-top: 2rem;
   align-items: center;
-  min-width: 150px;
+  min-width: 200px;
 `;
 
 const SignIn = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
@@ -108,7 +108,7 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
                 "101612216779-7o7aqog0rj9vopdu7ffukfs67i6n4ba7.apps.googleusercontent.com"
               }
               onSuccess={onLoginViaGoogle}
-              buttonText={"התחבר/י"}
+              buttonText={"התחבר/י עם גוגל"}
               cookiePolicy={"single_host_origin"}
             />
           )}
