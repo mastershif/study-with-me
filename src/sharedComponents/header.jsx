@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -13,6 +12,10 @@ import MobileMenu from "./mobileMenu";
 import {getUserFromLocalStorage, removeUserFromLocalStorage} from '../localStorage.service'
 import {GoogleLogout} from "react-google-login";
 import {useHistory} from "react-router-dom";
+import {Paper} from "@material-ui/core";
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
 
 const Logo = styled.a`
   color: ${appTheme.palette.background.default};
@@ -45,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     },
     signOutButton: {
         fontSize: 20,
-        color: "white",
+        color: "1d1d1f",
         cursor: "pointer",
     },
     menuButton: {
@@ -67,10 +70,16 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down("xs")]: {
             display: 'none',
         },
-    }
+        height: '50px',
+        minWidth: '200px',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly'
+    },
 }));
 
 const Header = ({ isLoggedIn, setIsLoggedIn }) => {
+    const [showLogout, setShowLogout] = useState(false);
     const profilePicture = getUserFromLocalStorage()?.imageUrl;
 
     const classes = useStyles();
@@ -88,6 +97,31 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
         console.log(response);
         console.log("failed to log out");
     };
+
+    const renderLogoutMenu = () => {
+        return (
+            <Paper elevation={0} style={{ zIndex: 1, position: 'absolute', minWidth: '80px', marginTop: '4rem', marginRight: '130px' }}>
+                <List>
+                    {['יציאה'].map((text, index) => (
+                            <ListItem button key={text}>
+                                <GoogleLogout
+                                    clientId={
+                                        "101612216779-7o7aqog0rj9vopdu7ffukfs67i6n4ba7.apps.googleusercontent.com"
+                                    }
+                                    onLogoutSuccess={onLogoutGoogle}
+                                    onFailure={onLogoutGoogleFailure}
+                                    render={renderProps => (
+                                        <button className={classes.signOutButton} onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                                            יציאה
+                                        </button>
+                                    )}
+                                />
+                            </ListItem>
+                    ))}
+                </List>
+            </Paper>
+        )
+    }
 
     return (
         <div className={classes.root}>
@@ -109,24 +143,16 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
                                 התחבר/י
                             </Button>
                         }
-                        {isLoggedIn &&
-                            <GoogleLogout
-                                clientId={
-                                    "101612216779-7o7aqog0rj9vopdu7ffukfs67i6n4ba7.apps.googleusercontent.com"
-                                }
-                                onLogoutSuccess={onLogoutGoogle}
-                                onFailure={onLogoutGoogleFailure}
-                                render={renderProps => (
-                                    <button className={classes.signOutButton} onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                                        יציאה
-                                    </button>
-                                )}
-                            />
-                        }
                         {isLoggedIn ?
-                            <IconButton className={classes.iconButton} aria-label="profile" color="inherit" href="/profile">
-                                <ProfilePic src={profilePicture}/>
-                            </IconButton>
+                            <>
+                                <IconButton className={classes.iconButton} aria-label="profile" color="inherit" href="/profile">
+                                    <ProfilePic src={profilePicture}/>
+                                </IconButton>
+                                <IconButton color="inherit" onClick={() => setShowLogout(!showLogout)}>
+                                    <ArrowDropDownIcon />
+                                </IconButton>
+                                {showLogout && renderLogoutMenu()}
+                            </>
                             : <div></div>}
                     </div>
                 </Toolbar>
