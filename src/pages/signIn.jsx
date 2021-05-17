@@ -3,7 +3,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { GoogleLogin, GoogleLogout } from "react-google-login";
+import { GoogleLogin } from "react-google-login";
 import styled from "styled-components";
 import {
   setUserInLocalStorage,
@@ -24,9 +24,6 @@ const useStyles = makeStyles((theme) => ({
   },
   googleLogin: {
     minWidth: '200px',
-  },
-  googleLogout: {
-    minWidth: '140px',
   },
 }));
 
