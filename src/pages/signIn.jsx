@@ -21,10 +21,13 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
+  googleLogin: {
+    minWidth: '200px',
+  },
 }));
 
 const ButtonContainer = styled.div`
-  padding: 1rem;
+  padding-top: 2rem;
   align-items: center;
   min-width: 200px;
 `;
@@ -100,11 +103,12 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
           {/*show log in button only if the user is not logged in yet*/}
           {!isLoggedIn && (
             <GoogleLogin
+              className={classes.googleLogin}
               clientId={
                 "101612216779-7o7aqog0rj9vopdu7ffukfs67i6n4ba7.apps.googleusercontent.com"
               }
               onSuccess={onLoginViaGoogle}
-              buttonText={"להתחבר"}
+              buttonText={"התחבר/י עם גוגל"}
               cookiePolicy={"single_host_origin"}
             />
           )}
