@@ -12,7 +12,9 @@ import LockIcon from '@material-ui/icons/Lock';
 import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from '@material-ui/icons/Add';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-import { Link } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+import {GoogleLogout} from "react-google-login";
+import {removeUserFromLocalStorage} from "../localStorage.service";
 
 const useStyles = makeStyles({
     list: {
@@ -27,7 +29,7 @@ const useStyles = makeStyles({
     }
 });
 
-const MobileMenu = ({ isLoggedIn }) => {
+const MobileMenu = ({ isLoggedIn, setIsLoggedIn }) => {
     const classes = useStyles();
     const [state, setState] = React.useState({
         top: false,
@@ -35,6 +37,7 @@ const MobileMenu = ({ isLoggedIn }) => {
         bottom: false,
         right: false,
     });
+    const history = useHistory();
     const navigationOptions = isLoggedIn ? ['חיפוש קבוצה', 'יצירת קבוצה', 'פרופיל', 'יציאה'] : ['התחברות', 'חיפוש קבוצה'];
     const menuIcons = isLoggedIn ? [<SearchIcon />, <AddIcon />, <PersonOutlineIcon />, <LockIcon />] : [<LockIcon />, <SearchIcon />];
     const menuPaths = isLoggedIn ? ['/search', '/createGroup', '/profile'] : ['/signIn', '/search'];
@@ -45,6 +48,19 @@ const MobileMenu = ({ isLoggedIn }) => {
         }
 
         setState({ ...state, [anchor]: open });
+    };
+
+    const onLogoutGoogle = (response) => {
+        removeUserFromLocalStorage();
+        setIsLoggedIn(false);
+        history.push('/');
+        console.log(response);
+        console.log("logged out");
+    };
+
+    const onLogoutGoogleFailure = (response) => {
+        console.log(response);
+        console.log("failed to log out");
     };
 
     const list = (anchor) => (
@@ -61,10 +77,31 @@ const MobileMenu = ({ isLoggedIn }) => {
                     <Link to={menuPaths[index]} key={index} className={classes.link}>
                         <List>
                             <ListItem button key={text}>
-                                <ListItemIcon>
-                                    {menuIcons[index]}
-                                </ListItemIcon>
-                                <ListItemText primary={text} />
+                                {(text !== 'יציאה') && (
+                                    <>
+                                        <ListItemIcon>
+                                            {menuIcons[index]}
+                                        </ListItemIcon>
+                                        <ListItemText primary={text} />
+                                    </>
+                                )}
+                                {(text === 'יציאה') && (
+                                    <GoogleLogout
+                                        clientId={
+                                            "101612216779-7o7aqog0rj9vopdu7ffukfs67i6n4ba7.apps.googleusercontent.com"
+                                        }
+                                        onLogoutSuccess={onLogoutGoogle}
+                                        onFailure={onLogoutGoogleFailure}
+                                        render={renderProps => (
+                                            <button className={classes.signOutButton} onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                                                <ListItemIcon>
+                                                    {menuIcons[index]}
+                                                </ListItemIcon>
+                                                <ListItemText primary={text} />
+                                            </button>
+                                        )}
+                                    />
+                                )}
                             </ListItem>
                         </List>
                     </Link>
