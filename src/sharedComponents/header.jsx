@@ -100,6 +100,10 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
                         <Logo edge="start" href="/">Study With Me</Logo>
                     </div>
                     <div className={classes.buttonsBar}>
+                        <IconButton className={classes.iconButton} aria-label="search" color="inherit" href="/search">
+                            <SearchIcon />
+                        </IconButton>
+                        {isLoggedIn ? <IconButton className={classes.iconButton} aria-label="create" color="inherit" href="/createGroup"> <AddIcon /> </IconButton> :<div></div>}
                         {!isLoggedIn &&
                             <Button className={classes.textButton} color="inherit" href="/signIn">
                                 התחבר/י
@@ -119,10 +123,6 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
                                 )}
                             />
                         }
-                        <IconButton className={classes.iconButton} aria-label="search" color="inherit" href="/search">
-                            <SearchIcon />
-                        </IconButton>
-                        {isLoggedIn ? <IconButton className={classes.iconButton} aria-label="create" color="inherit" href="/createGroup"> <AddIcon /> </IconButton> :<div></div>}
                         {isLoggedIn ?
                             <IconButton className={classes.iconButton} aria-label="profile" color="inherit" href="/profile">
                                 <ProfilePic src={profilePicture}/>
