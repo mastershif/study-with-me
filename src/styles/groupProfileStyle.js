@@ -47,6 +47,6 @@ export const CardRow = styled.div`
 
 export const Text = styled.p`
   display: flex;
-  margin: 0 5px 0 0;
+  margin: 1px 5px 0 0;
   font-size: 14px;
 `;

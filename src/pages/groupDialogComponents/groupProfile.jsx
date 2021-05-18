@@ -59,8 +59,8 @@ const GroupProfile = (props) => {
                     size={"large"} onClick={handleOpenDialog}>
                 מידע נוסף
             </Button>
-            <GroupDialog group={group} isProfile={isProfile}
-                         onClose={handleCloseDialog} open={dialogIsOpen} userID={userID}/>
+            <GroupDialog group={group} onClose={handleCloseDialog}
+                         open={dialogIsOpen} userID={userID}/>
         </Card>
     );
 };

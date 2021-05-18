@@ -26,7 +26,8 @@ const JoinButton = ({ group, groupId }) => {
                 setOpenFailedToJoin(true);
             } else {
                 setOpenConfirm(true);
-            };
+                document.getElementById("searchButton").click();
+            }
         } else {
             setOpenFailedToJoinOnLogin(true)
         }
