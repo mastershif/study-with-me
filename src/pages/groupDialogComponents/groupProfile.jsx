@@ -3,6 +3,8 @@ import { Button, Card, CardContent, CardHeader } from "@material-ui/core";
 import GroupOccupancyStatus from "./groupOccupancyStatus";
 import TodayOutlinedIcon from "@material-ui/icons/TodayOutlined";
 import AccessTimeOutlinedIcon from "@material-ui/icons/AccessTimeOutlined";
+import CheckIcon from '@material-ui/icons/CheckCircleOutlined';
+import AdminIcon from '@material-ui/icons/AccountCircleOutlined';
 import he from "date-fns/locale/he";
 import { format, parseISO } from "date-fns";
 import { useState } from "react";
@@ -47,21 +49,18 @@ const GroupProfile = (props) => {
                     </Styles.Text>
                 </Styles.CardRow>
             </CardContent>
-            <Button
-                variant={"outlined"}
-                color={"primary"}
-                size={"large"}
-                onClick={handleOpenDialog}
-            >
+            {group.admin === userID ?
+                <AdminIcon titleAccess={"הנך מנהל/ת הקבוצה"} className={classes.adminIcon}
+                           fontSize={"large"} /> : isProfile ? null : group.users.some(e => e._id === userID) ?
+                    <CheckIcon titleAccess={"הנך חבר/ה בקבוצה"}
+                               className={classes.userIcon} fontSize={"large"} /> : null}
+            <Button className={classes.moreInfo}
+                    variant={"outlined"} color={"primary"}
+                    size={"large"} onClick={handleOpenDialog}>
                 מידע נוסף
             </Button>
-            <GroupDialog
-                group={group}
-                isProfile={isProfile}
-                onClose={handleCloseDialog}
-                open={dialogIsOpen}
-                userID={userID}
-            />
+            <GroupDialog group={group} isProfile={isProfile}
+                         onClose={handleCloseDialog} open={dialogIsOpen} userID={userID}/>
         </Card>
     );
 };

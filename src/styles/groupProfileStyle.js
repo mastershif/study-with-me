@@ -14,6 +14,23 @@ export const useStyles = makeStyles(theme => ({
             boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.5)'
         }
     },
+    moreInfo: {
+        position: 'absolute',
+        bottom: theme.spacing(3),
+        left: theme.spacing(10)
+    },
+    adminIcon: {
+        position: 'absolute',
+        bottom: theme.spacing(3.5),
+        left: theme.spacing(25.5),
+        color: theme.palette.success.main,
+    },
+    userIcon: {
+        position: 'absolute',
+        bottom: theme.spacing(3.5),
+        left: theme.spacing(25.5),
+        color: theme.palette.primary.dark,
+    }
 }))
 
 export const Title = styled.h2`
