@@ -40,7 +40,7 @@ const DeleteButton = ({ group, groupId }) => {
         <>
             <Button variant={"contained"} style={{color: "white", backgroundColor: "#cc0000"}}
                     size={"large"} onClick={() => setOpenDeleteWarning(true)}
-                    startIcon={<DeleteIcon />}>מחק קבוצה</Button>
+                    startIcon={<DeleteIcon />}>מחק/י קבוצה</Button>
             <div>
                 <Dialog
                     open={openDeleteWarning}
@@ -68,7 +68,7 @@ const DeleteButton = ({ group, groupId }) => {
                               message={"הקבוצה נמחקה בהצלחה!"}
             />
             <FailedToDeleteAlert open={openFailedToDelete} setOpen={setOpenFailedToDelete} onClose={() => {}}
-                              message={"הייתה תקלה במחיקת הקבוצה"}
+                              message={"הייתה תקלה בעת מחיקת הקבוצה"}
             />
         </>
     );
