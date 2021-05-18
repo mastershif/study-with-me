@@ -34,7 +34,6 @@ const GroupDialog = (props) => {
     const openShare = (event) => {setAnchorEl(event.currentTarget);}
     const closeShare = () => { setAnchorEl(null); };
 
-
     return (
         <Dialog classes={{paper: classes.dialog}} onClose={onClose} open={open} fullWidth>
             <DialogTitle onClose={onClose}>
@@ -130,12 +129,12 @@ const GroupDialog = (props) => {
                         <Typography>חברי הקבוצה</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        {/*<AvatarGroup max={6}>*/}
-                        {/*    {group.users.map(user => (*/}
-                        {/*        <Avatar key={user._id} alt={user.name}*/}
-                        {/*                title={user.name} src={user.photo} />*/}
-                        {/*    ))}*/}
-                        {/*</AvatarGroup>*/}
+                        <AvatarGroup max={6}>
+                            {group.users.map(user => (
+                                <Avatar key={user._id} alt={user.name}
+                                        title={user.name} src={user.imageUrl} />
+                            ))}
+                        </AvatarGroup>
                     </AccordionDetails>
                 </Accordion>
                 {group.admin === userID ? <EditGroupButton id={group._id} /> : null }
