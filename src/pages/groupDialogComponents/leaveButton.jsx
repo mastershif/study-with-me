@@ -19,20 +19,16 @@ const LeaveButton = (props) => {
             body: JSON.stringify({ email: user.email, groupId }),
         });
         if (response.status !== 200) {
-            console.log('not 200');
             // need to add an alert - if the leaving didn't succeed.
         }
         else {
-            console.log('is 200');
+            setOpenConfirm(true);
             if (isProfile) {
-                console.log('profile');
                 setTimeout(function () {
                     window.location.reload();
-                }, 1000)
+                }, 3000)
             }
             else {
-                console.log('not profile');
-                setOpenConfirm(true);
                 document.getElementById("searchButton").click();
                 setTimeout(function () {
                     document.getElementById("searchButton").click();
