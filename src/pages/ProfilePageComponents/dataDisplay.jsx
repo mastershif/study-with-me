@@ -39,8 +39,6 @@ class DataDisplay extends Component {
             console.log("There was a problem!");
           }
       );
-      console.log(this.state.userID)
-      console.log(this.state.userGroups);
     }
   }
 
