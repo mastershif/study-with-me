@@ -20,9 +20,9 @@ const LeaveButton = () => {
         <>
             <Button variant={"contained"} color={"secondary"}
                     size={"large"} onClick={handleLeaving}
-                    startIcon={<RemoveIcon />}>צא מהקבוצה</Button>
+                    startIcon={<RemoveIcon />}>צא/י מהקבוצה</Button>
             <JoinOrLeaveAlert open={open} setOpen={setOpen} handleUndo={handleUndoLeaving}
-                              message={"עזבת את הקבוצה!"}
+                              message={"יצאת מהקבוצה בהצלחה!"}
             />
         </>
     )

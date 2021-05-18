@@ -1,5 +1,8 @@
+import {useState} from "react";
 import styled from 'styled-components';
 import CreateIcon from '@material-ui/icons/Create';
+import FailedOnLoginAlert from "./failedOnLoginAlert";
+import { getUserFromLocalStorage } from '../localStorage.service';
 
 const CardContainer = styled.a`
   margin: 1rem;
@@ -42,8 +45,12 @@ const CardIcon = styled.h2`
 `;
 
 const CreateGroupCard = () => {
+    const [openAlert, setOpenAlert] = useState(false);
+    const user = getUserFromLocalStorage();
+
     return (
-        <CardContainer href="/createGroup">
+      <>
+        <CardContainer style={{cursor: "pointer"}} onClick={() => { user === null ? setOpenAlert(true) : window.location.href="/createGroup" }}>
             <CardIcon>
                 <CherryHighlight>
                     <CreateIcon fontSize={'large'}/>
@@ -52,6 +59,10 @@ const CreateGroupCard = () => {
             <CardTitle>להתחיל קבוצת לימוד &larr;</CardTitle>
             <Description><CherryHighlight>תחליטו מתי</CherryHighlight> ללמוד ומה יהיה גודל הקבוצה!</Description>
         </CardContainer>
+        <FailedOnLoginAlert open={openAlert} setOpen={setOpenAlert}
+                              message={"עליך להתחבר כדי ליצור קבוצה חדשה!"}
+            />
+      </>
     )
 }
 
