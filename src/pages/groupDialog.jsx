@@ -139,7 +139,7 @@ const GroupDialog = (props) => {
                 </Accordion>
                 {group.admin === userID ? <EditGroupButton id={group._id} /> : null }
             </DialogContent>
-            {group.admin === userID ? <DeleteButton group={group} groupId={group._id} /> : group.users.some(e => e._id === userID) ? <LeaveButton /> : <JoinButton group={group} groupId={group._id} /> }
+            {group.admin === userID ? <DeleteButton group={group} groupId={group._id} /> : group.users.some(e => e._id === userID) ? <LeaveButton groupId={group._id} /> : <JoinButton group={group} groupId={group._id} /> }
         </Dialog>
     )
 }
