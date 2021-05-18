@@ -27,6 +27,9 @@ const JoinButton = ({ group, groupId }) => {
             } else {
                 setOpenConfirm(true);
                 document.getElementById("searchButton").click();
+                setTimeout(function () {
+                    document.getElementById("searchButton").click();
+                }, 50)
             }
         } else {
             setOpenFailedToJoinOnLogin(true)
@@ -40,19 +43,19 @@ const JoinButton = ({ group, groupId }) => {
     return (
         <>
             {group.users.length < group.groupSize ? <Button variant={"contained"} color={"primary"}
-                                                        size={"large"} onClick={handleJoining}
-                                                        startIcon={<AddIcon />}>הצטרפ/י לקבוצה</Button> :
-                                                        <Button variant={"contained"} color={"primary"}
-                                                        size={"large"} disabled
-                                                        startIcon={<BlockIcon />}>הקבוצה בתפוסה מלאה</Button> }
+                                                            size={"large"} onClick={handleJoining}
+                                                            startIcon={<AddIcon />}>הצטרפ/י לקבוצה</Button> :
+                <Button variant={"contained"} color={"primary"}
+                        size={"large"} disabled
+                        startIcon={<BlockIcon />}>הקבוצה בתפוסה מלאה</Button> }
             <JoinOrLeaveAlert open={openConfirm} setOpen={setOpenConfirm} handleUndo={handleUndoJoining}
                               message={"הצטרפת לקבוצה בהצלחה!"}
             />
             <FailedToJoinOnLoginAlert open={openFailedToJoinOnLogin} setOpen={setOpenFailedToJoinOnLogin}
-                              message={"עליך להתחבר כדי להירשם לקבוצה!"}
+                                      message={"עליך להתחבר כדי להירשם לקבוצה!"}
             />
             <FailedToJoinAlert open={openFailedToJoin} setOpen={setOpenFailedToJoin} handleUndo={() => {setOpenFailedToJoin(false)}}
-                              message={"לא הצלחנו לצרף אותך לקבוצה"}
+                               message={"לא הצלחנו לצרף אותך לקבוצה"}
             />
         </>
     );
