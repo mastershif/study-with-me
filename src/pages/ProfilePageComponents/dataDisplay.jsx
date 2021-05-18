@@ -7,6 +7,7 @@ import {getUserFromLocalStorage} from '../../localStorage.service'
 
 class DataDisplay extends Component {
   state = {
+    userID: null,
     username: "",
     emailAddress: "",
     institute: "",
@@ -18,24 +19,29 @@ class DataDisplay extends Component {
 
   async componentDidMount() {
     let userDetails = getUserFromLocalStorage();
-    await fetch("http://localhost:5000/profile/" + userDetails.email)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            emailAddress: result[0].email,
-            username: result[0].username,
-            institute: result[0].institute,
-            degree: result[0].degree,
-            major: result[0].major,
-            minor: result[0].minor,
-            userGroups: result[1],
-          });
-        },
-        (error) => {
-          console.log("There was a problem!");
-        }
+    if (userDetails !== null) {
+      await fetch("http://localhost:5000/profile/" + userDetails.email)
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            this.setState({
+              userID: result[0]._id,
+              emailAddress: result[0].email,
+              username: result[0].username,
+              institute: result[0].institute,
+              degree: result[0].degree,
+              major: result[0].major,
+              minor: result[0].minor,
+              userGroups: result[1],
+            });
+          },
+          (error) => {
+            console.log("There was a problem!");
+          }
       );
+      console.log(this.state.userID)
+      console.log(this.state.userGroups);
+    }
   }
 
   render() {
@@ -136,7 +142,7 @@ class DataDisplay extends Component {
             >
               {this.state.userGroups.map((group) => (
                 <GridListTile key={group._id} cols={1}>
-                  <GroupProfile group={group} isProfile={true} />
+                  <GroupProfile group={group} isProfile={true} userID={this.state.userID} />
                 </GridListTile>
               ))}
             </GridList>

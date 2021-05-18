@@ -16,6 +16,7 @@ import {WhatsappShareButton, FacebookShareButton, EmailShareButton,
 import { format, parseISO } from "date-fns";
 import JoinButton from "./groupDialogComponents/joinButton";
 import LeaveButton from "./groupDialogComponents/leaveButton";
+import DeleteButton from "./groupDialogComponents/deleteButton";
 import EditGroupButton from "./groupDialogComponents/editGroupButton";
 
 
@@ -137,9 +138,9 @@ const GroupDialog = (props) => {
                         {/*</AvatarGroup>*/}
                     </AccordionDetails>
                 </Accordion>
-                <EditGroupButton id={group._id} />
+                {group.admin === userID ? <EditGroupButton id={group._id} /> : null }
             </DialogContent>
-            {group.users.includes(userID) === true ? <LeaveButton /> : <JoinButton group={group} groupId={group._id} />}
+            {group.admin === userID ? <DeleteButton group={group} groupId={group._id} /> : group.users.includes(userID) === true ? <LeaveButton /> : <JoinButton group={group} groupId={group._id} /> }
         </Dialog>
     )
 }
