@@ -60,7 +60,7 @@ const GroupProfile = (props) => {
                 מידע נוסף
             </Button>
             <GroupDialog group={group} onClose={handleCloseDialog}
-                         open={dialogIsOpen} userID={userID}/>
+                         isProfile={isProfile} open={dialogIsOpen} userID={userID}/>
         </Card>
     );
 };

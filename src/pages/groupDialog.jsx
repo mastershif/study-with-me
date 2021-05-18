@@ -22,7 +22,7 @@ import EditGroupButton from "./groupDialogComponents/editGroupButton";
 
 const GroupDialog = (props) => {
 
-    const {group, open, onClose, userID} = props;
+    const {group, open, onClose, isProfile, userID} = props;
     const classes = Styles.useStyles();
     const [expanded, setExpanded] = useState('accord1');
     const [anchorEl, setAnchorEl] = useState(null);
@@ -139,7 +139,9 @@ const GroupDialog = (props) => {
                 </Accordion>
                 {group.admin === userID ? <EditGroupButton id={group._id} /> : null }
             </DialogContent>
-            {group.admin === userID ? <DeleteButton group={group} groupId={group._id} /> : group.users.some(e => e._id === userID) ? <LeaveButton /> : <JoinButton group={group} groupId={group._id} /> }
+            {group.admin === userID ? <DeleteButton group={group} groupId={group._id} /> :
+                group.users.some(e => e._id === userID) ? <LeaveButton groupId={group._id} isProfile={isProfile} /> :
+                    <JoinButton group={group} groupId={group._id} /> }
         </Dialog>
     )
 }
