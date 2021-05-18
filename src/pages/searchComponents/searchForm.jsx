@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {Button, ButtonGroup, Checkbox, Collapse,
+import {Button, Checkbox, Collapse,
     FormControl, FormControlLabel, FormGroup, FormLabel,
     Grid, Radio, RadioGroup, TextField, Typography
 } from "@material-ui/core";
@@ -38,7 +38,7 @@ const getHourFormat = (hour, isFullDate) => {
 
 const SearchForm = (props) => {
 
-    const {allGroups, setResults, setShowResults} = props;
+    const {allGroups, getAllGroups, setResults, setShowResults} = props;
     const [searchParameters, setSearchParameters] = useState(initialSearchParameters);
     const [isOpen, setIsOpen] = useState(false);
     const classes = Styles.useStyles();
@@ -90,6 +90,7 @@ const SearchForm = (props) => {
 
     const handleSubmit = event => {
         event.preventDefault();
+        getAllGroups();
         if (allGroups) {
             const fuse = new Fuse(allGroups, options)
             let results = (
@@ -102,7 +103,7 @@ const SearchForm = (props) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form>
             <Styles.Title>חיפוש קבוצה</Styles.Title>
             <Grid container>
                 <Grid container className={clsx(classes.whiteBackground, classes.formControl)}>
@@ -187,10 +188,11 @@ const SearchForm = (props) => {
                         </Grid>
                     </Collapse>
                 </Grid>
-                <ButtonGroup style={{margin: "10px 0 0 0", paddingRight: "1rem"}}>
-                    <Button variant={"contained"} color={"primary"} size={"large"} type={"submit"}
-                            startIcon={<SearchIcon />}>חיפוש</Button>
-                </ButtonGroup>
+                <Button variant={"contained"} color={"primary"} size={"large"}
+                        style={{margin: "10px 25px 0 0"}} onClick={handleSubmit}
+                        type={"submit"} id={"searchButton"} startIcon={<SearchIcon />}>
+                    חיפוש
+                </Button>
             </Grid>
         </form>
     )

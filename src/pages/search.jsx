@@ -50,7 +50,8 @@ const Search = (props) => {
 
     return (
         <Paper className={classes.page} elevation={0}>
-            <SearchForm allGroups={allGroups} setResults={setResults} setShowResults={setShowResults}/>
+            <SearchForm allGroups={allGroups} getAllGroups={getAllGroups}
+                        setResults={setResults} setShowResults={setShowResults}/>
             { showResults &&
             <Styles.GroupsList>
                 <GridList cellHeight={'auto'} spacing={0}

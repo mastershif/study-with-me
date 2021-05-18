@@ -22,7 +22,7 @@ import EditGroupButton from "./groupDialogComponents/editGroupButton";
 
 const GroupDialog = (props) => {
 
-    const {group, isProfile, open, onClose, userID} = props;
+    const {group, open, onClose, userID} = props;
     const classes = Styles.useStyles();
     const [expanded, setExpanded] = useState('accord1');
     const [anchorEl, setAnchorEl] = useState(null);
@@ -120,7 +120,7 @@ const GroupDialog = (props) => {
                         <Typography>מיקום / קישור</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <MeetingPlaceOrLink group={group} isProfile={isProfile} />
+                        <MeetingPlaceOrLink group={group} userID={userID} />
                     </AccordionDetails>
                 </Accordion>
                 <Accordion className={classes.expanded} expanded={expanded === 'accord4'}
