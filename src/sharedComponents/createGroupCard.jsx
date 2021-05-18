@@ -41,17 +41,19 @@ const CardIcon = styled.h2`
   font-size: 2.5rem;
 `;
 
-const CreateGroupCard = () => {
+const CreateGroupCard = ({ path }) => {
     return (
-        <CardContainer href="/createGroup">
-            <CardIcon>
-                <CherryHighlight>
-                    <CreateIcon fontSize={'large'}/>
-                </CherryHighlight>
-            </CardIcon>
-            <CardTitle>להתחיל קבוצת לימוד &larr;</CardTitle>
-            <Description><CherryHighlight>תחליטו מתי</CherryHighlight> ללמוד ומה יהיה גודל הקבוצה!</Description>
-        </CardContainer>
+        <>
+            <CardContainer href={null}>
+                <CardIcon>
+                    <CherryHighlight>
+                        <CreateIcon fontSize={'large'}/>
+                    </CherryHighlight>
+                </CardIcon>
+                <CardTitle>להתחיל קבוצת לימוד &larr;</CardTitle>
+                <Description><CherryHighlight>תחליטו מתי</CherryHighlight> ללמוד ומה יהיה גודל הקבוצה!</Description>
+            </CardContainer>
+        </>
     )
 }
 

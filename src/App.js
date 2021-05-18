@@ -18,6 +18,7 @@ import rtl from "jss-rtl";
 import SignIn from "./pages/signIn";
 import SecondaryTitle from "./sharedComponents/secondaryTitle";
 import {getUserFromLocalStorage} from "./localStorage.service";
+import FailedToJoinOnLoginAlert from "./pages/groupDialogComponents/failedToJoinOnLoginAlert";
 
 //In order that the material-ui components will work perfect in hebrew.
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -60,6 +61,14 @@ function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(getUserFromLocalStorage() !== null);
     const [user, setUser] = useState();
     const [group, setGroup] = useState();
+    const [openLoginBeforeCreateGroup, setOpenLoginBeforeCreateGroup] = useState(false);
+    const createGroupPath = isLoggedIn ? "/createGroup" : "/";
+    const onClickCreateGroup = () => {
+        console.log('isLoggedIn? ', isLoggedIn);
+        if (!isLoggedIn) {
+            setOpenLoginBeforeCreateGroup(true);
+        }
+    };
 
     return (
         <StylesProvider jss={jss}>
@@ -81,7 +90,12 @@ function App() {
                                         <SecondaryTitle text={'הקבוצה תעזור לך ללמוד!'} />
                                         <CardsGrid>
                                             <JoinGroupCard />
-                                            <CreateGroupCard />
+                                            <CreateGroupCard path={createGroupPath} onClick={onClickCreateGroup}/>
+                                            <FailedToJoinOnLoginAlert
+                                                open={openLoginBeforeCreateGroup}
+                                                setOpen={setOpenLoginBeforeCreateGroup}
+                                                message={"עליך להתחבר כדי ליצור לקבוצה!"}
+                                            />
                                         </CardsGrid>
                                     </MainContent>
                                 </PageContainer>
