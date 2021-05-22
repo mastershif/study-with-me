@@ -14,7 +14,7 @@ const DeleteAlert = (props) => {
     }
 
     return (
-        <Snackbar open={open} autoHideDuration={3000} onClose={handleCloseAlert}
+        <Snackbar open={open} autoHideDuration={2500} onClose={handleCloseAlert}
                   anchorOrigin={{ vertical: 'top', horizontal: "center" }}>
             <Alert severity={"success"} onClose={handleCloseAlert}
                    action={
