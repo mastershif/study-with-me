@@ -14,7 +14,7 @@ const JoinOrLeaveAlert = (props) => {
     }
 
     return (
-        <Snackbar open={open} autoHideDuration={4000} onClose={handleCloseAlert}
+        <Snackbar open={open} autoHideDuration={2000} onClose={handleCloseAlert}
                   anchorOrigin={{ vertical: 'top', horizontal: "center" }}>
             <Alert severity={"success"} onClose={handleCloseAlert}
                    action={
