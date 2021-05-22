@@ -8,7 +8,7 @@ import FailedToJoinOnLoginAlert from "./failedToJoinOnLoginAlert";
 import BlockIcon from '@material-ui/icons/Block';
 
 const JoinButton = ({ group, groupId }) => {
-    const isAborted = useRef(false);
+    const isJoinAborted = useRef(false);
     const [openConfirm, setOpenConfirm] = useState(false);
     const [openFailedToJoin, setOpenFailedToJoin] = useState(false);
     const [openFailedToJoinOnLogin, setOpenFailedToJoinOnLogin] = useState(false);
@@ -18,7 +18,7 @@ const JoinButton = ({ group, groupId }) => {
         setOpenConfirm(true);
         if (user !== null) {
             setTimeout(async function() {
-                if (!isAborted.current) {
+                if (!isJoinAborted.current) {
                     const response = await fetch("http://localhost:5000/joinGroup", {
                         method: "PUT",
                         headers: {
@@ -35,7 +35,7 @@ const JoinButton = ({ group, groupId }) => {
                         }, 50)
                     }
                 } else {
-                    isAborted.current = false;
+                    isJoinAborted.current = false;
                 }
             }, 2000)
         } else {
@@ -44,7 +44,7 @@ const JoinButton = ({ group, groupId }) => {
     };
 
     const handleUndoJoining = () => {
-        isAborted.current = true;
+        isJoinAborted.current = true;
         setOpenConfirm(false);
     };
 
