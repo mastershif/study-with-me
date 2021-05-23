@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useRef} from "react";
 import {Button} from "@material-ui/core";
 import FailedToDeleteAlert from "./failedToDeleteAlert";
 import DeleteAlert from "./deleteAlert";
@@ -10,11 +10,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const DeleteButton = ({ group, groupId }) => {
+    const isDeleteAborted = useRef(false);
     const [deleteConfirm, setDeleteConfirm] = useState(false);
     const [openDeleteWarning, setOpenDeleteWarning] = useState(false);
     const [openFailedToDelete, setOpenFailedToDelete] = useState(false);
 
     const handleUndoDeleting = () => {
+        isDeleteAborted.current = true;
         setDeleteConfirm(false);
     }
 
@@ -22,18 +24,23 @@ const DeleteButton = ({ group, groupId }) => {
         setOpenDeleteWarning(false);
     };
 
-    const handleCloseOnProceed = async () => {
-        const response = await fetch("http://localhost:5000/deleteGroup/" + groupId, {
-                method: "DELETE"
-            });
-            if (response.status === 500) {
-                setOpenFailedToDelete(true);
+    const handleCloseOnProceed = () => {
+        setOpenDeleteWarning(false);
+        setDeleteConfirm(true);
+        setTimeout(async function() {
+            if (!isDeleteAborted.current) {
+                const response = await fetch("http://localhost:5000/deleteGroup/" + groupId, {
+                    method: "DELETE"
+                });
+                if (response.status === 500) {
+                    setOpenFailedToDelete(true);
+                } else {
+                    window.location.reload();
+                };
             } else {
-                setOpenDeleteWarning(false);
-                setDeleteConfirm(true);
-                await new Promise(r => setTimeout(r, 3000));
-            };
-            window.location.reload();
+                isDeleteAborted.current = false;
+            }
+        }, 2500)
     };
 
     return (
