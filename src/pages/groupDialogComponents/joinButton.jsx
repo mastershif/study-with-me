@@ -3,14 +3,14 @@ import {Button} from "@material-ui/core";
 import AddIcon from "@material-ui/icons/AddCircleOutline";
 import JoinOrLeaveAlert from "./joinOrLeaveAlert";
 import { getUserFromLocalStorage } from '../../localStorage.service';
-import FailedToJoinAlert from "./failedToJoinAlert";
+import FailedToJoinOrLeaveAlert from "./failedToJoinOrLeaveAlert";
 import FailedToJoinOnLoginAlert from "./failedToJoinOnLoginAlert";
 import BlockIcon from '@material-ui/icons/Block';
 
 const JoinButton = ({ group, groupId }) => {
     const isJoinAborted = useRef(false);
     const [openConfirm, setOpenConfirm] = useState(false);
-    const [openFailedToJoin, setOpenFailedToJoin] = useState(false);
+    const [openFailedToJoinOrLeave, setOpenFailedToJoinOrLeave] = useState(false);
     const [openFailedToJoinOnLogin, setOpenFailedToJoinOnLogin] = useState(false);
     const user = getUserFromLocalStorage();
 
@@ -27,7 +27,7 @@ const JoinButton = ({ group, groupId }) => {
                         body: JSON.stringify({ email: user.email, groupId }),
                     });
                     if (response.status === 500) {
-                        setOpenFailedToJoin(true);
+                        setOpenFailedToJoinOrLeave(true);
                     } else {
                         document.getElementById("searchButton").click();
                         setTimeout(function () {
@@ -62,7 +62,7 @@ const JoinButton = ({ group, groupId }) => {
             <FailedToJoinOnLoginAlert open={openFailedToJoinOnLogin} setOpen={setOpenFailedToJoinOnLogin}
                                       message={"עליך להתחבר כדי להירשם לקבוצה!"}
             />
-            <FailedToJoinAlert open={openFailedToJoin} setOpen={setOpenFailedToJoin} handleUndo={() => {setOpenFailedToJoin(false)}}
+            <FailedToJoinOrLeaveAlert open={openFailedToJoinOrLeave} setOpen={setOpenFailedToJoinOrLeave} handleUndo={() => {setOpenFailedToJoinOrLeave(false)}}
                                message={"לא הצלחנו לצרף אותך לקבוצה"}
             />
         </>

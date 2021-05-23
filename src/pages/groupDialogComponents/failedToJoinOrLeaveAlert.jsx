@@ -2,7 +2,7 @@ import {Alert} from "@material-ui/lab";
 import {Button, Snackbar} from "@material-ui/core";
 
 
-const FailedToJoinAlert = (props) => {
+const FailedToJoinOrLeaveAlert = (props) => {
 
     const {open, setOpen, message, handleUndo} = props;
 
@@ -28,4 +28,4 @@ const FailedToJoinAlert = (props) => {
     )
 }
 
-export default FailedToJoinAlert;
+export default FailedToJoinOrLeaveAlert;
