@@ -15,8 +15,8 @@ const JoinButton = ({ group, groupId }) => {
     const user = getUserFromLocalStorage();
 
     const handleJoining = () => {
-        setOpenConfirm(true);
         if (user !== null) {
+            setOpenConfirm(true);
             setTimeout(async function() {
                 if (!isJoinAborted.current) {
                     const response = await fetch("http://localhost:5000/joinGroup", {
@@ -60,7 +60,7 @@ const JoinButton = ({ group, groupId }) => {
                               message={"הצטרפת לקבוצה בהצלחה!"}
             />
             <FailedToJoinOnLoginAlert open={openFailedToJoinOnLogin} setOpen={setOpenFailedToJoinOnLogin}
-                                      message={"עליך להתחבר כדי להירשם לקבוצה!"}
+                                      message={"התחבר כדי להירשם לקבוצה"}
             />
             <FailedToJoinOrLeaveAlert open={openFailedToJoinOrLeave} setOpen={setOpenFailedToJoinOrLeave} handleUndo={() => {setOpenFailedToJoinOrLeave(false)}}
                                message={"לא הצלחנו לצרף אותך לקבוצה"}

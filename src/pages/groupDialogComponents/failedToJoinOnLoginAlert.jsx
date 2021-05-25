@@ -16,8 +16,8 @@ const FailedToJoinOnLoginAlert = (props) => {
     return (
         <Snackbar open={open} autoHideDuration={4000} onClose={handleCloseAlert}
             anchorOrigin={{ vertical: 'top', horizontal: "center" }}>
-            <Alert severity="error" onClose={() => { setOpen(false) }}>
-                <AlertTitle>שגיאה</AlertTitle>
+            <Alert severity="info" onClose={() => { setOpen(false) }}>
+                <AlertTitle>שכחת להתחבר!</AlertTitle>
                 {message}
             </Alert>
         </Snackbar>
