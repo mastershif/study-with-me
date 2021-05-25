@@ -28,22 +28,4 @@ export const useStyles = makeStyles(theme => ({
         top: theme.spacing(1.7),
         right: theme.spacing(1)
     },
-    accordionSummary: {
-        backgroundColor: theme.palette.background.default,
-        "&:hover": {
-            boxShadow: '0 0 3px 0 rgba(0, 0, 0, 0.2)'
-        }
-    },
-    expanded: {
-        "&$expanded": {
-            margin: 0
-        }
-    },
-    fab: {
-        position: 'absolute',
-        bottom: theme.spacing(7),
-        right: theme.spacing(2),
-        backgroundColor: theme.palette.success.main,
-        color: 'white'
-    },
 }))

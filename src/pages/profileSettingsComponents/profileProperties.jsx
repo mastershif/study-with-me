@@ -96,7 +96,7 @@ class ProfileProperties extends Component {
       <div>
         <FormControlLabel style={{paddingRight: 15}}
         control={<Switch checked={this.state.integrateCalendar} onChange={this.handleCalendarSwitch} name="calendar" />}
-        label={"סנכרן את מועדי הקבוצות שלי ליומן"}
+        label={"סנכרן את מועדי הקבוצות שלי ל-Google Calendar"}
         />
         <div
           style={{

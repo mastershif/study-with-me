@@ -18,6 +18,7 @@ import rtl from "jss-rtl";
 import SignIn from "./pages/signIn";
 import SecondaryTitle from "./sharedComponents/secondaryTitle";
 import {getUserFromLocalStorage} from "./localStorage.service";
+import GroupPage from "./pages/groupPage";
 
 //In order that the material-ui components will work perfect in hebrew.
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -94,6 +95,19 @@ function App() {
                             </Route>
                             <Route path="/createGroup">
                                 <CreateGroup isEdit={false} group={null} />
+                            </Route>
+                            <Route path="/group/:_id">
+                                {(props) => {
+                                    const _id = props.match.params._id;
+                                    fetch("http://localhost:5000/group/" + _id)
+                                        .then((response) => response.json())
+                                        .then((result) => group === undefined ? setGroup(result) : null)
+                                        .catch((error) => console.log(error));
+                                    if (group) {
+                                        return (<GroupPage group={group} />)
+                                    }
+                                    return null;
+                                }}
                             </Route>
                             <Route path="/editGroup/:_id">
                                 {(props) => {
