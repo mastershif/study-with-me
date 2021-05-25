@@ -73,15 +73,15 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
           institute: "אחר",
           degree: "אחר",
           userImg: userDetails.imageUrl,
+          calendarIntegration: false
         }),
       });
-      // window.location.href = "/profileSettings";
+      window.location.href = "/profileSettings";
     } else {
-      // window.location.href = "/";
+      setTimeout(function () {
+        history.push('/');
+      }, 10);
     }
-    setTimeout(function () {
-      history.push('/');
-    }, 10);
   };
 
   const onLogoutGoogle = (response) => {

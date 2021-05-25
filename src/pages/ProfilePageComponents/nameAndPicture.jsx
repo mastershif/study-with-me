@@ -10,9 +10,9 @@ class NamePicture extends Component {
   state = {
     username: "",
     emailAddress: "",
-    integrateCalendar: false,
     userImg: "",
     // "https://www.pngkey.com/png/detail/230-2301779_best-classified-apps-default-user-profile.png",
+    integrateCalendar: false
   };
 
   async componentDidMount() {
@@ -35,6 +35,7 @@ class NamePicture extends Component {
             emailAddress: result.email,
             username: result.username,
             userImg: updatedUserImg,
+            integrateCalendar: result.calendarIntegration
           });
         },
         (error) => {
@@ -54,27 +55,12 @@ class NamePicture extends Component {
           >
             <SettingsIcon
               color="secondary"
-              style={{ fontSize: 35, padding: 15 }}
+              style={{ fontSize: 40, padding: 15 }}
             />
           </IconButton>
-          {this.state.integrateCalendar === true ? <IconButton
-            onClick= {() => {this.setState({integrateCalendar: false})}}
-            style={{ cursor: "hover", backgroundColor: "transparent", float: "left" }}
-            title={"סנכרן עם היומן"}
-          >
-            <EventAvailableIcon
-              style={{ fontSize: 35, padding: 15, color: "#009900" }}
-            />
-          </IconButton> :
-          <IconButton
-            onClick= {() => {this.setState({integrateCalendar: true})}}
-            style={{ cursor: "hover", backgroundColor: "transparent", float: "left" }}
-            title={"בטל סנכרון עם היומן"}
-          >
-            <EventBusyIcon
-              style={{ fontSize: 35, padding: 15, color: "#cc0000" }}
-            />
-          </IconButton> }
+          {this.state.integrateCalendar === true ?
+            <EventAvailableIcon style={{ fontSize: 40, padding: "28px 0px 0px 28px", color: "#009900", float: "left" }} /> :
+            <EventBusyIcon style={{ fontSize: 40, padding: "28px 0px 0px 28px", color: "#cc0000", float: "left" }} /> }
         </div>
           <h1 className="user-name-header-profile">{this.state.username} </h1>
           <img
