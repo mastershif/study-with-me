@@ -10,19 +10,11 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const DeleteButton = ({ group, groupId }) => {
+
     const isDeleteAborted = useRef(false);
     const [deleteConfirm, setDeleteConfirm] = useState(false);
     const [openDeleteWarning, setOpenDeleteWarning] = useState(false);
     const [openFailedToDelete, setOpenFailedToDelete] = useState(false);
-
-    const handleUndoDeleting = () => {
-        isDeleteAborted.current = true;
-        setDeleteConfirm(false);
-    }
-
-    const handleCloseOnAbort = () => {
-        setOpenDeleteWarning(false);
-    };
 
     const handleCloseOnProceed = () => {
         setOpenDeleteWarning(false);
@@ -43,6 +35,15 @@ const DeleteButton = ({ group, groupId }) => {
         }, 2500)
     };
 
+    const handleCloseOnAbort = () => {
+        setOpenDeleteWarning(false);
+    };
+
+    const handleUndoDeleting = () => {
+        isDeleteAborted.current = true;
+        setDeleteConfirm(false);
+    }
+
     return (
         <>
             <Button variant={"contained"} style={{color: "white", backgroundColor: "#cc0000"}}
@@ -58,7 +59,7 @@ const DeleteButton = ({ group, groupId }) => {
                     <DialogTitle id="alert-dialog-title">{"מחיקת הקבוצה"}</DialogTitle>
                     <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        האם אתה בטוח שברצונך למחוק את הקבוצה?
+                        האם את/ה בטוח/ה שברצונך למחוק את הקבוצה?
                     </DialogContentText>
                     </DialogContent>
                     <DialogActions>
