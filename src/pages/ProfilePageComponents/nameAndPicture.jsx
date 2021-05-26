@@ -59,8 +59,10 @@ class NamePicture extends Component {
             />
           </IconButton>
           {this.state.integrateCalendar === true ?
-            <EventAvailableIcon style={{ fontSize: 40, padding: "28px 0px 0px 28px", color: "#009900", float: "left" }} /> :
-            <EventBusyIcon style={{ fontSize: 40, padding: "28px 0px 0px 28px", color: "#cc0000", float: "left" }} /> }
+            <EventAvailableIcon titleAccess={"הסנכרון עם Google Calendar מופעל"}
+                style={{ fontSize: 40, padding: "28px 0px 0px 28px", color: "#009900", float: "left" }} /> :
+            <EventBusyIcon titleAccess={"הסנכרון עם Google Calendar מושבת"}
+                style={{ fontSize: 40, padding: "28px 0px 0px 28px", color: "#cc0000", float: "left" }} /> }
         </div>
           <h1 className="user-name-header-profile">{this.state.username} </h1>
           <img

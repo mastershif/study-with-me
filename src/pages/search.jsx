@@ -32,7 +32,6 @@ const Search = (props) => {
         } else {
             setUserID(0);
         }
-
     }
 
     useEffect(() => {

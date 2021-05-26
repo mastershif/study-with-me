@@ -1,6 +1,6 @@
 import * as Styles from "../../styles/groupProfileStyle";
 import { Button, Card, CardContent, CardHeader } from "@material-ui/core";
-import GroupOccupancyStatus from "./groupOccupancyStatus";
+import GroupOccupancyStatus from "../groupPageComponents/groupOccupancyStatus";
 import TodayOutlinedIcon from "@material-ui/icons/TodayOutlined";
 import AccessTimeOutlinedIcon from "@material-ui/icons/AccessTimeOutlined";
 import CheckIcon from '@material-ui/icons/CheckCircleOutlined';
@@ -29,6 +29,7 @@ const GroupProfile = (props) => {
                     <GroupOccupancyStatus
                         currentGroupSize={group.users.length}
                         maxGroupSize={group.groupSize}
+                        isGroupPage={false}
                     />
                 }
                 title={<Styles.Title>{group.groupTitle}</Styles.Title>}

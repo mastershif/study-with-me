@@ -7,7 +7,10 @@ import FailedToJoinOrLeaveAlert from "./failedToJoinOrLeaveAlert";
 import FailedToJoinOnLoginAlert from "./failedToJoinOnLoginAlert";
 import BlockIcon from '@material-ui/icons/Block';
 
-const JoinButton = ({ group, groupId }) => {
+
+const JoinButton = (props) => {
+
+    const {group, groupId, isGroupPage} = props;
     const isJoinAborted = useRef(false);
     const [openConfirm, setOpenConfirm] = useState(false);
     const [openFailedToJoinOrLeave, setOpenFailedToJoinOrLeave] = useState(false);
@@ -29,10 +32,16 @@ const JoinButton = ({ group, groupId }) => {
                     if (response.status === 500) {
                         setOpenFailedToJoinOrLeave(true);
                     } else {
-                        document.getElementById("searchButton").click();
-                        setTimeout(function () {
+                        if (isGroupPage) {
+                            window.location.reload();
+                        }
+                        // it means that we are on the search page.
+                        else {
                             document.getElementById("searchButton").click();
-                        }, 50)
+                            setTimeout(function () {
+                                document.getElementById("searchButton").click();
+                            }, 50)
+                        }
                     }
                 } else {
                     isJoinAborted.current = false;
@@ -50,10 +59,13 @@ const JoinButton = ({ group, groupId }) => {
 
     return (
         <>
-            {group.users.length < group.groupSize ? <Button variant={"contained"} color={"primary"}
-                                                            size={"large"} onClick={handleJoining}
-                                                            startIcon={<AddIcon />}>הצטרפ/י לקבוצה</Button> :
-                <Button variant={"contained"} color={"primary"}
+            {group.users.length < group.groupSize ?
+                <Button style={{minWidth: '100%'}}
+                        variant={"contained"} color={"primary"}
+                        size={"large"} onClick={handleJoining}
+                        startIcon={<AddIcon />}>הצטרפ/י לקבוצה</Button> :
+                <Button style={{minWidth: '100%'}}
+                        variant={"contained"} color={"primary"}
                         size={"large"} disabled
                         startIcon={<BlockIcon />}>הקבוצה בתפוסה מלאה</Button> }
             <JoinOrLeaveAlert open={openConfirm} setOpen={setOpenConfirm} handleUndo={handleUndoJoining}
@@ -63,7 +75,7 @@ const JoinButton = ({ group, groupId }) => {
                                       message={"התחבר כדי להירשם לקבוצה"}
             />
             <FailedToJoinOrLeaveAlert open={openFailedToJoinOrLeave} setOpen={setOpenFailedToJoinOrLeave} handleUndo={() => {setOpenFailedToJoinOrLeave(false)}}
-                               message={"לא הצלחנו לצרף אותך לקבוצה"}
+                                      message={"לא הצלחנו לצרף אותך לקבוצה"}
             />
         </>
     );

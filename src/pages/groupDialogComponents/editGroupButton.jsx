@@ -1,5 +1,5 @@
 import {Fab} from "@material-ui/core";
-import * as Styles from "../../styles/groupDialogStyle";
+import * as Styles from "../../styles/groupPageStyle";
 import EditIcon from "@material-ui/icons/Edit";
 
 
