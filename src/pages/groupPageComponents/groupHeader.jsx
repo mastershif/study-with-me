@@ -6,8 +6,9 @@ import {EmailIcon, EmailShareButton, FacebookIcon,
 import CloseIcon from "@material-ui/icons/Close";
 import * as StylesPage from "../../styles/groupPageStyle";
 import * as StylesDialog from "../../styles/groupDialogStyle";
-
 import {useState} from "react";
+import {format, parseISO} from "date-fns";
+import he from "date-fns/locale/he";
 
 
 const GroupHeader = (props) => {
@@ -17,6 +18,13 @@ const GroupHeader = (props) => {
     const classesPage = StylesPage.useStyles();
     const classesDialog = StylesDialog.useStyles();
     const shareURL = `${window.location.origin}/group/${group._id}`
+    const shareMessage = "הצטרפ/י לקבוצת הלימוד שלנו!\n" +
+        "שם הקבוצה: " + group.groupTitle + "\n" +
+        "תיאור הקבוצה: " + group.groupDescription + "\n" +
+        "זמני פגישת הקבוצה: " + format(parseISO(group.date), "EEEE, 'ה-'d 'ב'MMMM yyyy", {locale: he}) +
+        ", מ-" + format(parseISO(group.startHour), "HH:mm", { locale: he }) +
+        " עד " + format(parseISO(group.endHour), "HH:mm", { locale: he }) + ".\n" +
+        "לינק להצטרפות:"
 
     const openShare = (event) => {setAnchorEl(event.currentTarget);}
     const closeShare = () => { setAnchorEl(null); };
@@ -38,20 +46,18 @@ const GroupHeader = (props) => {
                     <Menu anchorEl={anchorEl} keepMounted
                           open={Boolean(anchorEl)} onClose={closeShare}>
                         <MenuItem>
-                            <FacebookShareButton url={shareURL}
-                                                 quote={`${group.groupTitle}. ${group.groupDescription}`}>
+                            <FacebookShareButton url={shareURL} quote={shareMessage}>
                                 <FacebookIcon size={'2.5rem'} round/>
                             </FacebookShareButton>
                         </MenuItem>
                         <MenuItem>
-                            <WhatsappShareButton url={shareURL}
-                                                 title={`${group.groupTitle}. ${group.groupDescription}`}>
+                            <WhatsappShareButton url={shareURL} title={shareMessage}>
                                 <WhatsappIcon size={'2.5rem'} round />
                             </WhatsappShareButton>
                         </MenuItem>
                         <MenuItem>
                             <EmailShareButton url={shareURL}
-                                              subject={group.groupTitle} body={group.groupDescription}>
+                                              subject={group.groupTitle} body={shareMessage}>
                                 <EmailIcon size={'2.5rem'} round />
                             </EmailShareButton>
                         </MenuItem>
