@@ -1,7 +1,7 @@
 import {useState} from "react";
 import styled from 'styled-components';
 import CreateIcon from '@material-ui/icons/Create';
-import FailedOnLoginAlert from "./failedOnLoginAlert";
+import FailedOnLoginDialog from "./failedOnLoginDialog";
 import { getUserFromLocalStorage } from '../localStorage.service';
 
 const CardContainer = styled.a`
@@ -45,12 +45,12 @@ const CardIcon = styled.h2`
 `;
 
 const CreateGroupCard = () => {
-    const [openAlert, setOpenAlert] = useState(false);
+    const [openDialog, setOpenDialog] = useState(false);
     const user = getUserFromLocalStorage();
 
     return (
       <>
-        <CardContainer style={{cursor: "pointer"}} onClick={() => { user === null ? setOpenAlert(true) : window.location.href="/createGroup" }}>
+        <CardContainer style={{cursor: "pointer"}} onClick={() => { user === null ? setOpenDialog(true) : window.location.href="/createGroup" }}>
             <CardIcon>
                 <CherryHighlight>
                     <CreateIcon fontSize={'large'}/>
@@ -59,9 +59,12 @@ const CreateGroupCard = () => {
             <CardTitle>להתחיל קבוצת לימוד &larr;</CardTitle>
             <Description><CherryHighlight>תחליטו מתי</CherryHighlight> ללמוד ומה יהיה גודל הקבוצה!</Description>
         </CardContainer>
-        <FailedOnLoginAlert open={openAlert} setOpen={setOpenAlert}
+        {/* <FailedOnLoginAlert open={openAlert} setOpen={setOpenAlert}
                               message={"התחבר כדי להצטרף לקבוצה או ליצור אחת חדשה"}
-            />
+        /> */}
+        <FailedOnLoginDialog open={openDialog} setOpen={setOpenDialog}
+                              message={"התחבר כדי להצטרף לקבוצה או ליצור אחת חדשה"}
+        />
       </>
     )
 }
