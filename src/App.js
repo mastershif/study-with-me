@@ -103,7 +103,7 @@ function App() {
                                         .then((result) => group === undefined ? setGroup(result) : null)
                                         .catch((error) => console.log(error));
                                     if (group) {
-                                        return (<CreateGroup isEdit={true} group={group} />)
+                                        return (<CreateGroup isEdit={true} group={group} user={user}/>)
                                     }
                                     return null;
                                 }}
