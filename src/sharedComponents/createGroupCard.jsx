@@ -60,10 +60,10 @@ const CreateGroupCard = () => {
             <Description><CherryHighlight>תחליטו מתי</CherryHighlight> ללמוד ומה יהיה גודל הקבוצה!</Description>
         </CardContainer>
         {/* <FailedOnLoginAlert open={openAlert} setOpen={setOpenAlert}
-                              message={"התחבר כדי להצטרף לקבוצה או ליצור אחת חדשה"}
+                              message={"התחבר/י כדי להצטרף לקבוצה או ליצור אחת חדשה"}
         /> */}
         <FailedOnLoginDialog open={openDialog} setOpen={setOpenDialog}
-                              message={"התחבר כדי להצטרף לקבוצה או ליצור אחת חדשה"}
+                              message={"התחבר/י כדי להצטרף לקבוצה או ליצור אחת חדשה"}
         />
       </>
     )

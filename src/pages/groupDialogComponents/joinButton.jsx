@@ -72,7 +72,7 @@ const JoinButton = (props) => {
                               message={"הצטרפת לקבוצה בהצלחה!"}
             />
             <FailedOnLoginDialog open={openFailedToJoinOnLogin} setOpen={setOpenFailedToJoinOnLogin}
-                                      message={"התחבר כדי להירשם לקבוצה"}
+                                      message={"התחבר/י כדי להירשם לקבוצה"}
             />
             <FailedToJoinOrLeaveAlert open={openFailedToJoinOrLeave} setOpen={setOpenFailedToJoinOrLeave} handleUndo={() => {setOpenFailedToJoinOrLeave(false)}}
                                       message={"לא הצלחנו לצרף אותך לקבוצה"}
