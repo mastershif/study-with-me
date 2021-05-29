@@ -129,27 +129,30 @@ const CreateGroup = (props) => {
                                 />
                                 <ButtonGroup style={{marginTop: 20}}>
                                     {activeStep === 0 ? (
-                                        <Button variant={"contained"} color={"secondary"}
+                                        <Button variant={"outlined"} color={"primary"}
+                                                style={{borderWidth: '1.5px'}}
                                                 size={"large"} onClick={history.goBack}>
                                             ביטול
                                         </Button>
                                     ) : (
-                                        <Button variant={"contained"}
-                                                color={"secondary"} size={"large"} onClick={handleBack}>
+                                        <Button variant={"outlined"} color={"primary"}
+                                                style={{borderWidth: '1.5px'}}
+                                                size={"large"} onClick={handleBack}>
                                             חזרה
                                         </Button>
                                     )}
                                     {activeStep === steps.length - 1 ? (
-                                        <Button variant={"contained"} type={"submit"}
-                                                color={"primary"} size={"large"}
-                                                onClick={handleSubmit}
+                                        <Button type={"submit"}
+                                                variant={"contained"} color={"primary"}
+                                                style={{boxShadow: '0 0 0 0'}}
+                                                size={"large"} onClick={handleSubmit}
                                         >
                                             סיום
                                         </Button>
                                     ) : (
-                                        <Button variant={"contained"}
-                                                color={"primary"} size={"large"}
-                                                onClick={handleNext}>
+                                        <Button variant={"contained"} color={"primary"}
+                                                style={{boxShadow: '0 0 0 0'}}
+                                                size={"large"} onClick={handleNext}>
                                             המשך
                                         </Button>
                                     )}

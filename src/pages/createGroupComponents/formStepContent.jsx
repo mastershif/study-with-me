@@ -165,6 +165,7 @@ const FormStepContent = (props) => {
                                     <Grid item xs={12} md={6}>
                                         <Autocomplete options={sortedCitiesNames} value={values.city} name={"city"}
                                                       onChange={handleCity} fullWidth
+                                                      noOptionsText={"אין תוצאה מתאימה"}
                                                       getOptionSelected={(option,value) => value.value === option.value}
                                                       renderInput={(params) =>
                                                           <TextField {...params} label={"עיר"} required margin={"dense"}
