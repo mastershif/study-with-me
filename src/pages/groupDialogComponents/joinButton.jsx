@@ -4,7 +4,7 @@ import AddIcon from "@material-ui/icons/AddCircleOutline";
 import JoinOrLeaveAlert from "./joinOrLeaveAlert";
 import { getUserFromLocalStorage } from '../../localStorage.service';
 import FailedToJoinOrLeaveAlert from "./failedToJoinOrLeaveAlert";
-import FailedToJoinOnLoginAlert from "./failedToJoinOnLoginAlert";
+import FailedOnLoginDialog from "../../sharedComponents/failedOnLoginDialog"
 import BlockIcon from '@material-ui/icons/Block';
 
 
@@ -71,8 +71,8 @@ const JoinButton = (props) => {
             <JoinOrLeaveAlert open={openConfirm} setOpen={setOpenConfirm} handleUndo={handleUndoJoining}
                               message={"הצטרפת לקבוצה בהצלחה!"}
             />
-            <FailedToJoinOnLoginAlert open={openFailedToJoinOnLogin} setOpen={setOpenFailedToJoinOnLogin}
-                                      message={"התחבר כדי להירשם לקבוצה"}
+            <FailedOnLoginDialog open={openFailedToJoinOnLogin} setOpen={setOpenFailedToJoinOnLogin}
+                                      message={"התחבר/י כדי להירשם לקבוצה"}
             />
             <FailedToJoinOrLeaveAlert open={openFailedToJoinOrLeave} setOpen={setOpenFailedToJoinOrLeave} handleUndo={() => {setOpenFailedToJoinOrLeave(false)}}
                                       message={"לא הצלחנו לצרף אותך לקבוצה"}
