@@ -74,8 +74,7 @@ export default function CustomizedSelects(props) {
       <div style={{ width: 200 }}>
         <Autocomplete
           {...defaultProps}
-          id={props.id}
-          fullWidth
+          id={props.id} fullWidth noOptionsText={"אין תוצאה מתאימה"}
           onChange={(option, value) => {
             if (value !== null) {
               onValueChange(value.name);

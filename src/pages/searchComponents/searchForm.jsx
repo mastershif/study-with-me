@@ -42,7 +42,12 @@ const SearchForm = (props) => {
     const [searchParameters, setSearchParameters] = useState(initialSearchParameters);
     const [isOpen, setIsOpen] = useState(false);
     const classes = Styles.useStyles();
+    let autocompleteOptions = [];
+    if (allGroups) {
+        autocompleteOptions = allGroups.map(obj => obj.groupTitle);
+    }
 
+    const handleAutocomplete = (event, value) => {setSearchParameters({...searchParameters, text: value === null ? '' : value})}
     const handleChange = (event) => {
         const {name, value} = event.target;
         setSearchParameters({...searchParameters, [name]:value});
@@ -60,6 +65,7 @@ const SearchForm = (props) => {
     const options = {
         threshold: 0.0,
         ignoreLocation: true,
+        useExtendedSearch: true,
         keys: ["groupTitle", "groupDescription"]
     }
 
@@ -98,6 +104,7 @@ const SearchForm = (props) => {
             )
             results = results.filter(searchAlgorithm)
             setResults(results);
+            autocompleteOptions = allGroups.map(obj => obj.groupTitle);
         }
         setShowResults(true);
     };
@@ -110,8 +117,13 @@ const SearchForm = (props) => {
                     <Grid item xs={12} sm={4} style={{marginLeft: '20px'}}>
                         <FormControl fullWidth>
                             <FormLabel component="legend">מילות חיפוש</FormLabel>
-                            <TextField variant={"outlined"} name={"text"} type={"search"} margin={"dense"}
-                                       value={searchParameters.text} onChange={handleChange}/>
+                            <Autocomplete variant={"outlined"} name={"text"} freeSolo includeInputInList
+                                          options={autocompleteOptions} popupIcon={null}
+                                          inputValue={searchParameters.text} onInputChange={handleAutocomplete}
+                                          renderInput={(params) =>
+                                              <TextField {...params} margin={"dense"} autoFocus
+                                                         variant={"outlined"} />}
+                            />
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} sm={4}>
