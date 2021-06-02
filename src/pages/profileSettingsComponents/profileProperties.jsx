@@ -18,7 +18,8 @@ class ProfileProperties extends Component {
     degree: "",
     major: "",
     minor: "",
-    integrateCalendar: false
+    integrateCalendar: false,
+    oAuthConsentUrl: ''
   };
 
   async componentDidMount() {
@@ -28,13 +29,14 @@ class ProfileProperties extends Component {
         .then(
             (result) => {
               this.setState({
-                emailAddress: result.email,
-                username: result.username,
-                institute: result.institute,
-                degree: result.degree,
-                major: result.major,
-                minor: result.minor,
-                integrateCalendar: result.calendarIntegration
+                emailAddress: result[0].email,
+                username: result[0].username,
+                institute: result[0].institute,
+                degree: result[0].degree,
+                major: result[0].major,
+                minor: result[0].minor,
+                integrateCalendar: result[0].calendarIntegration,
+                oAuthConsentUrl: result[1]
               });
             },
             (error) => {
@@ -66,7 +68,11 @@ class ProfileProperties extends Component {
   };
 
   handleCalendarSwitch = (event) => {
-    this.setState({ integrateCalendar: event.target.checked });
+    if (!event.target.checked) {
+      this.setState({ integrateCalendar: event.target.checked });
+    } else {
+      window.location.href = this.state.oAuthConsentUrl;
+    }
   };
 
   handleUsernameChange = (newUsername) => {
