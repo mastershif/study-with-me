@@ -9,7 +9,8 @@ import {
     isWidthUp,
     Step,
     StepLabel,
-    Stepper
+    Stepper,
+    withWidth
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import FormStepContent from "./createGroupComponents/formStepContent";
@@ -159,11 +160,11 @@ const CreateGroup = (props) => {
     };
 
     const getColumns = () => {
-        if (isWidthUp('xl', props.width)) {return 5;}
-        if (isWidthUp('lg', props.width)) {return 4;}
-        if (isWidthUp('md', props.width)) {return 3;}
-        if (isWidthUp('sm', props.width)) {return 2;}
-        return 3;
+        if (isWidthUp('xl', props.width)) {return 3;}
+        if (isWidthUp('lg', props.width)) {return 2;}
+        if (isWidthUp('md', props.width)) {return 1;}
+        if (isWidthUp('sm', props.width)) {return 1;}
+        return 1;
     }
 
     return (
@@ -246,4 +247,4 @@ const CreateGroup = (props) => {
     )
 }
 
-export default CreateGroup;
+export default withWidth()(CreateGroup);
