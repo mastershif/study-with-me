@@ -8,6 +8,7 @@ import {AvatarGroup} from "@material-ui/lab";
 import EditGroupButton from "../groupDialogComponents/editGroupButton";
 import {useState} from "react";
 import * as Styles from "../../styles/groupPageStyle";
+import ChatLink from "./chatLink";
 
 
 const GroupAccordion = (props) => {
@@ -91,6 +92,17 @@ const GroupAccordion = (props) => {
                                     title={user.name} src={user.imageUrl} />
                         ))}
                     </AvatarGroup>
+                </AccordionDetails>
+            </Accordion>
+            <Accordion className={classes.expanded}
+                       expanded={expanded === 'accord5'}
+                       onChange={handleExpand('accord5')}>
+                <AccordionSummary className={classes.accordionSummary}
+                                  expandIcon={<ExpandMoreIcon/>}>
+                    <Typography>תיאומים ועדכונים</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <ChatLink group={group} userID={userID} />
                 </AccordionDetails>
             </Accordion>
             {group.admin === userID ? <EditGroupButton id={group._id} /> : null }
