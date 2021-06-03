@@ -1,11 +1,25 @@
 import {useCallback, useEffect, useState} from "react";
-import * as Styles from "../styles/createGroupStyle"
-import {ButtonGroup, Card, CardContent, Step, StepLabel, Stepper} from "@material-ui/core";
+import * as Styles from "../styles/createGroupStyle";
+import {
+    ButtonGroup,
+    Card,
+    CardContent,
+    GridList,
+    GridListTile,
+    isWidthUp,
+    Step,
+    StepLabel,
+    Stepper,
+    withWidth
+} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import FormStepContent from "./createGroupComponents/formStepContent";
 import {formSchema} from "./createGroupComponents/formValidation";
 import {useHistory} from "react-router-dom";
 import {getUserFromLocalStorage} from "../localStorage.service";
+import GroupProfile from "./groupDialogComponents/groupProfile";
+import {GroupsList} from "../styles/searchStyle";
+import Fuse from "fuse.js";
 
 let errors = {};
 let lastTimeClicked = 0, currentTimeClicked;
@@ -33,12 +47,31 @@ const CreateGroup = (props) => {
     }
     const [values, setValues] = useState(initialValues);
     const [activeStep, setActiveStep] = useState(0);
+    const [isGroupTitleOutOfFocus, setIsGroupTitleOutOfFocus] = useState(false);
+    const [allGroups, setAllGroups] = useState([]);
+    const [showSuggestions, setShowSuggestions] = useState(true);
+    const [suggestions, setSuggestions] = useState([]);
     let history = useHistory();
     const steps = getSteps();
     const classes = Styles.useStyles();
 
+    const options = {
+        threshold: 0.0,
+        ignoreLocation: true,
+        keys: ["groupTitle", "groupDescription"]
+    }
+
     const [, forceUpdateState] = useState();
     const forceUpdate = useCallback(() => forceUpdateState({}), []);
+
+    const getAllGroups = () => {
+        fetch("http://localhost:5000/allGroups/")
+            .then((response) => response.json())
+            .then((result) => {
+                setAllGroups(result)
+            })
+            .catch((error) => console.log(error));
+    }
 
     const getUserFromDb = async () => {
         const userDetails = getUserFromLocalStorage();
@@ -46,11 +79,33 @@ const CreateGroup = (props) => {
             .then(response => response.json());
         initialValues.admin = userFromDb._id;
     }
+
+    const handleGroupTitleChange = () => {
+        if (allGroups && values.groupTitle.length > 0) {
+            const fuse = new Fuse(allGroups, options)
+            let results = (
+                fuse.search(values.groupTitle)
+            )
+            setSuggestions(results);
+            if (results.length > 0) {
+                setShowSuggestions(true);
+            };
+        }
+    };
+
     useEffect(() => {
         if (!isEdit) {
             getUserFromDb();
         }
     }, [isEdit]);
+
+    useEffect(() => {
+        getAllGroups();
+    }, []);
+
+    useEffect(() => {
+        handleGroupTitleChange();
+    }, [values]);
 
     const handleNext = async (event) => {
         event.preventDefault();
@@ -104,6 +159,14 @@ const CreateGroup = (props) => {
         forceUpdate();
     };
 
+    const getColumns = () => {
+        if (isWidthUp('xl', props.width)) {return 3;}
+        if (isWidthUp('lg', props.width)) {return 2;}
+        if (isWidthUp('md', props.width)) {return 1;}
+        if (isWidthUp('sm', props.width)) {return 1;}
+        return 1;
+    }
+
     return (
         <div className={classes.page}>
             <Card className={classes.card}>
@@ -126,6 +189,7 @@ const CreateGroup = (props) => {
                             <div>
                                 <FormStepContent activeStep={activeStep} errors={errors}
                                                  values={values} setValues={setValues}
+                                                 setIsGroupTitleOutOfFocus={setIsGroupTitleOutOfFocus}
                                 />
                                 <ButtonGroup style={{marginTop: 20}}>
                                     {activeStep === 0 ? (
@@ -162,8 +226,28 @@ const CreateGroup = (props) => {
                     </form>
                 </CardContent>
             </Card>
+            { showSuggestions && activeStep === 0 && !isEdit && values?.groupTitle.length > 0 && isGroupTitleOutOfFocus &&
+            <div className={classes.card}>
+                <CardContent>
+                    אפשר גם להצטרף לקבוצה קיימת:
+                </CardContent>
+                <GroupsList>
+                    <GridList
+                        cellHeight={'auto'}
+                        spacing={0}
+                        style={{ width: '100%' }}
+                        cols={Math.min(suggestions?.length, getColumns())}>
+                        {suggestions && suggestions.map(group => (
+                            <GridListTile key={group.item._id}>
+                                <GroupProfile group={group.item} isProfile={false} userID={initialValues.admin} />
+                            </GridListTile>
+                        ))}
+                    </GridList>
+                </GroupsList>
+            </div>
+            }
         </div>
     )
 }
 
-export default CreateGroup;
+export default withWidth()(CreateGroup);

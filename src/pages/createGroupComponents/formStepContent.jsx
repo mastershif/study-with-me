@@ -14,7 +14,7 @@ import {sortedCitiesNames} from "../../assets/cities";
 
 const FormStepContent = (props) => {
 
-    const {activeStep, values, setValues, errors} = props;
+    const {activeStep, values, setValues, errors, setIsGroupTitleOutOfFocus} = props;
 
     const handleChange = (event) => {
         const {name, value} = event.target;
@@ -43,7 +43,8 @@ const FormStepContent = (props) => {
                                 <FormLabel component="legend">נושא</FormLabel>
                                 <OutlinedInput required autoFocus name={"groupTitle"} style={{marginTop: 5}}
                                                inputProps={{maxLength: 40}} margin={"dense"}
-                                               value={values.groupTitle} onChange={handleChange}/>
+                                               value={values.groupTitle} onChange={handleChange}
+                                               onBlur={() => setIsGroupTitleOutOfFocus(true)}/>
                             </FormControl>
                             <FormHelperText error>
                                 {getErrorMessage('groupTitle')}
