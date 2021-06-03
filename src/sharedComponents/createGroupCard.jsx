@@ -6,7 +6,7 @@ import FailedOnLoginDialog from "./failedOnLoginDialog";
 const CardContainer = styled.a`
   margin: 1rem;
   background-color: white;
-  height: 380px;
+  height: 350px;
   flex-basis: 40%;
   padding: 1.5rem;
   text-align: left;
