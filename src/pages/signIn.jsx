@@ -72,8 +72,7 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
           email: userDetails.email,
           institute: "אחר",
           degree: "אחר",
-          userImg: userDetails.imageUrl,
-          calendarIntegration: false
+          userImg: userDetails.imageUrl
         }),
       });
       window.location.href = "/profileSettings";

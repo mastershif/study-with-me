@@ -11,6 +11,7 @@ const GroupPage = (props) => {
 
     const {group} = props;
     const [userID, setUserID] = useState();
+    const [oAuthConsentUrl, setOAuthConsentUrl] = useState();
     const user = getUserFromLocalStorage();
     const classes = Styles.useStyles();
 
@@ -18,7 +19,7 @@ const GroupPage = (props) => {
         if (user !== null) {
             fetch("http://localhost:5000/profileSettings/" + user.email)
                 .then((response) => response.json())
-                .then((result) => setUserID(result._id))
+                .then((result) => {setUserID(result[0]._id); setOAuthConsentUrl(result[1]);})
                 .catch((error) => console.log(error));
         } else {
             setUserID(0);
@@ -32,7 +33,7 @@ const GroupPage = (props) => {
     return (
         <div className={classes.page}>
             <Card className={classes.card}>
-                <GroupHeader group={group} onClose={false} isGroupPage={true} />
+                <GroupHeader group={group} onClose={false} isGroupPage={true} userID={userID} oAuthConsentUrl={oAuthConsentUrl} />
                 <Divider />
                 <GroupAccordion group={group} userID={userID} isGroupPage={true} />
                 <div className={classes.groupButtons}>

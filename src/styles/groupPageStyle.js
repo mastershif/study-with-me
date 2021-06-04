@@ -1,4 +1,4 @@
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles(theme => ({
     page: {
@@ -34,6 +34,11 @@ export const useStyles = makeStyles(theme => ({
         '@media (min-width:1000px)': {
             fontSize: '1.5rem',
         }
+    },
+    syncButton: {
+        position: 'absolute',
+        top: theme.spacing(1.5),
+        right: theme.spacing(8)
     },
     shareButton: {
         position: 'absolute',

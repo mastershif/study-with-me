@@ -4,6 +4,7 @@ import ShareIcon from "@material-ui/icons/Share";
 import {EmailIcon, EmailShareButton, FacebookIcon,
     FacebookShareButton, WhatsappIcon, WhatsappShareButton} from "react-share";
 import CloseIcon from "@material-ui/icons/Close";
+import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
 import * as StylesPage from "../../styles/groupPageStyle";
 import * as StylesDialog from "../../styles/groupDialogStyle";
 import {useState} from "react";
@@ -13,7 +14,7 @@ import he from "date-fns/locale/he";
 
 const GroupHeader = (props) => {
 
-    const {group, onClose, isGroupPage} = props;
+    const {group, onClose, isGroupPage, userID, oAuthConsentUrl} = props;
     const [anchorEl, setAnchorEl] = useState(null);
     const classesPage = StylesPage.useStyles();
     const classesDialog = StylesDialog.useStyles();
@@ -29,6 +30,10 @@ const GroupHeader = (props) => {
     const openShare = (event) => {setAnchorEl(event.currentTarget);}
     const closeShare = () => { setAnchorEl(null); };
 
+    const insertGroupEvent = () => {
+        window.location.href = oAuthConsentUrl;
+    }
+
     return (
         <>
             <GroupOccupancyStatus currentGroupSize={group.users.length}
@@ -37,6 +42,11 @@ const GroupHeader = (props) => {
                         gutterBottom variant="h5" component="p">
                 {group.groupTitle}
             </Typography>
+            { group.users.some(e => e._id === userID) ?
+                    <IconButton className={isGroupPage ? classesPage.syncButton : classesDialog.syncButton}
+                        title={'הכנס פגישה ל - Google Calendar'} onClick={insertGroupEvent}>
+                        <InsertInvitationIcon />
+                    </IconButton> : null }
             {openShare ? (
                 <>
                     <IconButton className={isGroupPage ? classesPage.shareButton : classesDialog.shareButton}

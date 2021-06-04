@@ -11,8 +11,6 @@ class NamePicture extends Component {
     username: "",
     emailAddress: "",
     userImg: "",
-    // "https://www.pngkey.com/png/detail/230-2301779_best-classified-apps-default-user-profile.png",
-    integrateCalendar: false
   };
 
   async componentDidMount() {
@@ -35,7 +33,6 @@ class NamePicture extends Component {
             emailAddress: result[0].email,
             username: result[0].username,
             userImg: updatedUserImg,
-            integrateCalendar: result[0].calendarIntegration
           });
         },
         (error) => {
@@ -58,11 +55,6 @@ class NamePicture extends Component {
               style={{ fontSize: 40, padding: 15 }}
             />
           </IconButton>
-          {this.state.integrateCalendar === true ?
-            <EventAvailableIcon titleAccess={"הסנכרון עם Google Calendar מופעל"}
-                style={{ fontSize: 40, padding: "28px 0px 0px 28px", color: "#009900", float: "left" }} /> :
-            <EventBusyIcon titleAccess={"הסנכרון עם Google Calendar מושבת"}
-                style={{ fontSize: 40, padding: "28px 0px 0px 28px", color: "#cc0000", float: "left" }} /> }
         </div>
           <h1 className="user-name-header-profile">{this.state.username} </h1>
           <img

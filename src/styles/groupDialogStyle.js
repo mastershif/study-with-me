@@ -1,4 +1,4 @@
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles(theme => ({
     dialog: {
@@ -17,6 +17,11 @@ export const useStyles = makeStyles(theme => ({
         '@media (min-width:650px)': {
             fontSize: '1.5rem',
         }
+    },
+    syncButton: {
+        position: 'absolute',
+        top: theme.spacing(1.7),
+        right: theme.spacing(10)
     },
     shareButton: {
         position: 'absolute',

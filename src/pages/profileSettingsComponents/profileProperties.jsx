@@ -1,5 +1,3 @@
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import React, { Component } from "react";
 import ProfileProperty from "./profileProperty";
 import Grid from "@material-ui/core/Grid";
@@ -18,8 +16,6 @@ class ProfileProperties extends Component {
     degree: "",
     major: "",
     minor: "",
-    integrateCalendar: false,
-    oAuthConsentUrl: ''
   };
 
   async componentDidMount() {
@@ -35,8 +31,6 @@ class ProfileProperties extends Component {
                 degree: result[0].degree,
                 major: result[0].major,
                 minor: result[0].minor,
-                integrateCalendar: result[0].calendarIntegration,
-                oAuthConsentUrl: result[1]
               });
             },
             (error) => {
@@ -59,20 +53,11 @@ class ProfileProperties extends Component {
         degree: this.state.degree,
         major: this.state.major,
         minor: this.state.minor,
-        calendarIntegration: this.state.integrateCalendar
       }),
     })
         .then((response) => response.text())
         .then((data) => console.log(data))
         .then(() => (window.location.href = "/profile"));
-  };
-
-  handleCalendarSwitch = (event) => {
-    if (!event.target.checked) {
-      this.setState({ integrateCalendar: event.target.checked });
-    } else {
-      window.location.href = this.state.oAuthConsentUrl;
-    }
   };
 
   handleUsernameChange = (newUsername) => {
@@ -100,10 +85,6 @@ class ProfileProperties extends Component {
   render() {
     return (
         <div>
-          <FormControlLabel style={{paddingRight: 15}}
-                            control={<Switch checked={this.state.integrateCalendar} onChange={this.handleCalendarSwitch} name="calendar" />}
-                            label={"סנכרן את מועדי הקבוצות שלי ל-Google Calendar"}
-          />
           <div
               style={{
                 display: "flex",

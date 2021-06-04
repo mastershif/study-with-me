@@ -10,6 +10,7 @@ import { getUserFromLocalStorage } from '../localStorage.service';
 const Search = (props) => {
 
     const [showResults, setShowResults] = useState(false);
+    const [oAuthConsentUrl, setOAuthConsentUrl] = useState();
     const [userID, setUserID] = useState();
     const [allGroups, setAllGroups] = useState();
     const [results, setResults] = useState();
@@ -27,7 +28,7 @@ const Search = (props) => {
         if (user !== null) {
             fetch("http://localhost:5000/profileSettings/" + user.email)
                 .then((response) => response.json())
-                .then((result) => setUserID(result._id))
+                .then((result) => {setUserID(result[0]._id); setOAuthConsentUrl(result[1])})
                 .catch((error) => console.log(error));
         } else {
             setUserID(0);
@@ -57,7 +58,7 @@ const Search = (props) => {
                           cols={Math.min(results.length, getColumns())}>
                     {results && results.map(group => (
                         <GridListTile key={group.item._id} cols={1}>
-                            <GroupProfile group={group.item} isProfile={false} userID={userID} />
+                            <GroupProfile group={group.item} isProfile={false} userID={userID} oAuthConsentUrl={oAuthConsentUrl} />
                         </GridListTile>
                     ))}
                 </GridList>
