@@ -16,18 +16,18 @@ class UserImage extends Component {
       .then(
         (result) => {
           let updatedUserImg;
-          if (result[0].userImg !== "") {
-            if (result[0].userImg.includes("http")) {
-              updatedUserImg = result[0].userImg;
+          if (result.userImg !== "") {
+            if (result.userImg.includes("http")) {
+              updatedUserImg = result.userImg;
             } else {
-              updatedUserImg = require("../../" + result[0].userImg).default; /////// need to change when repositories will be united under one folder
+              updatedUserImg = require("../../" + result.userImg).default; /////// need to change when repositories will be united under one folder
             }
           } else {
             updatedUserImg = this.state.userImg;
           }
           this.setState({
-            emailAddress: result[0].email,
-            username: result[0].username,
+            emailAddress: result.email,
+            username: result.username,
             userImg: updatedUserImg,
           });
         },

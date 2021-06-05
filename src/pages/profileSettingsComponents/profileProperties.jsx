@@ -25,12 +25,12 @@ class ProfileProperties extends Component {
         .then(
             (result) => {
               this.setState({
-                emailAddress: result[0].email,
-                username: result[0].username,
-                institute: result[0].institute,
-                degree: result[0].degree,
-                major: result[0].major,
-                minor: result[0].minor,
+                emailAddress: result.email,
+                username: result.username,
+                institute: result.institute,
+                degree: result.degree,
+                major: result.major,
+                minor: result.minor,
               });
             },
             (error) => {

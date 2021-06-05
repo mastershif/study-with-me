@@ -31,7 +31,19 @@ const GroupHeader = (props) => {
     const closeShare = () => { setAnchorEl(null); };
 
     const insertGroupEvent = () => {
-        window.location.href = oAuthConsentUrl;
+        // window.location.href = oAuthConsentUrl;
+        fetch("http://localhost:5000/calendarSync", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              groupID: group._id
+            }),
+          })
+              .then((response) => response.text())
+              .then((data) => window.location.href=data)
+              .catch((error) => console.log(error));
     }
 
     return (

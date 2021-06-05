@@ -19,7 +19,7 @@ const GroupPage = (props) => {
         if (user !== null) {
             fetch("http://localhost:5000/profileSettings/" + user.email)
                 .then((response) => response.json())
-                .then((result) => {setUserID(result[0]._id); setOAuthConsentUrl(result[1]);})
+                .then((result) => setUserID(result._id))
                 .catch((error) => console.log(error));
         } else {
             setUserID(0);
