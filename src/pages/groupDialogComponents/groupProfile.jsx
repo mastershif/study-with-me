@@ -22,8 +22,6 @@ const GroupProfile = (props) => {
         setDialogIsOpen(false);
     };
 
-    console.log('the group is: ', group);
-
     return (
         <Card className={classes.root}>
             <CardHeader

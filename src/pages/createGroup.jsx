@@ -1,25 +1,14 @@
 import {useCallback, useEffect, useState} from "react";
 import * as Styles from "../styles/createGroupStyle";
-import {
-    ButtonGroup,
-    Card,
-    CardContent,
-    GridList,
-    GridListTile,
-    isWidthUp,
-    Step,
-    StepLabel,
-    Stepper,
-    withWidth
-} from "@material-ui/core";
-import Button from "@material-ui/core/Button";
+import {Button, ButtonGroup, Card, CardContent, GridList, withWidth,
+    GridListTile, isWidthUp, Step, StepLabel, Stepper} from "@material-ui/core";
 import FormStepContent from "./createGroupComponents/formStepContent";
 import {formSchema} from "./createGroupComponents/formValidation";
 import {useHistory} from "react-router-dom";
-import {getUserFromLocalStorage} from "../localStorage.service";
 import GroupProfile from "./groupDialogComponents/groupProfile";
 import {GroupsList} from "../styles/searchStyle";
 import Fuse from "fuse.js";
+
 
 let errors = {};
 let lastTimeClicked = 0, currentTimeClicked;
@@ -65,7 +54,9 @@ const CreateGroup = (props) => {
     const forceUpdate = useCallback(() => forceUpdateState({}), []);
 
     const getAllGroups = () => {
-        fetch("http://localhost:5000/allGroups/")
+        fetch("http://localhost:5000/allGroups/", {
+            credentials: "include",
+        })
             .then((response) => response.json())
             .then((result) => {
                 setAllGroups(result)
@@ -74,8 +65,9 @@ const CreateGroup = (props) => {
     }
 
     const getUserFromDb = async () => {
-        const userDetails = getUserFromLocalStorage();
-        const userFromDb = await fetch("http://localhost:5000/profileSettings/" + userDetails?.email)
+        const userFromDb = await fetch("http://localhost:5000/profileSettings", {
+            credentials: "include",
+        })
             .then(response => response.json());
         initialValues.admin = userFromDb._id;
     }
@@ -89,7 +81,7 @@ const CreateGroup = (props) => {
             setSuggestions(results);
             if (results.length > 0) {
                 setShowSuggestions(true);
-            };
+            }
         }
     };
 
@@ -135,17 +127,28 @@ const CreateGroup = (props) => {
                 }
             })
             .then(() => {
+                let unAuthorized = false;
+                console.log(values);
                 fetch("http://localhost:5000/group", {
                     method: "POST",
+                    credentials: "include",
                     headers: {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify(values),
                 })
-                    .then((response) => response.text())
-                    .then(
-                        (data) => console.log(data),
-                        (error) => console.log(error))
+                    .then((response) => {
+                        if (!response.ok) {
+                            unAuthorized = true;
+                        }
+                        return response.text();
+                    })
+                    .then((data) => {
+                        if (unAuthorized) {
+                            throw data;
+                        }
+                        console.log(data);
+                    })
                     .then(() => {
                         setActiveStep((prevActiveStep) => prevActiveStep + 1)
                         setTimeout(function () {

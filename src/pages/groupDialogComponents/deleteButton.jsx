@@ -1,14 +1,11 @@
 import {useState, useRef} from "react";
-import {Button} from "@material-ui/core";
+import {Button, Dialog, DialogActions, DialogContent,
+    DialogContentText, DialogTitle} from "@material-ui/core";
 import FailedToDeleteAlert from "./failedToDeleteAlert";
 import DeleteAlert from "./deleteAlert";
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteIcon from '@material-ui/icons/Delete';
 import {useHistory} from "react-router-dom";
+
 
 const DeleteButton = (props) => {
 
@@ -25,9 +22,13 @@ const DeleteButton = (props) => {
         setTimeout(async function() {
             if (!isDeleteAborted.current) {
                 const response = await fetch("http://localhost:5000/deleteGroup/" + groupId, {
-                    method: "DELETE"
+                    method: "DELETE",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
                 });
-                if (response.status === 500) {
+                if (!response.ok) {
                     setOpenFailedToDelete(true);
                 }
                 else {
