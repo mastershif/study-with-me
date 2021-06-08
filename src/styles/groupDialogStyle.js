@@ -9,13 +9,13 @@ export const useStyles = makeStyles(theme => ({
         position: 'absolute',
         top: theme.spacing(2.5),
         left: theme.spacing(10),
-        right: theme.spacing(10),
+        right: theme.spacing(12),
         fontSize: '0.9rem',
         '@media (min-width:400px)': {
             fontSize: '1.1rem',
         },
         '@media (min-width:650px)': {
-            fontSize: '1.5rem',
+            fontSize: '1.45rem',
         }
     },
     shareButton: {

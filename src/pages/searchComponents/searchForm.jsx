@@ -175,6 +175,7 @@ const SearchForm = (props) => {
                                 <FormLabel component="legend">עיר</FormLabel>
                                 <Autocomplete options={sortedCitiesNames} value={searchParameters.city}
                                               name={"city"} onChange={handleCity} fullWidth
+                                              noOptionsText={"אין תוצאה מתאימה"}
                                               getOptionSelected={(option,value) => value.value === option.value}
                                               renderInput={(params) =>
                                                   <TextField {...params}

@@ -1,21 +1,16 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
+import {AppBar, Toolbar, Button, IconButton,
+    Paper, List, ListItem} from '@material-ui/core';
 import appTheme from "../styles/theme";
 import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from '@material-ui/icons/Add';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import MobileMenu from "./mobileMenu";
-import {getUserFromLocalStorage, removeUserFromLocalStorage} from '../localStorage.service'
+import {getImageFromLocalStorage, removeImageFromLocalStorage} from '../localStorage.service'
 import {GoogleLogout} from "react-google-login";
 import {useHistory} from "react-router-dom";
-import {Paper} from "@material-ui/core";
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
 
 const Logo = styled.a`
   color: ${appTheme.palette.background.default};
@@ -78,18 +73,21 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Header = ({ isLoggedIn, setIsLoggedIn }) => {
+const Header = ({isLoggedIn, setIsLoggedIn}) => {
     const [showLogout, setShowLogout] = useState(false);
-    const profilePicture = getUserFromLocalStorage()?.imageUrl;
+    let profilePicture = isLoggedIn ? getImageFromLocalStorage() : "";
 
     const classes = useStyles();
     const history = useHistory();
 
-    const onLogoutGoogle = (response) => {
-        removeUserFromLocalStorage();
+    const onLogoutGoogle = async (response) => {
+        await fetch("http://localhost:5000/signOut", {
+            credentials: "include",
+        })
+            .catch((error) => console.log(error));
+        removeImageFromLocalStorage();
         setIsLoggedIn(false);
         history.push('/');
-        console.log(response);
         console.log("logged out");
     };
 
@@ -100,23 +98,22 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
 
     const renderLogoutMenu = () => {
         return (
-            <Paper elevation={0} style={{ zIndex: 1, position: 'absolute', minWidth: '80px', marginTop: '4rem', marginRight: '130px' }}>
+            <Paper elevation={0} style={{ zIndex: 1, position: 'absolute',
+                minWidth: '80px', marginTop: '4rem', marginRight: '130px' }}>
                 <List>
-                    {['יציאה'].map((text, index) => (
-                            <ListItem button key={text}>
-                                <GoogleLogout
-                                    clientId={
-                                        "101612216779-7o7aqog0rj9vopdu7ffukfs67i6n4ba7.apps.googleusercontent.com"
-                                    }
-                                    onLogoutSuccess={onLogoutGoogle}
-                                    onFailure={onLogoutGoogleFailure}
-                                    render={renderProps => (
-                                        <button className={classes.signOutButton} onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                                            יציאה
-                                        </button>
-                                    )}
-                                />
-                            </ListItem>
+                    {['יציאה'].map((text) => (
+                        <ListItem button key={text}>
+                            <GoogleLogout
+                                clientId={process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}
+                                onLogoutSuccess={onLogoutGoogle}
+                                onFailure={onLogoutGoogleFailure}
+                                render={renderProps => (
+                                    <button className={classes.signOutButton} onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                                        יציאה
+                                    </button>
+                                )}
+                            />
+                        </ListItem>
                     ))}
                 </List>
             </Paper>
@@ -128,7 +125,8 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
             <AppBar color={"primary"} position="static" elevation={1}>
                 <Toolbar>
                     <IconButton className={classes.menuButton} aria-label="menu" color="inherit">
-                        <MobileMenu isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
+                        <MobileMenu isLoggedIn={isLoggedIn} onLogoutGoogle={onLogoutGoogle}
+                                    onLogoutGoogleFailure={onLogoutGoogleFailure}/>
                     </IconButton>
                     <div className={classes.title}>
                         <Logo edge="start" href="/">Study With Me</Logo>
@@ -137,11 +135,11 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
                         <IconButton className={classes.iconButton} aria-label="search" color="inherit" href="/search">
                             <SearchIcon />
                         </IconButton>
-                        {isLoggedIn ? <IconButton className={classes.iconButton} aria-label="create" color="inherit" href="/createGroup"> <AddIcon /> </IconButton> :<div></div>}
+                        {isLoggedIn ? <IconButton className={classes.iconButton} aria-label="create" color="inherit" href="/createGroup"> <AddIcon /> </IconButton> : <div></div>}
                         {!isLoggedIn &&
-                            <Button className={classes.textButton} color="inherit" href="/signIn">
-                                התחבר/י
-                            </Button>
+                        <Button className={classes.textButton} color="inherit" href="/signIn">
+                            התחבר/י
+                        </Button>
                         }
                         {isLoggedIn ?
                             <>

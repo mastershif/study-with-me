@@ -14,8 +14,7 @@ const setObject = (key, object) => {
 const getObject = (key) => {
     const object = localStorage.getItem(LOCAL_STORAGE_PREFIX + key);
     try {
-        const result = JSON.parse(object);
-        return result;
+        return JSON.parse(object);
     } catch (e) {
         console.error(e);
         return {};
@@ -26,14 +25,14 @@ const removeItem = (key) => {
     localStorage.removeItem(LOCAL_STORAGE_PREFIX + key);
 };
 
-export const setUserInLocalStorage = (userObject) => {
-    setObject('userDetails', userObject);
+export const setImageInLocalStorage = (userObject) => {
+    setObject('userImage', userObject);
 }
 
-export const getUserFromLocalStorage = () => {
-    return getObject('userDetails');
+export const getImageFromLocalStorage = () => {
+    return getObject('userImage');
 }
 
-export const removeUserFromLocalStorage = () => {
-    removeItem('userDetails');
+export const removeImageFromLocalStorage = () => {
+    removeItem('userImage');
 }

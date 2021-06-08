@@ -1,15 +1,11 @@
-import Avatar from "@material-ui/core/Avatar";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import {Avatar, Container, CssBaseline} from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import { GoogleLogin } from "react-google-login";
+import {makeStyles} from "@material-ui/core/styles";
+import {GoogleLogin} from "react-google-login";
 import styled from "styled-components";
-import {
-  setUserInLocalStorage,
-  removeUserFromLocalStorage,
-} from "../localStorage.service";
 import {useHistory} from "react-router-dom";
+import {setImageInLocalStorage} from "../localStorage.service";
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,7 +29,8 @@ const ButtonContainer = styled.div`
   min-width: 200px;
 `;
 
-const SignIn = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
+const SignIn = ({isLoggedIn, setIsLoggedIn}) => {
+
   const classes = useStyles();
   const history = useHistory();
 
@@ -45,27 +42,33 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
       lastName: profile.familyName,
       imageUrl: profile.imageUrl.replace("s96", "s260"),
     };
-    setUserInLocalStorage(userDetails);
-    setUser(userDetails);
-    setIsLoggedIn(true);
     let isNew = true;
-    await fetch("http://localhost:5000/signIn/" + userDetails.email)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          if (result) {
-            isNew = false;
-          }
-        },
-        (error) => {
-          console.log("There was a problem in Signing-in!");
-        }
-      );
+    await fetch("http://localhost:5000/signIn/", {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + response.tokenObj.id_token,
+      }
+    })
+        .then((res) => {
+              if (res.ok) {
+                isNew = false;
+                setImageInLocalStorage(userDetails.imageUrl);
+                setIsLoggedIn(true);
+                return res.json()
+              }
+              return Promise.reject(res.json());
+            }
+        )
+        .catch((error) => {console.log("There was a problem in Signing-in!", error)});
     if (isNew) {
       await fetch("http://localhost:5000/signIn/", {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": "Bearer " + response.tokenObj.id_token,
         },
         body: JSON.stringify({
           username: userDetails.firstName + " " + userDetails.lastName,
@@ -75,7 +78,17 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
           userImg: userDetails.imageUrl,
           calendarIntegration: false
         }),
-      });
+      })
+          .then((res) => {
+                if (res.ok) {
+                  setImageInLocalStorage(userDetails.imageUrl);
+                  setIsLoggedIn(true);
+                  return res.json()
+                }
+                return Promise.reject(res.json());
+              }
+          )
+          .catch((error) => {console.log("There was a problem in Signing-in!", error)});
       window.location.href = "/profileSettings";
     } else {
       setTimeout(function () {
@@ -84,42 +97,27 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn, setUser }) => {
     }
   };
 
-  const onLogoutGoogle = (response) => {
-    removeUserFromLocalStorage();
-    setIsLoggedIn(false);
-    setUser(undefined);
-    console.log(response);
-    console.log("logged out");
-  };
-
-  const onLogoutGoogleFailure = (response) => {
-    console.log(response);
-    console.log("failed to log out");
-  };
-
   return (
-    <Container component="main" maxWidth="xs">
-      <div className={classes.paper}>
-        <CssBaseline />
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <ButtonContainer>
-          {/*show log in button only if the user is not logged in yet*/}
-          {!isLoggedIn && (
-            <GoogleLogin
-              className={classes.googleLogin}
-              clientId={
-                "101612216779-7o7aqog0rj9vopdu7ffukfs67i6n4ba7.apps.googleusercontent.com"
-              }
-              onSuccess={onLoginViaGoogle}
-              buttonText={"התחבר/י עם גוגל"}
-              cookiePolicy={"single_host_origin"}
-            />
-          )}
-        </ButtonContainer>
-      </div>
-    </Container>
+      <Container component="main" maxWidth="xs">
+        <div className={classes.paper}>
+          <CssBaseline />
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <ButtonContainer>
+            {/*show log in button only if the user is not logged in yet*/}
+            {!isLoggedIn && (
+                <GoogleLogin
+                    className={classes.googleLogin}
+                    clientId={process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}
+                    onSuccess={onLoginViaGoogle}
+                    buttonText={"התחבר/י עם גוגל"}
+                    cookiePolicy={"single_host_origin"}
+                />
+            )}
+          </ButtonContainer>
+        </div>
+      </Container>
   );
 };
 

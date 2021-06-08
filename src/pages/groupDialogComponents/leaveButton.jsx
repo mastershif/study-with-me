@@ -4,7 +4,6 @@ import {Button, Dialog, DialogActions, DialogContent,
 import RemoveIcon from "@material-ui/icons/RemoveCircleOutline";
 import FailedToJoinOrLeaveAlert from "./failedToJoinOrLeaveAlert";
 import JoinOrLeaveAlert from "./joinOrLeaveAlert";
-import { getUserFromLocalStorage } from '../../localStorage.service';
 
 const LeaveButton = (props) => {
 
@@ -13,7 +12,6 @@ const LeaveButton = (props) => {
     const [open, setOpenConfirm] = useState(false);
     const [openLeaveWarning, setOpenLeaveWarning] = useState(false);
     const [openFailedToJoinOrLeave, setOpenFailedToJoinOrLeave] = useState(false);
-    const user = getUserFromLocalStorage();
 
     const handleCloseOnProceed = () => {
         setOpenLeaveWarning(false);
@@ -22,11 +20,14 @@ const LeaveButton = (props) => {
             if (!isLeaveAborted.current) {
                 const response = await fetch("http://localhost:5000/leaveGroup", {
                     method: 'PUT',
-                    headers: { "Accept": "application/json",
-                        "Content-Type": "application/json"},
-                    body: JSON.stringify({ email: user.email, groupId }),
+                    credentials: "include",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ groupId }),
                 });
-                if (response.status !== 200) {
+                if (!response.ok) {
                     setOpenFailedToJoinOrLeave(true);
                 }
                 else {

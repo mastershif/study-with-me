@@ -4,7 +4,7 @@ import {GridList, GridListTile, isWidthUp, withWidth} from "@material-ui/core";
 import SearchForm from './searchComponents/searchForm';
 import {Paper} from "@material-ui/core";
 import {useEffect, useState} from "react";
-import { getUserFromLocalStorage } from '../localStorage.service';
+import {getUserID} from "./signInComponents/getUserID";
 
 
 const Search = (props) => {
@@ -14,29 +14,19 @@ const Search = (props) => {
     const [allGroups, setAllGroups] = useState();
     const [results, setResults] = useState();
     const classes = Styles.useStyles();
-    const user = getUserFromLocalStorage();
 
     const getAllGroups = () => {
-        fetch("http://localhost:5000/allGroups/")
+        fetch("http://localhost:5000/allGroups/", {
+            credentials: "include",
+        })
             .then((response) => response.json())
             .then((result) => setAllGroups(result))
             .catch((error) => console.log(error));
     }
 
-    const getUserID = (user) => {
-        if (user !== null) {
-            fetch("http://localhost:5000/profileSettings/" + user.email)
-                .then((response) => response.json())
-                .then((result) => setUserID(result._id))
-                .catch((error) => console.log(error));
-        } else {
-            setUserID(0);
-        }
-    }
-
     useEffect(() => {
         getAllGroups();
-        getUserID(user);
+        getUserID(setUserID);
     }, []);
 
     const getColumns = () => {

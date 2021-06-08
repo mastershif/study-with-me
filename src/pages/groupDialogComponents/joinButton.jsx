@@ -2,10 +2,10 @@ import {useState, useRef} from "react";
 import {Button} from "@material-ui/core";
 import AddIcon from "@material-ui/icons/AddCircleOutline";
 import JoinOrLeaveAlert from "./joinOrLeaveAlert";
-import { getUserFromLocalStorage } from '../../localStorage.service';
 import FailedToJoinOrLeaveAlert from "./failedToJoinOrLeaveAlert";
 import FailedOnLoginDialog from "../../sharedComponents/failedOnLoginDialog"
 import BlockIcon from '@material-ui/icons/Block';
+import {isAuth} from "../signInComponents/isAuth";
 
 
 const JoinButton = (props) => {
@@ -15,21 +15,21 @@ const JoinButton = (props) => {
     const [openConfirm, setOpenConfirm] = useState(false);
     const [openFailedToJoinOrLeave, setOpenFailedToJoinOrLeave] = useState(false);
     const [openFailedToJoinOnLogin, setOpenFailedToJoinOnLogin] = useState(false);
-    const user = getUserFromLocalStorage();
 
-    const handleJoining = () => {
-        if (user !== null) {
+    const handleJoining = async () => {
+        if (await isAuth()) {
             setOpenConfirm(true);
             setTimeout(async function() {
                 if (!isJoinAborted.current) {
                     const response = await fetch("http://localhost:5000/joinGroup", {
                         method: "PUT",
+                        credentials: "include",
                         headers: {
                             "Content-Type": "application/json",
                         },
-                        body: JSON.stringify({ email: user.email, groupId }),
+                        body: JSON.stringify({ groupId }),
                     });
-                    if (response.status === 500) {
+                    if (!response.ok) {
                         setOpenFailedToJoinOrLeave(true);
                     } else {
                         if (isGroupPage) {
