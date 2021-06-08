@@ -19,7 +19,7 @@ class DataDisplay extends Component {
     };
 
     async componentDidMount() {
-        if (isAuth()) {
+        if (await isAuth()) {
             await fetch("http://localhost:5000/profile", {
                 credentials: "include",
             })

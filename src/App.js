@@ -60,83 +60,91 @@ const CardsGrid = styled.div `
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [show, setShow] = useState(false);
     const [group, setGroup] = useState();
 
     useEffect( () => {
-        isAuth().then((value) => setIsLoggedIn(value));
+        async function Authenticate() {
+            await isAuth().then((value) => setIsLoggedIn(value));
+            setShow(true);
+        }
+        Authenticate().then();
     }, [])
 
     return (
         <StylesProvider jss={jss}>
             <ThemeProvider theme={theme}>
                 <GlobalStyle />
-                <Router>
-                    <div>
-                        <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}>
-                            <Link to="/profile">Profile</Link>
-                        </Header>
-                        <Switch>
-                            <Route exact path="/">
-                                <PageContainer>
-                                    <MainContent>
-                                        <MainTitle textLine1={'הצטרפו לקבוצת לימוד'} textLine2={' או התחילו קבוצת לימוד חדשה עכשיו'} />
-                                        <Description text={'קבוצות משותפות ללמידה למבחנים, חזרה על החומר או סתם כדי לעזור לך להתרכז'} />
-                                        <SecondaryTitle text={'הקבוצה תעזור לך ללמוד!'} />
-                                        <CardsGrid>
-                                            <JoinGroupCard />
-                                            <CreateGroupCard isLoggedIn={isLoggedIn} />
-                                        </CardsGrid>
-                                    </MainContent>
-                                </PageContainer>
-                            </Route>
-                            <Route path="/profile">
-                                <Profile />
-                            </Route>
-                            <Route path = "/profileSettings">
-                                <ProfileSettings/>
-                            </Route>
-                            <Route path="/createGroup">
-                                <CreateGroup isEdit={false} group={null} />
-                            </Route>
-                            <Route path="/group/:_id">
-                                {(props) => {
-                                    const _id = props.match.params._id;
-                                    fetch("http://localhost:5000/group/" + _id, {
-                                        credentials: "include",
-                                    })
-                                        .then((response) => response.json())
-                                        .then((result) => group === undefined ? setGroup(result) : null)
-                                        .catch((error) => console.log(error));
-                                    if (group) {
-                                        return (<GroupPage group={group} />)
-                                    }
-                                    return null;
-                                }}
-                            </Route>
-                            <Route path="/editGroup/:_id">
-                                {(props) => {
-                                    const _id = props.match.params._id;
-                                    fetch("http://localhost:5000/group/" + _id, {
-                                        credentials: "include",
-                                    })
-                                        .then((response) => response.json())
-                                        .then((result) => group === undefined ? setGroup(result) : null)
-                                        .catch((error) => console.log(error));
-                                    if (group) {
-                                        return (<CreateGroup isEdit={true} group={group} />)
-                                    }
-                                    return null;
-                                }}
-                            </Route>
-                            <Route path="/search">
-                                <Search />
-                            </Route>
-                            <Route exact path="/signIn">
-                                <SignIn isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
-                            </Route>
-                        </Switch>
-                    </div>
-                </Router>
+                {
+                    show &&
+                    <Router>
+                        <div>
+                            <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}>
+                                <Link to="/profile">Profile</Link>
+                            </Header>
+                            <Switch>
+                                <Route exact path="/">
+                                    <PageContainer>
+                                        <MainContent>
+                                            <MainTitle textLine1={'הצטרפו לקבוצת לימוד'} textLine2={' או התחילו קבוצת לימוד חדשה עכשיו'} />
+                                            <Description text={'קבוצות משותפות ללמידה למבחנים, חזרה על החומר או סתם כדי לעזור לך להתרכז'} />
+                                            <SecondaryTitle text={'הקבוצה תעזור לך ללמוד!'} />
+                                            <CardsGrid>
+                                                <JoinGroupCard />
+                                                <CreateGroupCard isLoggedIn={isLoggedIn} />
+                                            </CardsGrid>
+                                        </MainContent>
+                                    </PageContainer>
+                                </Route>
+                                <Route path="/profile">
+                                    <Profile />
+                                </Route>
+                                <Route path = "/profileSettings">
+                                    <ProfileSettings/>
+                                </Route>
+                                <Route path="/createGroup">
+                                    <CreateGroup isEdit={false} group={null} />
+                                </Route>
+                                <Route path="/group/:_id">
+                                    {(props) => {
+                                        const _id = props.match.params._id;
+                                        fetch("http://localhost:5000/group/" + _id, {
+                                            credentials: "include",
+                                        })
+                                            .then((response) => response.json())
+                                            .then((result) => group === undefined ? setGroup(result) : null)
+                                            .catch((error) => console.log(error));
+                                        if (group) {
+                                            return (<GroupPage group={group} />)
+                                        }
+                                        return null;
+                                    }}
+                                </Route>
+                                <Route path="/editGroup/:_id">
+                                    {(props) => {
+                                        const _id = props.match.params._id;
+                                        fetch("http://localhost:5000/group/" + _id, {
+                                            credentials: "include",
+                                        })
+                                            .then((response) => response.json())
+                                            .then((result) => group === undefined ? setGroup(result) : null)
+                                            .catch((error) => console.log(error));
+                                        if (group) {
+                                            return (<CreateGroup isEdit={true} group={group} />)
+                                        }
+                                        return null;
+                                    }}
+                                </Route>
+                                <Route path="/search">
+                                    <Search />
+                                </Route>
+                                <Route exact path="/signIn">
+                                    <SignIn isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
+                                </Route>
+                            </Switch>
+                        </div>
+                    </Router>
+                }
             </ThemeProvider>
         </StylesProvider>
     );
