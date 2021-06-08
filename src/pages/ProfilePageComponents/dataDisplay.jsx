@@ -46,7 +46,6 @@ class DataDisplay extends Component {
                 .catch((error) => {console.log("There was a problem!", error)});
         }
     }
-
     render() {
         const toBeDisplayed = this.props.toBeDisplayed;
         const GroupsList = styled.ul`
@@ -153,6 +152,7 @@ class DataDisplay extends Component {
         </div>
       );
     }
+  }
 }
 
 export default withWidth()(DataDisplay);

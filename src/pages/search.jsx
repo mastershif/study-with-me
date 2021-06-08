@@ -10,7 +10,6 @@ import {getUserID} from "./signInComponents/getUserID";
 const Search = (props) => {
 
     const [showResults, setShowResults] = useState(false);
-    const [oAuthConsentUrl, setOAuthConsentUrl] = useState();
     const [userID, setUserID] = useState();
     const [allGroups, setAllGroups] = useState();
     const [results, setResults] = useState();
@@ -48,7 +47,7 @@ const Search = (props) => {
                           cols={Math.min(results.length, getColumns())}>
                     {results && results.map(group => (
                         <GridListTile key={group.item._id} cols={1}>
-                            <GroupProfile group={group.item} isProfile={false} userID={userID} oAuthConsentUrl={oAuthConsentUrl} />
+                            <GroupProfile group={group.item} isProfile={false} userID={userID} />
                         </GridListTile>
                     ))}
                 </GridList>

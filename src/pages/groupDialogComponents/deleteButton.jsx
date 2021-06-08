@@ -9,7 +9,7 @@ import {useHistory} from "react-router-dom";
 
 const DeleteButton = (props) => {
 
-    const {group, groupId, isGroupPage} = props;
+    const {groupId, isGroupPage} = props;
     let history = useHistory();
     const isDeleteAborted = useRef(false);
     const [deleteConfirm, setDeleteConfirm] = useState(false);

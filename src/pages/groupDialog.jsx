@@ -7,13 +7,13 @@ import GroupButtons from "./groupPageComponents/groupButtons";
 
 const GroupDialog = (props) => {
 
-    const {group, open, onClose, isProfile, userID, oAuthConsentUrl} = props;
+    const {group, open, onClose, isProfile, userID} = props;
     const classes = Styles.useStyles();
 
     return (
         <Dialog classes={{paper: classes.dialog}} onClose={onClose} open={open} fullWidth>
             <DialogTitle onClose={onClose}>
-                <GroupHeader group={group} onClose={onClose} isGroupPage={false} userID={userID} oAuthConsentUrl={oAuthConsentUrl} />
+                <GroupHeader group={group} onClose={onClose} isGroupPage={false} userID={userID} />
             </DialogTitle>
             <DialogContent dividers>
                 <GroupAccordion group={group} userID={userID} isGroupPage={false} />

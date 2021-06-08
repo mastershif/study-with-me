@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import "../../styles/profilePageStyle.css";
 import SettingsIcon from "@material-ui/icons/Settings";
 import IconButton from "@material-ui/core/IconButton";
-import EventAvailableIcon from '@material-ui/icons/EventAvailable';
-import EventBusyIcon from '@material-ui/icons/EventBusy';
 
 class NamePicture extends Component {
     state = {

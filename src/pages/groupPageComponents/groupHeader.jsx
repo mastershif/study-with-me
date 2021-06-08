@@ -14,7 +14,7 @@ import he from "date-fns/locale/he";
 
 const GroupHeader = (props) => {
 
-    const {group, onClose, isGroupPage, userID, oAuthConsentUrl} = props;
+    const {group, onClose, isGroupPage, userID} = props;
     const [anchorEl, setAnchorEl] = useState(null);
     const classesPage = StylesPage.useStyles();
     const classesDialog = StylesDialog.useStyles();
@@ -31,7 +31,6 @@ const GroupHeader = (props) => {
     const closeShare = () => { setAnchorEl(null); };
 
     const insertGroupEvent = () => {
-        // window.location.href = oAuthConsentUrl;
         fetch("http://localhost:5000/calendarSync", {
             method: "PUT",
             credentials: "include",
