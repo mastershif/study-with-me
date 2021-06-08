@@ -11,7 +11,7 @@ import { useState } from "react";
 import GroupDialog from "../groupDialog";
 
 const GroupProfile = (props) => {
-    const { group, isProfile, userID } = props;
+    const { group, isProfile, userID, oAuthConsentUrl } = props;
     const classes = Styles.useStyles();
     const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
@@ -61,7 +61,7 @@ const GroupProfile = (props) => {
                 מידע נוסף
             </Button>
             <GroupDialog group={group} onClose={handleCloseDialog}
-                         isProfile={isProfile} open={dialogIsOpen} userID={userID}/>
+                         isProfile={isProfile} open={dialogIsOpen} userID={userID} oAuthConsentUrl={oAuthConsentUrl}/>
         </Card>
     );
 };

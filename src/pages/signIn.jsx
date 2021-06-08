@@ -75,8 +75,7 @@ const SignIn = ({isLoggedIn, setIsLoggedIn}) => {
           email: userDetails.email,
           institute: "אחר",
           degree: "אחר",
-          userImg: userDetails.imageUrl,
-          calendarIntegration: false
+          userImg: userDetails.imageUrl
         }),
       })
           .then((res) => {

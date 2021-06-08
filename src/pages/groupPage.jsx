@@ -11,6 +11,8 @@ const GroupPage = (props) => {
 
     const {group} = props;
     const [userID, setUserID] = useState();
+    const [oAuthConsentUrl, setOAuthConsentUrl] = useState();
+    const user = getUserFromLocalStorage();
     const classes = Styles.useStyles();
 
     useEffect(() => {
@@ -20,7 +22,7 @@ const GroupPage = (props) => {
     return (
         <div className={classes.page}>
             <Card className={classes.card}>
-                <GroupHeader group={group} onClose={false} isGroupPage={true} />
+                <GroupHeader group={group} onClose={false} isGroupPage={true} userID={userID} oAuthConsentUrl={oAuthConsentUrl} />
                 <Divider />
                 <GroupAccordion group={group} userID={userID} isGroupPage={true} />
                 <div className={classes.groupButtons}>

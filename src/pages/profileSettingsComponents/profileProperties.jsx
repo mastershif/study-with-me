@@ -1,5 +1,3 @@
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import React, { Component } from "react";
 import ProfileProperty from "./profileProperty";
 import Grid from "@material-ui/core/Grid";
@@ -16,8 +14,7 @@ class ProfileProperties extends Component {
         institute: "",
         degree: "",
         major: "",
-        minor: "",
-        integrateCalendar: false
+        minor: ""
     };
 
     async componentDidMount() {
@@ -38,8 +35,7 @@ class ProfileProperties extends Component {
                         institute: result.institute,
                         degree: result.degree,
                         major: result.major,
-                        minor: result.minor,
-                        integrateCalendar: result.calendarIntegration
+                        minor: result.minor
                     });
                 },
             )
@@ -59,17 +55,12 @@ class ProfileProperties extends Component {
                 institute: this.state.institute,
                 degree: this.state.degree,
                 major: this.state.major,
-                minor: this.state.minor,
-                calendarIntegration: this.state.integrateCalendar
+                minor: this.state.minor
             }),
         })
             .then((response) => response.text())
             .then((data) => console.log(data))
             .then(() => (window.location.href = "/profile"));
-    };
-
-    handleCalendarSwitch = (event) => {
-        this.setState({ integrateCalendar: event.target.checked });
     };
 
     handleUsernameChange = (newUsername) => {
@@ -97,10 +88,6 @@ class ProfileProperties extends Component {
     render() {
         return (
             <div>
-                <FormControlLabel style={{paddingRight: 15}}
-                                  control={<Switch checked={this.state.integrateCalendar} onChange={this.handleCalendarSwitch} name="calendar" />}
-                                  label={"סנכרן את מועדי הקבוצות שלי ל-Google Calendar"}
-                />
                 <div
                     style={{
                         display: "flex",
