@@ -70,7 +70,7 @@ class DataDisplay extends Component {
       if (
         this.state.degree === "אחר" ||
         this.state.degree === "" ||
-        this.state.minor === ""
+        this.state.major === ""
       ) {
         return (
           <Grid container alignItems={"center"}>
