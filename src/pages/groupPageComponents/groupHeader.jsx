@@ -34,6 +34,7 @@ const GroupHeader = (props) => {
         // window.location.href = oAuthConsentUrl;
         fetch("http://localhost:5000/calendarSync", {
             method: "PUT",
+            credentials: "include",
             headers: {
               "Content-Type": "application/json",
             },
