@@ -41,9 +41,9 @@ const LeaveButton = (props) => {
                             window.location.reload();
                         }
                         else {
-                            document.getElementById("searchButton").click();
+                            document.getElementById("searchButton")?.click();
                             setTimeout(function () {
-                                document.getElementById("searchButton").click();
+                                document.getElementById("searchButton")?.click();
                             }, 50)
                         }
                     }

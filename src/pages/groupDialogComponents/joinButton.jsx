@@ -37,9 +37,9 @@ const JoinButton = (props) => {
                         }
                         // it means that we are on the search page.
                         else {
-                            document.getElementById("searchButton").click();
+                            document.getElementById("searchButton")?.click();
                             setTimeout(function () {
-                                document.getElementById("searchButton").click();
+                                document.getElementById("searchButton")?.click();
                             }, 50)
                         }
                     }
