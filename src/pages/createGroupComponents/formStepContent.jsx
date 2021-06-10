@@ -208,6 +208,20 @@ const FormStepContent = (props) => {
                             </div>
                         )}
                     </Grid>
+                    <Grid item xs={12}>
+                        <div>
+                            <Styles.Text>
+                                מומלץ ליצור קבוצת WhatsApp (או בכל אפליקצית מסרים אחרת) כדי לתאם ולשוחח. יש להעתיק את הקישור לקבוצה לשדה המופיע מטה.
+                            </Styles.Text>
+                            <TextField required={false} type={"url"} name={"communicationChannel"}
+                                       label={"קישור"} placeholder={"העתק/י לכאן..."}
+                                       fullWidth variant={"outlined"} value={values.communicationChannel}
+                                       InputLabelProps={{ shrink: true }} onChange={handleChange} />
+                            <FormHelperText error>
+                                {getErrorMessage('communicationChannel')}
+                            </FormHelperText>
+                        </div>
+                    </Grid>
                 </Grid>
             ) : (
                 <>

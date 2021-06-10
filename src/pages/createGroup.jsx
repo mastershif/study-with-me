@@ -27,7 +27,7 @@ let lastTimeClicked = 0, currentTimeClicked;
 let initialValues = {
     _id: '', groupTitle: '', groupDescription: '', groupPurpose: '', institution: false,
     groupSize: '', date: null, startHour: null, endHour: null,
-    meetingType: 'פרונטלית', city: '', place: '', link: '', admin: undefined
+    meetingType: 'פרונטלית', city: '', place: '', link: '', admin: undefined, communicationChannel: ''
 };
 
 const getSteps = () => {
