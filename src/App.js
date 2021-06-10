@@ -35,7 +35,7 @@ const PageContainer = styled.div `
 `;
 
 const MainContent = styled.div `
-  padding: 5rem 0;
+  padding: 2rem 0;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -86,13 +86,13 @@ function App() {
                                 <Route exact path="/">
                                     <PageContainer>
                                         <MainContent>
-                                            <MainTitle textLine1={'הצטרפו לקבוצת לימוד'} textLine2={' או התחילו קבוצת לימוד חדשה עכשיו'} />
-                                            <Description text={'קבוצות משותפות ללמידה למבחנים, חזרה על החומר או סתם כדי לעזור לך להתרכז'} />
+                                            <MainTitle textLine1={'הצטרפו לקבוצת לימוד'} textLine2={' או התחילו קבוצת לימוד חדשה'} />
                                             <SecondaryTitle text={'הקבוצה תעזור לך ללמוד!'} />
                                             <CardsGrid>
                                                 <JoinGroupCard />
                                                 <CreateGroupCard isLoggedIn={isLoggedIn} />
                                             </CardsGrid>
+                                            <Description text={'קבוצות משותפות ללמידה למבחנים, חזרה על החומר או סתם כדי לעזור לך להתרכז'} />
                                         </MainContent>
                                     </PageContainer>
                                 </Route>
