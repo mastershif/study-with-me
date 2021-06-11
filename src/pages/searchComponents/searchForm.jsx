@@ -38,11 +38,13 @@ const getHourFormat = (hour, isFullDate) => {
 
 const SearchForm = (props) => {
 
-    const {allGroups, getAllGroups, setResults, setShowResults} = props;
+    const {allGroups, getAllGroups, setResults, setShowResults,
+        setTotalPages, itemsPerPage, setCurrentPage} = props;
     const [searchParameters, setSearchParameters] = useState(initialSearchParameters);
     const [isOpen, setIsOpen] = useState(false);
     const classes = Styles.useStyles();
     let autocompleteOptions = [];
+
     if (allGroups) {
         autocompleteOptions = allGroups.map(obj => obj.groupTitle);
     }
@@ -104,6 +106,8 @@ const SearchForm = (props) => {
             )
             results = results.filter(searchAlgorithm)
             setResults(results);
+            setTotalPages(Math.ceil(results.length / itemsPerPage));
+            setCurrentPage(1);
             autocompleteOptions = allGroups.map(obj => obj.groupTitle);
         }
         setShowResults(true);
