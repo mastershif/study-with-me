@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route, Link, Redirect} from "react-router-dom";
 import CreateGroupCard from "./sharedComponents/createGroupCard";
 import JoinGroupCard from "./sharedComponents/joinGroupCard";
 import MainTitle from "./sharedComponents/mainTitle";
@@ -9,6 +9,7 @@ import Profile from "./pages/profile";
 import ProfileSettings from "./pages/profileSettings";
 import CreateGroup from "./pages/createGroup";
 import Header from "./sharedComponents/header";
+import AccessDenied from "./pages/accessDenied";
 import Search from "./pages/search";
 import theme from "./styles/theme";
 import GlobalStyle from "./styles/globalStyle";
@@ -97,13 +98,13 @@ function App() {
                                     </PageContainer>
                                 </Route>
                                 <Route path="/profile">
-                                    <Profile />
+                                    {isLoggedIn ? <Profile /> : <Redirect to="/accessDenied" /> }
                                 </Route>
                                 <Route path = "/profileSettings">
-                                    <ProfileSettings/>
+                                    { isLoggedIn ? <ProfileSettings/> : <Redirect to="/accessDenied" /> }
                                 </Route>
                                 <Route path="/createGroup">
-                                    <CreateGroup isEdit={false} group={null} />
+                                    {isLoggedIn ? <CreateGroup isEdit={false} group={null} /> : <Redirect to="/accessDenied" /> }
                                 </Route>
                                 <Route path="/group/:_id">
                                     {(props) => {
@@ -121,7 +122,7 @@ function App() {
                                     }}
                                 </Route>
                                 <Route path="/editGroup/:_id">
-                                    {(props) => {
+                                    { isLoggedIn ? (props) => {
                                         const _id = props.match.params._id;
                                         fetch("http://localhost:5000/group/" + _id, {
                                             credentials: "include",
@@ -133,13 +134,16 @@ function App() {
                                             return (<CreateGroup isEdit={true} group={group} />)
                                         }
                                         return null;
-                                    }}
+                                    } : <Redirect to="/accessDenied" /> }
                                 </Route>
                                 <Route path="/search">
                                     <Search />
                                 </Route>
                                 <Route exact path="/signIn">
                                     <SignIn isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
+                                </Route>
+				<Route exact path="/accessDenied">
+                                    <AccessDenied />
                                 </Route>
                             </Switch>
                         </div>
