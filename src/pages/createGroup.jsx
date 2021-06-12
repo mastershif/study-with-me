@@ -8,6 +8,7 @@ import {useHistory} from "react-router-dom";
 import GroupProfile from "./groupDialogComponents/groupProfile";
 import {GroupsList} from "../styles/searchStyle";
 import Fuse from "fuse.js";
+import PaginationLine from "../sharedComponents/pagination";
 
 
 let errors = {};
@@ -40,6 +41,10 @@ const CreateGroup = (props) => {
     const [allGroups, setAllGroups] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(true);
     const [suggestions, setSuggestions] = useState([]);
+    const [totalPages, setTotalPages] = useState();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(1);
+    let pageSuggestions = [], columns = 1;
     let history = useHistory();
     const steps = getSteps();
     const classes = Styles.useStyles();
@@ -53,8 +58,8 @@ const CreateGroup = (props) => {
     const [, forceUpdateState] = useState();
     const forceUpdate = useCallback(() => forceUpdateState({}), []);
 
-    const getAllGroups = () => {
-        fetch("http://localhost:5000/allGroups/", {
+    const getAllGroups = async () => {
+        await fetch("http://localhost:5000/allGroups/", {
             credentials: "include",
         })
             .then((response) => response.json())
@@ -75,24 +80,28 @@ const CreateGroup = (props) => {
     const handleGroupTitleChange = () => {
         if (allGroups && values.groupTitle.length > 0) {
             const fuse = new Fuse(allGroups, options)
-            let results = (
-                fuse.search(values.groupTitle)
-            )
+            let results = fuse.search(values.groupTitle);
             setSuggestions(results);
             if (results.length > 0) {
                 setShowSuggestions(true);
+                setTotalPages(Math.ceil(results.length / itemsPerPage));
+                setCurrentPage(1);
+            }
+            else {
+                setShowSuggestions(false);
             }
         }
     };
 
     useEffect(() => {
         if (!isEdit) {
-            getUserFromDb();
+            getUserFromDb().then();
         }
     }, [isEdit]);
 
     useEffect(() => {
-        getAllGroups();
+        getAllGroups().then();
+        setItemsPerPage(Math.max(2 * getColumns(), 4));
     }, []);
 
     useEffect(() => {
@@ -128,7 +137,6 @@ const CreateGroup = (props) => {
             })
             .then(() => {
                 let unAuthorized = false;
-                console.log(values);
                 fetch("http://localhost:5000/group", {
                     method: "POST",
                     credentials: "include",
@@ -147,7 +155,7 @@ const CreateGroup = (props) => {
                         if (unAuthorized) {
                             throw data;
                         }
-                        console.log(data);
+                        console.log(values);
                     })
                     .then(() => {
                         setActiveStep((prevActiveStep) => prevActiveStep + 1)
@@ -163,11 +171,17 @@ const CreateGroup = (props) => {
     };
 
     const getColumns = () => {
-        if (isWidthUp('xl', props.width)) {return 3;}
-        if (isWidthUp('lg', props.width)) {return 2;}
-        if (isWidthUp('md', props.width)) {return 1;}
-        if (isWidthUp('sm', props.width)) {return 1;}
+        if (isWidthUp('xl', props.width)) {return 3}
+        if (isWidthUp('lg', props.width)) {return 2}
+        if (isWidthUp('md', props.width)) {return 1}
+        if (isWidthUp('sm', props.width)) {return 1}
         return 1;
+    }
+
+    if (suggestions.length !== 0) {
+        pageSuggestions = suggestions.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+        columns = Math.min(pageSuggestions?.length, getColumns());
+        console.log('columns:', columns);
     }
 
     return (
@@ -232,21 +246,21 @@ const CreateGroup = (props) => {
             { showSuggestions && activeStep === 0 && !isEdit && values?.groupTitle.length > 0 && isGroupTitleOutOfFocus &&
             <div className={classes.card}>
                 <CardContent>
-                    אפשר גם להצטרף לקבוצה קיימת:
+                    ניתן גם להצטרף לקבוצה קיימת:
                 </CardContent>
                 <GroupsList>
                     <GridList
-                        cellHeight={'auto'}
-                        spacing={0}
-                        style={{ width: '100%' }}
-                        cols={Math.min(suggestions?.length, getColumns())}>
-                        {suggestions && suggestions.map(group => (
+                        cellHeight={'auto'} spacing={0}
+                        style={{ width: '100%' }} cols={columns}>
+                        {suggestions && pageSuggestions.map(group => (
                             <GridListTile key={group.item._id}>
                                 <GroupProfile group={group.item} isProfile={false} userID={initialValues.admin} />
                             </GridListTile>
                         ))}
                     </GridList>
                 </GroupsList>
+                <PaginationLine totalPages={totalPages}
+                                currentPage={currentPage} setCurrentPage={setCurrentPage} />
             </div>
             }
         </div>

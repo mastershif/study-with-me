@@ -8,13 +8,13 @@ const ChatLink = (props) => {
     if (!inGroup) {
         return (
             <Typography variant="body1" component="p">
-                האפשרות לשוחח פתוחה רק למי שכבר בקבוצה
+                האפשרות לשוחח פתוחה רק למי שרשום לקבוצה.
             </Typography>
         );
     } else {
         return (
             <Typography variant="body1" component="p">
-                 כאן אפשר לתאם ולהתעדכן:<a href={group.link} target="_blank" rel="noreferrer">{group.link}</a>
+                 כאן אפשר לתאם ולהתעדכן: <a href={group.link} target="_blank" rel="noreferrer">{group.link}</a>
             </Typography>
         );
     }
