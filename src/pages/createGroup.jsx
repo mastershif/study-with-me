@@ -181,7 +181,6 @@ const CreateGroup = (props) => {
     if (suggestions.length !== 0) {
         pageSuggestions = suggestions.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
         columns = Math.min(pageSuggestions?.length, getColumns());
-        console.log('columns:', columns);
     }
 
     return (

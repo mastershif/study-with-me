@@ -14,7 +14,7 @@ const ChatLink = (props) => {
     } else {
         return (
             <Typography variant="body1" component="p">
-                 כאן אפשר לתאם ולהתעדכן: <a href={group.link} target="_blank" rel="noreferrer">{group.link}</a>
+                 כאן אפשר לתאם ולהתעדכן: <a href={group.communicationChannel} target="_blank" rel="noreferrer">{group.communicationChannel}</a>
             </Typography>
         );
     }
