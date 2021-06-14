@@ -66,6 +66,7 @@ const DeleteButton = (props) => {
                 <Dialog
                     open={openDeleteWarning}
                     onClose={() => {}}
+                    maxWidth={"xs"}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
@@ -73,6 +74,9 @@ const DeleteButton = (props) => {
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             האם את/ה בטוח/ה שברצונך למחוק את הקבוצה?
+                        </DialogContentText>
+                        <DialogContentText id="alert-dialog-description">
+                            פעולה זו היא בלתי הפיכה ופירושה מחיקת הקבוצה ממאגרי האתר עבורך ועבור כלל המשתמשים הרשומים אליה.
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
