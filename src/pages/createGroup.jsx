@@ -5,6 +5,7 @@ import {Button, ButtonGroup, Card, CardContent, GridList, withWidth,
 import FormStepContent from "./createGroupComponents/formStepContent";
 import {formSchema} from "./createGroupComponents/formValidation";
 import {useHistory} from "react-router-dom";
+import {setUserFromDB} from "./signInComponents/setUserFromDB";
 import GroupProfile from "./groupDialogComponents/groupProfile";
 import {GroupsList} from "../styles/searchStyle";
 import Fuse from "fuse.js";
@@ -32,8 +33,13 @@ const CreateGroup = (props) => {
 
     // If we are editing a group, the values should be the current group values.
     const {isEdit, group} = props;
-    if (isEdit === true) {
-        initialValues = group;
+    const [user, setUser] = useState();
+    if (isEdit) {
+        Object.assign(initialValues, group);
+        initialValues.institution = group.institution !== 'הכל';
+    }
+    else {
+        initialValues.admin = user?._id;
     }
     const [values, setValues] = useState(initialValues);
     const [activeStep, setActiveStep] = useState(0);
@@ -69,18 +75,15 @@ const CreateGroup = (props) => {
             .catch((error) => console.log(error));
     }
 
-    const getUserFromDb = async () => {
-        const userFromDb = await fetch("http://localhost:5000/profileSettings", {
-            credentials: "include",
-        })
-            .then(response => response.json());
-        initialValues.admin = userFromDb._id;
-    }
-
     const handleGroupTitleChange = () => {
         if (allGroups && values.groupTitle.length > 0) {
             const fuse = new Fuse(allGroups, options)
             let results = fuse.search(values.groupTitle);
+            results = results.filter((group) => {
+                return (
+                    (group.item.institution === 'הכל' || group.item.institution === user?.institute)
+                )
+            });
             setSuggestions(results);
             if (results.length > 0) {
                 setShowSuggestions(true);
@@ -95,7 +98,7 @@ const CreateGroup = (props) => {
 
     useEffect(() => {
         if (!isEdit) {
-            getUserFromDb().then();
+            setUserFromDB(setUser).then();
         }
     }, [isEdit]);
 
@@ -253,7 +256,7 @@ const CreateGroup = (props) => {
                         style={{ width: '100%' }} cols={columns}>
                         {suggestions && pageSuggestions.map(group => (
                             <GridListTile key={group.item._id}>
-                                <GroupProfile group={group.item} isProfile={false} userID={initialValues.admin} />
+                                <GroupProfile group={group.item} isProfile={false} userID={user?._id} />
                             </GridListTile>
                         ))}
                     </GridList>

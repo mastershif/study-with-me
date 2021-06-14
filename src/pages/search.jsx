@@ -3,13 +3,13 @@ import GroupProfile from "./groupDialogComponents/groupProfile";
 import * as Styles from "../styles/searchStyle";
 import {GridList, GridListTile, isWidthUp, Paper, withWidth} from "@material-ui/core";
 import SearchForm from './searchComponents/searchForm';
-import {getUserID} from "./signInComponents/getUserID";
+import {setUserFromDB} from "./signInComponents/setUserFromDB";
 import PaginationLine from "../sharedComponents/pagination";
 
 
 const Search = (props) => {
 
-    const [userID, setUserID] = useState();
+    const [user, setUser] = useState({});
     const [showResults, setShowResults] = useState(false);
     const [allGroups, setAllGroups] = useState();
     const [results, setResults] = useState();
@@ -38,7 +38,7 @@ const Search = (props) => {
 
     useEffect(() => {
         getAllGroups().then();
-        getUserID(setUserID).then();
+        setUserFromDB(setUser).then();
         setItemsPerPage(Math.max(2 * getColumns(), 4));
     }, []);
 
@@ -52,7 +52,7 @@ const Search = (props) => {
             <SearchForm allGroups={allGroups} getAllGroups={getAllGroups}
                         setResults={setResults} setShowResults={setShowResults}
                         setTotalPages={setTotalPages} itemsPerPage={itemsPerPage}
-                        setCurrentPage={setCurrentPage}
+                        setCurrentPage={setCurrentPage} user={user}
             />
             { showResults &&
             <div>
@@ -60,7 +60,7 @@ const Search = (props) => {
                     <GridList cellHeight={'auto'} spacing={0} cols={columns}>
                         {results && pageResults.map(group => (
                             <GridListTile key={group.item._id} cols={1}>
-                                <GroupProfile group={group.item} isProfile={false} userID={userID} />
+                                <GroupProfile group={group.item} isProfile={false} userID={user?._id} />
                             </GridListTile>
                         ))}
                     </GridList>

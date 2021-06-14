@@ -39,7 +39,7 @@ const getHourFormat = (hour, isFullDate) => {
 const SearchForm = (props) => {
 
     const {allGroups, getAllGroups, setResults, setShowResults,
-        setTotalPages, itemsPerPage, setCurrentPage} = props;
+        setTotalPages, itemsPerPage, setCurrentPage, user} = props;
     const [searchParameters, setSearchParameters] = useState(initialSearchParameters);
     const [isOpen, setIsOpen] = useState(false);
     const classes = Styles.useStyles();
@@ -83,7 +83,10 @@ const SearchForm = (props) => {
             (getHourFormat(searchParameters.hours.start, false) <=
                 getHourFormat(group.item.startHour, true) &&
                 getHourFormat(searchParameters.hours.end, false) >=
-                getHourFormat(group.item.endHour, true))
+                getHourFormat(group.item.endHour, true)) &&
+            (searchParameters.institution ?
+                (group.item.institution === user?.institute) :
+                (group.item.institution === 'הכל' || group.item.institution === user?.institute))
         )
     }
 
@@ -100,11 +103,11 @@ const SearchForm = (props) => {
         event.preventDefault();
         getAllGroups();
         if (allGroups) {
-            const fuse = new Fuse(allGroups, options)
+            const fuse = new Fuse(allGroups, options);
             let results = (
                 searchParameters.text === "" ? emptyStringSearch : fuse.search(searchParameters.text)
             )
-            results = results.filter(searchAlgorithm)
+            results = results.filter(searchAlgorithm);
             setResults(results);
             setTotalPages(Math.ceil(results.length / itemsPerPage));
             setCurrentPage(1);

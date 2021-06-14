@@ -16,6 +16,7 @@ const GroupAccordion = (props) => {
     const {group, userID, isGroupPage} = props;
     const [expanded, setExpanded] = useState('accord1');
     const classes = Styles.useStyles();
+    const onlyInstitution = <><br/><br/>הקבוצה מיועדת לתלמידי <b>{group.institution}</b> בלבד.</>
 
     const handleExpand = (panel) => (event, newExpanded) => {
         setExpanded(newExpanded ? panel : false);
@@ -32,7 +33,9 @@ const GroupAccordion = (props) => {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography gutterBottom variant="body1" component="p">
-                        <b>מטרת הקבוצה:</b> {group.groupPurpose}.<br/><br/>{group.groupDescription}
+                        <b>מטרת הקבוצה:</b> {group.groupPurpose}.
+                        <br/><br/>{group.groupDescription}
+                        {group.institution !== 'הכל' ? onlyInstitution : '' }
                     </Typography>
                 </AccordionDetails>
             </Accordion>
