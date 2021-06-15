@@ -1,6 +1,6 @@
 import {isAuth} from "./isAuth";
 
-export const getUserID = async (setUserID) => {
+export const setUserFromDB = async (setUser) => {
     if (await isAuth()) {
         fetch("http://localhost:5000/profileSettings", {
             credentials: "include",
@@ -12,9 +12,9 @@ export const getUserID = async (setUserID) => {
                     return Promise.reject(response.json());
                 }
             )
-            .then((result) => setUserID(result._id))
+            .then((result) => setUser(result))
             .catch((error) => console.log(error));
     } else {
-        setUserID(0);
+        setUser({_id: 0, institute: ''});
     }
 }

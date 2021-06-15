@@ -4,31 +4,32 @@ import {Card, Divider} from "@material-ui/core";
 import GroupAccordion from "./groupPageComponents/groupAccordion";
 import GroupButtons from "./groupPageComponents/groupButtons";
 import {useEffect, useState} from "react";
-import {getUserID} from "./signInComponents/getUserID";
+import {setUserFromDB} from "./signInComponents/setUserFromDB";
 
 
 const GroupPage = (props) => {
 
     const {group} = props;
-    const [userID, setUserID] = useState();
+    const [user, setUser] = useState();
     const classes = Styles.useStyles();
 
     useEffect(() => {
-        getUserID(setUserID);
+        setUserFromDB(setUser).then();
     }, []);
 
     return (
-        <div className={classes.page}>
-            <Card className={classes.card}>
-                <GroupHeader group={group} onClose={false} isGroupPage={true} userID={userID}/>
-                <Divider />
-                <GroupAccordion group={group} userID={userID} isGroupPage={true} />
-                <div className={classes.groupButtons}>
-                    <GroupButtons group={group} userID={userID}
-                                  isProfile={false} isGroupPage={true} />
-                </div>
-            </Card>
-        </div>
+        user?._id !== undefined ?
+            <div className={classes.page}>
+                <Card className={classes.card}>
+                    <GroupHeader group={group} onClose={false} isGroupPage={true} userID={user?._id}/>
+                    <Divider />
+                    <GroupAccordion group={group} userID={user?._id} isGroupPage={true} />
+                    <div className={classes.groupButtons}>
+                        <GroupButtons group={group} userID={user?._id}
+                                      isProfile={false} isGroupPage={true} />
+                    </div>
+                </Card>
+            </div> : <></>
     )
 }
 
