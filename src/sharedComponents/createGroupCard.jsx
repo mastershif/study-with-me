@@ -1,6 +1,6 @@
 import {useState} from "react";
 import styled from 'styled-components';
-import CreateIcon from '@material-ui/icons/Create';
+import CreateIcon from '@material-ui/icons/Add';
 import FailedOnLoginDialog from "./failedOnLoginDialog";
 
 const CardContainer = styled.a`

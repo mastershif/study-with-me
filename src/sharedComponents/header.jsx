@@ -3,7 +3,6 @@ import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {AppBar, Toolbar, Button, IconButton,
     Paper, List, ListItem} from '@material-ui/core';
-import appTheme from "../styles/theme";
 import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from '@material-ui/icons/Add';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
@@ -11,17 +10,8 @@ import MobileMenu from "./mobileMenu";
 import {getImageFromLocalStorage, removeImageFromLocalStorage} from '../localStorage.service'
 import {GoogleLogout} from "react-google-login";
 import {useHistory} from "react-router-dom";
+import logo from "../assets/logo.png";
 
-const Logo = styled.a`
-  color: ${appTheme.palette.background.default};
-  line-height: 1.15;
-  font-weight: 500;
-  font-style: italic;
-  text-decoration: none;
-  font-family: 'Permanent Marker', cursive;
-  margin-right: 0.5em;
-  text-shadow: 0 0 6px ${appTheme.palette.secondary.main}, 0 0 9px ${appTheme.palette.secondary.main};
-`;
 
 const ProfilePic = styled.img`
   width: 45px;
@@ -53,19 +43,21 @@ const useStyles = makeStyles((theme) => ({
             display: 'inline',
         },
     },
-    title: {
+    logo: {
         flexGrow: 1,
-        marginBottom: '4px',
-        fontSize: '3rem',
+        maxHeight: '85px',
+    },
+    img: {
+        maxHeight: '70px',
         [theme.breakpoints.down("xs")]: {
-            fontSize: '2rem',
+            maxWidth: '220px'
         },
     },
     buttonsBar: {
         [theme.breakpoints.down("xs")]: {
             display: 'none',
         },
-        height: '50px',
+        maxHeight: '85px',
         minWidth: '200px',
         display: 'flex',
         flexDirection: 'row',
@@ -123,13 +115,15 @@ const Header = ({isLoggedIn, setIsLoggedIn}) => {
     return (
         <div className={classes.root}>
             <AppBar color={"primary"} position="static" elevation={1}>
-                <Toolbar>
+                <Toolbar style={{maxHeight: '80px', minHeight: '80px'}}>
                     <IconButton className={classes.menuButton} aria-label="menu" color="inherit">
                         <MobileMenu isLoggedIn={isLoggedIn} onLogoutGoogle={onLogoutGoogle}
                                     onLogoutGoogleFailure={onLogoutGoogleFailure}/>
                     </IconButton>
-                    <div className={classes.title}>
-                        <Logo edge="start" href="/">Study With Me</Logo>
+                    <div className={classes.logo} >
+                        <IconButton href="/" color={"primary"}>
+                            <img src={logo} alt={"Study With Me"} className={classes.img} />
+                        </IconButton>
                     </div>
                     <div className={classes.buttonsBar}>
                         <IconButton className={classes.iconButton} aria-label="search" color="inherit" href="/search">
