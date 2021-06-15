@@ -40,7 +40,7 @@ const JoinButton = (props) => {
                             document.getElementById("searchButton")?.click();
                             setTimeout(function () {
                                 document.getElementById("searchButton")?.click();
-                            }, 50)
+                            }, 800)
                         }
                     }
                 } else {

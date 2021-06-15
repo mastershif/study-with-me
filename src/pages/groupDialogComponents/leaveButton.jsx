@@ -44,7 +44,7 @@ const LeaveButton = (props) => {
                             document.getElementById("searchButton")?.click();
                             setTimeout(function () {
                                 document.getElementById("searchButton")?.click();
-                            }, 50)
+                            }, 800)
                         }
                     }
                 }
