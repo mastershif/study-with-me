@@ -22,7 +22,7 @@ const ChatLink = (props) => {
         } else {
             return (
                 <Typography variant="body1" component="p">
-                    מנהל/ת הקבוצה לא סיפק/ה דרכי התקשרות
+                    מנהל/ת הקבוצה לא סיפק/ה דרכי התקשרות.
                 </Typography>
             );
         }
