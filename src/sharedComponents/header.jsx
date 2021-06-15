@@ -46,9 +46,6 @@ const useStyles = makeStyles((theme) => ({
     logo: {
         flexGrow: 1,
         maxHeight: '85px',
-        [theme.breakpoints.down("xs")]: {
-            margin: '0 0 0 -10px',
-        },
     },
     img: {
         maxHeight: '70px',
