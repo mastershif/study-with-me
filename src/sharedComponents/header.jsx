@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: 1
     },
     textButton: {
-        fontSize: 20,
+        fontSize: 18,
     },
     iconButton: {
         fontSize: 20,
@@ -100,7 +100,9 @@ const Header = ({isLoggedIn, setIsLoggedIn}) => {
                                 onLogoutSuccess={onLogoutGoogle}
                                 onFailure={onLogoutGoogleFailure}
                                 render={renderProps => (
-                                    <button className={classes.signOutButton} onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                                    <button className={classes.signOutButton}
+                                            onClick={renderProps.onClick}
+                                            disabled={renderProps.disabled}>
                                         יציאה
                                     </button>
                                 )}
@@ -118,9 +120,9 @@ const Header = ({isLoggedIn, setIsLoggedIn}) => {
                 <Toolbar style={{maxHeight: '80px', minHeight: '80px'}}>
                     <IconButton className={classes.menuButton} aria-label="menu" color="inherit">
                         <MobileMenu isLoggedIn={isLoggedIn} onLogoutGoogle={onLogoutGoogle}
-                                    onLogoutGoogleFailure={onLogoutGoogleFailure}/>
+                                    onLogoutGoogleFailure={onLogoutGoogleFailure} profilePicture={profilePicture} />
                     </IconButton>
-                    <div className={classes.logo} >
+                    <div className={classes.logo}>
                         <IconButton href="/" color={"primary"}>
                             <img src={logo} alt={"Study With Me"} className={classes.img} />
                         </IconButton>
@@ -137,6 +139,11 @@ const Header = ({isLoggedIn, setIsLoggedIn}) => {
                         }
                         {isLoggedIn ?
                             <>
+                                <Button className={classes.textButton} color="inherit" href="/myGroups">
+                                    <div style={{textAlign: 'center'}}>
+                                        הקבוצות<br/>שלי
+                                    </div>
+                                </Button>
                                 <IconButton className={classes.iconButton} aria-label="profile" color="inherit" href="/profile">
                                     <ProfilePic src={profilePicture}/>
                                 </IconButton>
