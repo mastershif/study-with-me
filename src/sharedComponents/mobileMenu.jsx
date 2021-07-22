@@ -6,13 +6,24 @@ import MenuIcon from "@material-ui/icons/Menu";
 import LockIcon from '@material-ui/icons/Lock';
 import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from '@material-ui/icons/Add';
-import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
+import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 import {Link} from "react-router-dom";
 import {GoogleLogout} from "react-google-login";
+import styled from "styled-components";
+import {getImageFromLocalStorage} from "../localStorage.service";
+
+
+const ProfilePic = styled.img`
+  margin-right: -5px;
+  width: 35px;
+  height: 35px;
+  border: white;
+  border-radius: 50%;
+`;
 
 const useStyles = makeStyles({
     list: {
-        width: 250,
+        width: 200,
     },
     fullList: {
         width: 'auto',
@@ -25,7 +36,7 @@ const useStyles = makeStyles({
 
 const MobileMenu = (props) => {
 
-    const {isLoggedIn, onLogoutGoogle, onLogoutGoogleFailure} = props;
+    const {isLoggedIn, onLogoutGoogle, onLogoutGoogleFailure, profilePicture} = props;
     const classes = useStyles();
     const [state, setState] = React.useState({
         top: false,
@@ -34,11 +45,11 @@ const MobileMenu = (props) => {
         right: false,
     });
     const navigationOptions = isLoggedIn ?
-        ['חיפוש קבוצה', 'יצירת קבוצה', 'פרופיל', 'יציאה'] : ['התחברות', 'חיפוש קבוצה'];
+        ['חיפוש קבוצה', 'יצירת קבוצה', 'הקבוצות שלי', 'פרופיל', 'יציאה'] : ['התחברות', 'חיפוש קבוצה'];
     const menuIcons = isLoggedIn ?
-        [<SearchIcon />, <AddIcon />, <PersonOutlineIcon />, <LockIcon />] : [<LockIcon />, <SearchIcon />];
+        [<SearchIcon />, <AddIcon />, <PeopleOutlineIcon />, <ProfilePic src={profilePicture}/>, <LockIcon />] : [<LockIcon />, <SearchIcon />];
     const menuPaths = isLoggedIn ?
-        ['/search', '/createGroup', '/profile'] : ['/signIn', '/search'];
+        ['/search', '/createGroup', '/myGroups', '/profile'] : ['/signIn', '/search'];
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -79,10 +90,12 @@ const MobileMenu = (props) => {
                                             <button className={classes.signOutButton}
                                                     onClick={renderProps.onClick}
                                                     disabled={renderProps.disabled}>
-                                                <ListItemIcon>
-                                                    {menuIcons[index]}
-                                                </ListItemIcon>
-                                                <ListItemText primary={text} />
+                                                <div>
+                                                    <ListItemIcon style={{margin: '0 -5px 0 0'}}>
+                                                        {menuIcons[index]}
+                                                        <ListItemText style={{color: 'black', margin: '0 25px 0 0'}} primary={text} />
+                                                    </ListItemIcon>
+                                                </div>
                                             </button>
                                         )}
                                     />

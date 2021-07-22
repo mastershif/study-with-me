@@ -20,6 +20,7 @@ import SignIn from "./pages/signIn";
 import SecondaryTitle from "./sharedComponents/secondaryTitle";
 import GroupPage from "./pages/groupPage";
 import {isAuth} from "./pages/signInComponents/isAuth";
+import MyGroups from "./pages/myGroups";
 
 
 //In order that the material-ui components will work perfect in hebrew.
@@ -102,6 +103,9 @@ function App() {
                                 </Route>
                                 <Route path = "/profileSettings">
                                     { isLoggedIn ? <ProfileSettings/> : <Redirect to="/accessDenied" /> }
+                                </Route>
+                                <Route path = "/myGroups">
+                                    { isLoggedIn ? <MyGroups/> : <Redirect to="/accessDenied" /> }
                                 </Route>
                                 <Route path="/createGroup">
                                     {isLoggedIn ? <CreateGroup isEdit={false} group={null} /> : <Redirect to="/accessDenied" /> }

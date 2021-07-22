@@ -17,17 +17,20 @@ const PaginationLine = (props) => {
 
     const handlePageChange = (event, value) => {
         setCurrentPage(value);
+        window.scrollTo({top: 100, behavior: 'smooth'});
     }
 
     const handlePrev = () => {
         if (currentPage !== 1) {
             setCurrentPage(currentPage - 1);
+            window.scrollTo({top: 100, behavior: 'smooth'});
         }
     }
 
     const handleNext = () => {
         if (currentPage !== totalPages) {
             setCurrentPage(currentPage + 1);
+            window.scrollTo({top: 100, behavior: 'smooth'});
         }
     }
 
