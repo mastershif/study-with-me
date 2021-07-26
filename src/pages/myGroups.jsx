@@ -52,8 +52,6 @@ const MyGroups = (props) => {
         columns = Math.min(pageGroups.length, getColumns());
     }
 
-    console.log('the userID is: ', userID);
-    console.log('the groups?.length is: ', groups?.length);
     return (
         <Paper className={classes.page} elevation={0}>
             <Styles.Title>הקבוצות שלי</Styles.Title>
