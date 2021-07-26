@@ -134,7 +134,7 @@ const Header = ({isLoggedIn, setIsLoggedIn}) => {
                         {isLoggedIn ? <IconButton className={classes.iconButton} aria-label="create" color="inherit" href="/createGroup"> <AddIcon /> </IconButton> : <div></div>}
                         {!isLoggedIn &&
                         <Button className={classes.textButton} color="inherit" href="/signIn">
-                            התחבר/י
+                            התחברות / הרשמה
                         </Button>
                         }
                         {isLoggedIn ?
