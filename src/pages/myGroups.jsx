@@ -4,6 +4,7 @@ import GroupProfile from "./groupDialogComponents/groupProfile";
 import PaginationLine from "../sharedComponents/pagination";
 import React, {useEffect, useState} from "react";
 import {isAuth} from "./signInComponents/isAuth";
+import SecondaryTitle from "../sharedComponents/secondaryTitle";
 
 
 const MyGroups = (props) => {
@@ -58,13 +59,18 @@ const MyGroups = (props) => {
                 userID ?
                     <div>
                         <Styles.GroupsList>
-                            <GridList cellHeight={"auto"} spacing={0} cols={columns}>
-                                {pageGroups.map((group) => (
-                                    <GridListTile key={group._id} cols={1}>
-                                        <GroupProfile group={group} isProfile={true} userID={userID} />
-                                    </GridListTile>
-                                ))}
-                            </GridList>
+                            {
+                                groups?.length ?
+                                    <GridList cellHeight={"auto"} spacing={0} cols={columns}>
+                                        {pageGroups.map((group) => (
+                                            <GridListTile key={group._id} cols={1}>
+                                                <GroupProfile group={group} isProfile={true} userID={userID} />
+                                            </GridListTile>
+                                        ))}
+                                    </GridList>
+                                    :
+                                    <SecondaryTitle text={'עוד לא הצטרפת לאף קבוצה...'} />
+                            }
                         </Styles.GroupsList>
                         <PaginationLine totalPages={totalPages}
                                         currentPage={currentPage}
