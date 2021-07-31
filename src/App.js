@@ -13,7 +13,7 @@ import AccessDenied from "./pages/accessDenied";
 import Search from "./pages/search";
 import theme from "./styles/theme";
 import GlobalStyle from "./styles/globalStyle";
-import {ThemeProvider, StylesProvider, jssPreset,} from "@material-ui/core/styles";
+import {ThemeProvider, StylesProvider, jssPreset} from "@material-ui/core/styles";
 import { create } from "jss";
 import rtl from "jss-rtl";
 import SignIn from "./pages/signIn";
@@ -99,16 +99,20 @@ function App() {
                                     </PageContainer>
                                 </Route>
                                 <Route path="/profile">
-                                    {isLoggedIn ? <Profile /> : <Redirect to="/accessDenied" /> }
+                                    {isLoggedIn ? <Profile /> :
+                                        <Redirect to="/accessDenied" isLoggedIn={isLoggedIn}/> }
                                 </Route>
                                 <Route path = "/profileSettings">
-                                    { isLoggedIn ? <ProfileSettings/> : <Redirect to="/accessDenied" /> }
+                                    { isLoggedIn ? <ProfileSettings/> :
+                                        <Redirect to="/accessDenied" isLoggedIn={isLoggedIn} /> }
                                 </Route>
                                 <Route path = "/myGroups">
-                                    { isLoggedIn ? <MyGroups/> : <Redirect to="/accessDenied" /> }
+                                    { isLoggedIn ? <MyGroups/> :
+                                        <Redirect to="/accessDenied" isLoggedIn={isLoggedIn} /> }
                                 </Route>
                                 <Route path="/createGroup">
-                                    {isLoggedIn ? <CreateGroup isEdit={false} group={null} /> : <Redirect to="/accessDenied" /> }
+                                    {isLoggedIn ? <CreateGroup isEdit={false} group={null} /> :
+                                        <Redirect to="/accessDenied" isLoggedIn={isLoggedIn} /> }
                                 </Route>
                                 <Route path="/group/:_id">
                                     {(props) => {
@@ -128,17 +132,31 @@ function App() {
                                 <Route path="/editGroup/:_id">
                                     { isLoggedIn ? (props) => {
                                         const _id = props.match.params._id;
+                                        let returnedValue;
                                         fetch("http://localhost:5000/group/" + _id, {
                                             credentials: "include",
                                         })
                                             .then((response) => response.json())
-                                            .then((result) => group === undefined ? setGroup(result) : null)
+                                            .then((result) => {
+                                                returnedValue = result;
+                                                if (group === undefined) {
+                                                    setGroup(result)
+                                                }
+                                            })
+                                            .then(() => {
+                                                fetch("http://localhost:5000/profileSettings", {
+                                                    credentials: "include",
+                                                })
+                                                    .then((response) => response.json())
+                                                    .then((result) => result._id !== returnedValue.admin ?
+                                                        window.location.href = "/accessDenied" : null)
+                                            })
                                             .catch((error) => console.log(error));
                                         if (group) {
                                             return (<CreateGroup isEdit={true} group={group} />)
                                         }
                                         return null;
-                                    } : <Redirect to="/accessDenied" /> }
+                                    } : <Redirect to="/accessDenied" isLoggedIn={isLoggedIn} /> }
                                 </Route>
                                 <Route path="/search">
                                     <Search />
@@ -146,8 +164,8 @@ function App() {
                                 <Route exact path="/signIn">
                                     <SignIn isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
                                 </Route>
-				<Route exact path="/accessDenied">
-                                    <AccessDenied />
+                                <Route exact path="/accessDenied">
+                                    <AccessDenied isLoggedIn={isLoggedIn} />
                                 </Route>
                             </Switch>
                         </div>
