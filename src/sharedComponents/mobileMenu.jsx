@@ -6,11 +6,10 @@ import MenuIcon from "@material-ui/icons/Menu";
 import LockIcon from '@material-ui/icons/Lock';
 import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from '@material-ui/icons/Add';
-import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
+import UserGroupsIcon from '@material-ui/icons/RecentActors';
 import {Link} from "react-router-dom";
 import {GoogleLogout} from "react-google-login";
 import styled from "styled-components";
-import {getImageFromLocalStorage} from "../localStorage.service";
 
 
 const ProfilePic = styled.img`
@@ -45,9 +44,9 @@ const MobileMenu = (props) => {
         right: false,
     });
     const navigationOptions = isLoggedIn ?
-        ['חיפוש קבוצה', 'יצירת קבוצה', 'הקבוצות שלי', 'פרופיל', 'יציאה'] : ['התחברות', 'חיפוש קבוצה'];
+        ['חיפוש קבוצה', 'יצירת קבוצה', 'הקבוצות שלי', 'פרופיל', 'התנתקות'] : ['התחברות', 'חיפוש קבוצה'];
     const menuIcons = isLoggedIn ?
-        [<SearchIcon />, <AddIcon />, <PeopleOutlineIcon />, <ProfilePic src={profilePicture}/>, <LockIcon />] : [<LockIcon />, <SearchIcon />];
+        [<SearchIcon />, <AddIcon />, <UserGroupsIcon />, <ProfilePic src={profilePicture}/>, <LockIcon />] : [<LockIcon />, <SearchIcon />];
     const menuPaths = isLoggedIn ?
         ['/search', '/createGroup', '/myGroups', '/profile'] : ['/signIn', '/search'];
 

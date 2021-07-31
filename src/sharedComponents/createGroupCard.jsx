@@ -16,8 +16,8 @@ const CardContainer = styled.a`
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
   :hover, :focus, :active {
-    color: #0070f3;
-    border-color: #0070f3;
+    color: #ff0053;
+    border-color: #ff0053;
   }
   @media (max-width: 835px) {
     min-width: 80%;
@@ -59,7 +59,7 @@ const CreateGroupCard = ({isLoggedIn}) => {
                         <CreateIcon fontSize={'large'}/>
                     </CherryHighlight>
                 </CardIcon>
-                <CardTitle>להתחיל קבוצת לימוד &larr;</CardTitle>
+                <CardTitle>ליצור קבוצת לימוד &larr;</CardTitle>
                 <Description><CherryHighlight>תחליטו מתי</CherryHighlight> ללמוד ומה יהיה גודל הקבוצה!</Description>
             </CardContainer>
             <FailedOnLoginDialog open={openDialog} setOpen={setOpenDialog}

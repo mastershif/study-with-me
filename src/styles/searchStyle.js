@@ -16,6 +16,15 @@ export const useStyles = makeStyles(theme => ({
         padding: '1rem',
         borderRadius: '10px',
     },
+    filtersButton: {
+        marginTop: '15px',
+        border: '1.5px solid grey'
+    },
+    resetButton: {
+        marginTop: '15px',
+        marginLeft: '15px',
+        border: '1.5px solid grey',
+    }
 }))
 
 export const Title = styled.h1`

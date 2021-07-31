@@ -6,6 +6,7 @@ import {AppBar, Toolbar, Button, IconButton,
 import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from '@material-ui/icons/Add';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import UserGroupsIcon from '@material-ui/icons/RecentActors';
 import MobileMenu from "./mobileMenu";
 import {getImageFromLocalStorage, removeImageFromLocalStorage} from '../localStorage.service'
 import {GoogleLogout} from "react-google-login";
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 20,
     },
     signOutButton: {
-        fontSize: 20,
+        fontSize: 18,
         color: "1d1d1f",
         cursor: "pointer",
     },
@@ -91,9 +92,9 @@ const Header = ({isLoggedIn, setIsLoggedIn}) => {
     const renderLogoutMenu = () => {
         return (
             <Paper elevation={0} style={{ zIndex: 1, position: 'absolute',
-                minWidth: '80px', marginTop: '4rem', marginRight: '130px' }}>
+                minWidth: '60px', maxHeight: '60px', marginTop: '4rem', marginRight: '180px' }}>
                 <List>
-                    {['יציאה'].map((text) => (
+                    {['התנתקות'].map((text) => (
                         <ListItem button key={text}>
                             <GoogleLogout
                                 clientId={process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}
@@ -103,7 +104,7 @@ const Header = ({isLoggedIn, setIsLoggedIn}) => {
                                     <button className={classes.signOutButton}
                                             onClick={renderProps.onClick}
                                             disabled={renderProps.disabled}>
-                                        יציאה
+                                        התנתקות
                                     </button>
                                 )}
                             />
@@ -128,31 +129,37 @@ const Header = ({isLoggedIn, setIsLoggedIn}) => {
                         </IconButton>
                     </div>
                     <div className={classes.buttonsBar}>
-                        <IconButton className={classes.iconButton} aria-label="search" color="inherit" href="/search">
-                            <SearchIcon />
+                        <IconButton className={classes.iconButton} aria-label="search"
+                                    color="inherit" href="/search">
+                            <SearchIcon titleAccess={"חיפוש קבוצה"} />
                         </IconButton>
-                        {isLoggedIn ? <IconButton className={classes.iconButton} aria-label="create" color="inherit" href="/createGroup"> <AddIcon /> </IconButton> : <div></div>}
+                        {isLoggedIn ?
+                            <IconButton className={classes.iconButton} aria-label="create"
+                                        color="inherit" href="/createGroup">
+                                <AddIcon titleAccess={"יצירת קבוצה"} />
+                            </IconButton> : <div> </div>}
                         {!isLoggedIn &&
-                        <Button className={classes.textButton} color="inherit" href="/signIn">
+                        <Button className={classes.textButton} aria-label="signIn"
+                                color="inherit" href="/signIn">
                             התחברות / הרשמה
                         </Button>
                         }
                         {isLoggedIn ?
                             <>
-                                <Button className={classes.textButton} color="inherit" href="/myGroups">
-                                    <div style={{textAlign: 'center'}}>
-                                        הקבוצות<br/>שלי
-                                    </div>
-                                </Button>
-                                <IconButton className={classes.iconButton} aria-label="profile" color="inherit" href="/profile">
-                                    <ProfilePic src={profilePicture}/>
+                                <IconButton className={classes.iconButton} aria-label="myGroups"
+                                            color="inherit" href="/myGroups">
+                                    <UserGroupsIcon titleAccess={"הקבוצות שלי"} />
+                                </IconButton>
+                                <IconButton className={classes.iconButton} aria-label="profile"
+                                            color="inherit" href="/profile">
+                                    <ProfilePic src={profilePicture} />
                                 </IconButton>
                                 <IconButton color="inherit" onClick={() => setShowLogout(!showLogout)}>
-                                    <ArrowDropDownIcon />
+                                    <ArrowDropDownIcon titleAccess={"התנתקות"} />
                                 </IconButton>
                                 {showLogout && renderLogoutMenu()}
                             </>
-                            : <div></div>}
+                            : <div> </div>}
                     </div>
                 </Toolbar>
             </AppBar>
