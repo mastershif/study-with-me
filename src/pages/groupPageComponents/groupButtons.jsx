@@ -10,12 +10,12 @@ const GroupButtons = (props) => {
     return (
         <>
             {group.admin === userID ?
-                <DeleteButton group={group}
+                <DeleteButton disabled={group.deleted} group={group}
                               groupId={group._id} isGroupPage={isGroupPage} /> :
                 group.users.some(e => e._id === userID) ?
-                    <LeaveButton groupId={group._id}
+                    <LeaveButton disabled={group.deleted} groupId={group._id}
                                  isProfile={isProfile} isGroupPage={isGroupPage} /> :
-                    <JoinButton group={group}
+                    <JoinButton disabled={group.deleted} group={group}
                                 groupId={group._id} isGroupPage={isGroupPage} />}
         </>
     )

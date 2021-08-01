@@ -9,7 +9,7 @@ import {useHistory} from "react-router-dom";
 
 const DeleteButton = (props) => {
 
-    const {groupId, isGroupPage} = props;
+    const {groupId, isGroupPage, disabled} = props;
     let history = useHistory();
     const isDeleteAborted = useRef(false);
     const [deleteConfirm, setDeleteConfirm] = useState(false);
@@ -58,7 +58,8 @@ const DeleteButton = (props) => {
 
     return (
         <>
-            <Button style={{minWidth: '100%', color: "white", backgroundColor: "#cc0000"}}
+            <Button disabled={disabled} style={disabled ? {minWidth: '100%', color: "white", backgroundColor: "90a4ae"}
+            : {minWidth: '100%', color: "white", backgroundColor: "#cc0000"}}
                     variant={"contained"} size={"large"}
                     onClick={() => setOpenDeleteWarning(true)}
                     startIcon={<DeleteIcon />}>מחק/י קבוצה</Button>

@@ -108,7 +108,7 @@ const GroupAccordion = (props) => {
                     <ChatLink group={group} userID={userID} />
                 </AccordionDetails>
             </Accordion>
-            {group.admin === userID ? <EditGroupButton id={group._id} /> : null }
+            {group.admin === userID ? <EditGroupButton id={group._id} deleted={group.deleted} /> : null }
         </div>
     )
 }

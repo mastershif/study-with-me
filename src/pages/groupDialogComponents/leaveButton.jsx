@@ -8,7 +8,7 @@ import JoinOrLeaveAlert from "./joinOrLeaveAlert";
 const LeaveButton = (props) => {
 
     const isLeaveAborted = useRef(false);
-    const {groupId, isProfile, isGroupPage} = props;
+    const {groupId, isProfile, isGroupPage, disabled} = props;
     const [open, setOpenConfirm] = useState(false);
     const [openLeaveWarning, setOpenLeaveWarning] = useState(false);
     const [openFailedToJoinOrLeave, setOpenFailedToJoinOrLeave] = useState(false);
@@ -66,7 +66,7 @@ const LeaveButton = (props) => {
 
     return (
         <>
-            <Button style={{minWidth: '100%'}} variant={"contained"} color={"secondary"}
+            <Button disabled={disabled} style={{minWidth: '100%'}} variant={"contained"} color={disabled? "90a4ae" : "secondary"}
                     size={"large"} onClick={() => setOpenLeaveWarning(true)}
                     startIcon={<RemoveIcon />}>צא/י מהקבוצה</Button>
             <div>
