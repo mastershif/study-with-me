@@ -88,7 +88,7 @@ function App() {
                                 <Route exact path="/">
                                     <PageContainer>
                                         <MainContent>
-                                            <MainTitle textLine1={'הצטרפו לקבוצת לימוד'} textLine2={' או התחילו קבוצת לימוד חדשה'} />
+                                            <MainTitle textLine1={'הצטרפו לקבוצת לימוד'} textLine2={' או צרו קבוצת לימוד חדשה'} />
                                             <SecondaryTitle text={'הקבוצה תעזור לך ללמוד!'} />
                                             <CardsGrid>
                                                 <JoinGroupCard />

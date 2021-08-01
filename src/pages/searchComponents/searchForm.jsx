@@ -8,6 +8,7 @@ import * as Styles from "../../styles/searchStyle";
 import TimeRangeSlider from 'react-time-range-slider';
 import SearchIcon from "@material-ui/icons/Search";
 import FilterListIcon from '@material-ui/icons/FilterList';
+import ResetIcon from '@material-ui/icons/Replay';
 import {sortedCitiesNames} from "../../assets/cities";
 import Fuse from "fuse.js";
 import clsx from "clsx";
@@ -63,6 +64,7 @@ const SearchForm = (props) => {
         setSearchParameters({...searchParameters, groupPurpose: event.target.value });
     };
     const handleOpen = () => {setIsOpen(!isOpen)}
+    const handleReset = () => {setSearchParameters(initialSearchParameters)}
 
     const options = {
         threshold: 0.0,
@@ -155,9 +157,13 @@ const SearchForm = (props) => {
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} style={{margin: '5px 0 15px 0'}}>
-                        <Button onClick={handleOpen} startIcon={<FilterListIcon/>}
-                                size={"large"} style={{marginTop: '15px', border: '1.5px solid grey'}}>
+                        <Button className={classes.filtersButton} onClick={handleOpen}
+                                startIcon={<FilterListIcon/>} size={"large"}>
                             סינונים נוספים
+                        </Button>
+                        <Button className={classes.resetButton} onClick={handleReset}
+                                startIcon={<ResetIcon/>} size={"large"}>
+                            איפוס
                         </Button>
                     </Grid>
                     <Collapse in={isOpen}>
