@@ -23,17 +23,18 @@ const GroupProfile = (props) => {
     };
 
     return (
-        <Card className={classes.root}>
+        <Card className={group.deleted? classes.rootDeleted : classes.root}>
             <CardHeader
                 avatar={
                     <GroupOccupancyStatus
+                        deleted={group.deleted}
                         currentGroupSize={group.users?.length}
                         maxGroupSize={group.groupSize}
                         isGroupPage={false}
                     />
                 }
                 title={<Styles.Title>{group.groupTitle}</Styles.Title>}
-                subheader={`פגישה ${group.meetingType}`}
+                subheader={group.deleted? `הקבוצה נמחקה` : `פגישה ${group.meetingType}`}
             />
             <CardContent>
                 <Styles.CardRow>
@@ -51,7 +52,7 @@ const GroupProfile = (props) => {
                 </Styles.CardRow>
             </CardContent>
             {group.admin === userID ?
-                <AdminIcon titleAccess={"הנך מנהל/ת הקבוצה"} className={classes.adminIcon}
+                <AdminIcon titleAccess={"הנך מנהל/ת הקבוצה"} className={group.deleted? classes.adminIconDeleted : classes.adminIcon}
                            fontSize={"large"} /> : isProfile ? null : group.users.some(e => e._id === userID) ?
                     <CheckIcon titleAccess={"הנך חבר/ה בקבוצה"}
                                className={classes.userIcon} fontSize={"large"} /> : null}

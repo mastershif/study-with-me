@@ -17,6 +17,12 @@ const theme = createMuiTheme({
         background: {
             default: "#f5f5f7"
         },
+        primaryDeleted: {
+            main: "#90a4ae",
+        },
+        successDeleted: {
+            main: "#9fb5ad"
+        },
     },
     direction: 'rtl',
 })

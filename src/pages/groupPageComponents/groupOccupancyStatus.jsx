@@ -5,7 +5,7 @@ import * as Styles from "../../styles/groupPageStyle";
 
 const GroupOccupancyStatus = (props) => {
 
-    const {currentGroupSize, maxGroupSize, isGroupPage} = props;
+    const {currentGroupSize, maxGroupSize, isGroupPage, deleted} = props;
     const classesGroupPage = Styles.useStyles();
 
     if (maxGroupSize === 0) { return false; }
@@ -15,10 +15,10 @@ const GroupOccupancyStatus = (props) => {
     return (
         <Box className={isGroupPage ? classesGroupPage.occupancyStatus : null}
             position="relative" display="inline-flex">
-            <CircularProgress variant={"determinate"} color="secondary" value={num} />
+            <CircularProgress variant={"determinate"} color={deleted? "primaryDeleted" : "secondary"} value={num} />
             <Box top={0} left={0} bottom={0} right={0} position="absolute"
                  display="flex" alignItems="center" justifyContent="center">
-                <Typography variant="caption" component="div" color="secondary">
+                <Typography variant="caption" component="div" color={deleted? "primaryDeleted" : "secondary"}>
                     {`${currentGroupSize}/${maxGroupSize}`}
                 </Typography>
             </Box>

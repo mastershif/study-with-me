@@ -14,6 +14,19 @@ export const useStyles = makeStyles(theme => ({
             boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.5)'
         }
     },
+    rootDeleted: {
+        color: theme.palette.primaryDeleted.main,
+        width: 250,
+        height: 250,
+        margin: theme.spacing(1),
+        textAlign: 'center',
+        border: '1.5px solid',
+        borderRadius: '7px',
+        borderColor: theme.palette.primaryDeleted.main,
+        "&:hover, &:focus": {
+            boxShadow: '0 0 0 0 rgba(0, 0, 0, 0.5)'
+        }
+    },
     moreInfo: {
         position: 'absolute',
         bottom: theme.spacing(3),
@@ -24,6 +37,12 @@ export const useStyles = makeStyles(theme => ({
         bottom: theme.spacing(3.5),
         left: theme.spacing(25.5),
         color: theme.palette.success.main,
+    },
+    adminIconDeleted: {
+        position: 'absolute',
+        bottom: theme.spacing(3.5),
+        left: theme.spacing(25.5),
+        color: theme.palette.successDeleted.main,
     },
     userIcon: {
         position: 'absolute',
