@@ -5,11 +5,11 @@ import EditIcon from "@material-ui/icons/Edit";
 
 const EditGroupButton = (props) => {
 
-    const { id } = props;
+    const { id, deleted } = props;
     const classes = Styles.useStyles();
 
     return (
-        <Fab className={classes.fab} href={'/editGroup/' + id}>
+        <Fab disabled={deleted} className={classes.fab} href={'/editGroup/' + id}>
             {<EditIcon/>}
         </Fab>
     )

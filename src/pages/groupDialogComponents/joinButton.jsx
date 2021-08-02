@@ -10,7 +10,7 @@ import {isAuth} from "../signInComponents/isAuth";
 
 const JoinButton = (props) => {
 
-    const {group, groupId, isGroupPage} = props;
+    const {group, groupId, isGroupPage, disabled} = props;
     const isJoinAborted = useRef(false);
     const [openConfirm, setOpenConfirm] = useState(false);
     const [openFailedToJoinOrLeave, setOpenFailedToJoinOrLeave] = useState(false);
@@ -60,7 +60,7 @@ const JoinButton = (props) => {
     return (
         <>
             {group.users.length < group.groupSize ?
-                <Button style={{minWidth: '100%'}}
+                <Button disabled={disabled} style={{minWidth: '100%'}}
                         variant={"contained"} color={"primary"}
                         size={"large"} onClick={handleJoining}
                         startIcon={<AddIcon />}>הצטרפ/י לקבוצה</Button> :
