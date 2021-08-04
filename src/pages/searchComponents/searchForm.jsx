@@ -13,7 +13,7 @@ import {sortedCitiesNames} from "../../assets/cities";
 import Fuse from "fuse.js";
 import clsx from "clsx";
 import MultiSelect from "./multiSelect";
-import {format, parseISO} from "date-fns";
+import {format, parseISO, isAfter} from "date-fns";
 import he from "date-fns/locale/he";
 
 
@@ -75,6 +75,9 @@ const SearchForm = (props) => {
 
     const searchAlgorithm = (group) => {
         return (
+            (group.item?.deleted !== true) &&
+            (isAfter(new Date(format(parseISO(group.item.date),
+                "MM/dd/yyyy 23:59", {locale: he})), new Date())) &&
             (searchParameters.meetingType === 'הכל' ?
                 true : group.item.meetingType === searchParameters.meetingType) &&
             (searchParameters.groupSize === '' ?
